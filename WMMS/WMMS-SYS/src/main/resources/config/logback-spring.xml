@@ -2,9 +2,9 @@
 <configuration debug="false" scan="true" scanPeriod="10 seconds">
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
     <contextName>logback</contextName>
-    <logger name="org.springframework.web" level="error"/>
-    <logger name="org.springboot.sample" level="error" />
-    <logger name="com.alibaba.druid" level="error" />
+    <logger name="org.springframework.web" level="debug"/>
+    <logger name="org.springboot.sample" level="debug" />
+    <logger name="com.alibaba.druid" level="debug" />
     <property name="log.path" value="/home/logs/sys/prv_ncms.log" />
 
     <appender name="file"
@@ -20,6 +20,6 @@
         </encoder>
     </appender>
     <!--输出sql语句-->
-    <logger name="com.WMMS" level="debug" />
+    <logger name="com.ncms" level="debug" />
 
 </configuration>
