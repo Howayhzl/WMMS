@@ -22,8 +22,6 @@ public class SysUser implements Serializable {
 	private	String	depId;
 	/** 用户归属区域编码 */
 	private	String	regId;
-	/** 用户归属专业编码 */
-	private	String	majorId;
 	/** 用户代码 */
 	private	String	userCode;
 	/** 用户账号 */
@@ -52,9 +50,6 @@ public class SysUser implements Serializable {
 	}
 	public	String	getRegId(){
 		return	regId;
-	}
-	public	String	getMajorId(){
-		return	majorId;
 	}
 	public	String	getUserCode(){
 		return	userCode;
@@ -95,9 +90,6 @@ public class SysUser implements Serializable {
 	public void	setRegId(String regId){
 		this.regId = regId;
 	}
-	public void	setMajorId(String majorId){
-		this.majorId = majorId;
-	}
 	public void	setUserCode(String userCode){
 		this.userCode = userCode;
 	}
@@ -131,12 +123,11 @@ public class SysUser implements Serializable {
 	public	SysUser(){
 		super();
 	}
-	public SysUser(String userId,String depId,String regId,String majorId,String userCode,String userLoginname,String userName,String userPassword,String userPhone,String userEmail,String userNote,Integer userState,Date createTime,Date updateTime){
+	public SysUser(String userId,String depId,String regId,String userCode,String userLoginname,String userName,String userPassword,String userPhone,String userEmail,String userNote,Integer userState,Date createTime,Date updateTime){
 		super();
 		this.userId = userId;
 		this.depId = depId;
 		this.regId = regId;
-		this.majorId = majorId;
 		this.userCode = userCode;
 		this.userLoginname = userLoginname;
 		this.userName = userName;

@@ -28,8 +28,6 @@ public class SysUserVO extends SysUser  {
 	private String prvCode;
 	/** 用户所在省份id */
 	private String prvId;
-	/** 用户所在专业名称 */
-	private String majorName;
 	/** 用户所在部门名称 */
 	private String depName;
 	/** 用户IP */
@@ -40,12 +38,6 @@ public class SysUserVO extends SysUser  {
 	}
 	public void setUserIP(String userIP) {
 		this.userIP = userIP;
-	}
-	public String getMajorName() {
-		return majorName;
-	}
-	public void setMajorName(String majorName) {
-		this.majorName = majorName;
 	}
 	public String getDepName() {
 		return depName;

@@ -15,8 +15,8 @@
 	<meta name="renderer" content="webkit">
     <title>中国移动电费租费管理系统</title>
 	<link rel="stylesheet" href="<%=basePath%>plugins/bootstrap/css/bootstrap.min.css" media="screen">
-	<link rel="stylesheet" href="<%=basePath%>static/css/WMMS-page.css"/>
-	<link rel="stylesheet" href="<%=basePath%>static/css/WMMS.css"/>
+	<link rel="stylesheet" href="<%=basePath%>static/css/ncms-page.css"/>
+	<link rel="stylesheet" href="<%=basePath%>static/css/ncms.css"/>
 	<style>
 	  .wrap{
 		  width:120px;

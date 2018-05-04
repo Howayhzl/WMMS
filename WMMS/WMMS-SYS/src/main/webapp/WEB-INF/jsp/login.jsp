@@ -14,7 +14,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="renderer" content="webkit">
     <title>中国移动电费租费管理系统</title>  
-	<link rel="stylesheet" href="<%=basePath%>static/css/WMMS.css">
+	<link rel="stylesheet" href="<%=basePath%>static/css/ncms.css">
   </head>
   <body id="login-bg">
   <div class="login-logo"></div>

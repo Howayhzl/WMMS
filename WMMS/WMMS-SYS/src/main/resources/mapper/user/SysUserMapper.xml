@@ -5,7 +5,6 @@
 		<id column="user_id" property="userId" jdbcType="VARCHAR"/>
 		<result column="dep_id" property="depId" jdbcType="VARCHAR"/>
 		<result column="reg_id" property="regId" jdbcType="VARCHAR"/>
-		<result column="major_id" property="majorId" jdbcType="VARCHAR"/>
 		<result column="user_code" property="userCode" jdbcType="VARCHAR"/>
 		<result column="user_loginname" property="userLoginname" jdbcType="VARCHAR"/>
 		<result column="user_name" property="userName" jdbcType="VARCHAR"/>
@@ -21,7 +20,6 @@
 		<id column="user_id" property="userId" jdbcType="VARCHAR"/>
 		<result column="dep_id" property="depId" jdbcType="VARCHAR"/>
 		<result column="reg_id" property="regId" jdbcType="VARCHAR"/>
-		<result column="major_id" property="majorId" jdbcType="VARCHAR"/>
 		<result column="user_code" property="userCode" jdbcType="VARCHAR"/>
 		<result column="user_loginname" property="userLoginname" jdbcType="VARCHAR"/>
 		<result column="user_name" property="userName" jdbcType="VARCHAR"/>
@@ -32,12 +30,11 @@
 		<result column="user_state" property="userState" jdbcType="INTEGER"/>
 		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
 		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
-		<result column="majorName" property="majorName" jdbcType="VARCHAR"/>
 		<result column="depName" property="depName" jdbcType="VARCHAR"/>
 		<result column="regName" property="regName" jdbcType="VARCHAR"/>
 	</resultMap>
 	<sql id="Base_Column_List">
-		sys_user.user_id,sys_user.dep_id,sys_user.reg_id,sys_user.major_id,sys_user.user_code,sys_user.user_loginname,sys_user.user_name,
+		sys_user.user_id,sys_user.dep_id,sys_user.reg_id,sys_user.user_code,sys_user.user_loginname,sys_user.user_name,
 		sys_user.user_password,sys_user.user_phone,sys_user.user_email,sys_user.user_note,sys_user.user_state,sys_user.create_time,sys_user.update_time
 	</sql>
 	
@@ -46,13 +43,11 @@
 		SELECT
 		<include refid="Base_Column_List"></include>,
 		sys_region.reg_name as regName,
-		sys_department.dep_name as depName,
-		sys_major.major_name as majorName
+		sys_department.dep_name as depName
 		FROM
 		sys_user
 		left JOIN sys_region ON sys_user.reg_id = sys_region.reg_id
 		left JOIN sys_department ON sys_user.dep_id = sys_department.dep_id
-		left JOIN sys_major ON sys_user.major_id = sys_major.major_id
 		<where>
 			<if test="userState == null">
 				and sys_user.user_state &gt;= 0
@@ -81,9 +76,6 @@
 			<if test="depId != '' and depId != null">
 				and sys_user.dep_id = #{depId,jdbcType=VARCHAR}
 			</if>
-			<if test="majorId != '' and majorId != null">
-				and sys_user.major_id = #{majorId,jdbcType=VARCHAR}
-			</if>
 		</where>
 	</select>
 	
@@ -92,13 +84,11 @@
 		SELECT
 		<include refid="Base_Column_List"></include>,
 		sys_region.reg_name as regName,
-		sys_department.dep_name as depName,
-		sys_major.major_name as majorName
+		sys_department.dep_name as depName
 		FROM
 		sys_user
 		left JOIN sys_region ON sys_user.reg_id = sys_region.reg_id
 		left JOIN sys_department ON sys_user.dep_id = sys_department.dep_id
-		left JOIN sys_major ON sys_user.major_id = sys_major.major_id
 		<where>
 			<if test="userState == null">
 				sys_user.user_state &gt;= 0
@@ -124,9 +114,6 @@
 			<if test="depId != '' and depId != null">
 				and sys_user.dep_id = #{depId,jdbcType=VARCHAR}
 			</if>
-			<if test="majorId != '' and majorId != null">
-				and sys_user.major_id = #{majorId,jdbcType=VARCHAR}
-			</if>
 		</where>
 	</select>
 	
@@ -150,7 +137,6 @@
 			user_note = #{userNote,jdbcType=VARCHAR},
 			user_phone = #{userPhone,jdbcType=VARCHAR},
 			user_email = #{userEmail,jdbcType=VARCHAR},
-			major_id = #{majorId,jdbcType=VARCHAR},
 			dep_id = #{depId,jdbcType=VARCHAR},
 			update_time = now()
 		where user_id = #{userId,jdbcType=VARCHAR}
@@ -162,9 +148,6 @@
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="depId != null">
 				dep_id,
-			</if>
-			<if test="majorId != null">
-				major_id,
 			</if>
 			<if test="userId != null">
 				user_id,
@@ -201,9 +184,6 @@
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="depId != null">
 				#{depId,jdbcType=VARCHAR},
-			</if>
-			<if test="majorId != null">
-				#{majorId,jdbcType=VARCHAR},
 			</if>
 			<if test="userId != null">
 				#{userId,jdbcType=VARCHAR},
