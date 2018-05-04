@@ -75,11 +75,9 @@
   	us.user_loginname as userLoginname,
   	us.user_name as userName,
   	us.user_state as userState,
-  	sm.major_name as majorName,
   	sd.dep_name as depName,
   	sr.reg_name as regName
   	from sys_user as us
-  	left join sys_major as sm on sm.major_id = us.major_id
   	left join sys_department as sd on sd.dep_id = us.dep_id
   	left join sys_region as sr on sr.reg_id = us.reg_id
   	where us.user_state = #{state}
@@ -96,12 +94,10 @@
   	us.user_loginname as userLoginname,
   	us.user_name as userName,
   	us.user_state as userState,
-  	sm.major_name as majorName,
   	sd.dep_name as depName,
   	sr.reg_name as regName
   	from sys_roleuser as sru
   	left join sys_user as us on us.user_id = sru.user_id and us.user_state = 0
-  	left join sys_major as sm on sm.major_id = us.major_id
   	left join sys_department as sd on sd.dep_id = us.dep_id
   	left join sys_region as sr on sr.reg_id = us.reg_id
   	where sru.role_id = #{roleId}
@@ -118,11 +114,9 @@
 	  	us.user_loginname as userLoginname,
 	  	us.user_name as userName,
 	  	us.user_state as userState,
-	  	sm.major_name as majorName,
 	  	sd.dep_name as depName,
 	  	sr.reg_name as regName
   	from sys_user as us
-	  	left join sys_major as sm on sm.major_id = us.major_id
 	  	left join sys_department as sd on sd.dep_id = us.dep_id
 	  	left join sys_region as sr on sr.reg_id = us.reg_id
 	where NOT EXISTS(SELECT user_id from sys_roleuser where role_id = #{roleId} and user_id = us.user_id)
