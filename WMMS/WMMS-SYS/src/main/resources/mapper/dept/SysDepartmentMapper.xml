@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ncms.mapper.dept.SysDepartmentMapper">
+	<resultMap id="BaseResultMap" type="com.ncms.model.sys.dept.SysDepartment">
+		<id column="dep_id" property="depId" jdbcType="VARCHAR"/>
+		<result column="dep_code" property="depCode" jdbcType="VARCHAR"/>
+		<result column="dep_name" property="depName" jdbcType="VARCHAR"/>
+		<result column="dep_note" property="depNote" jdbcType="VARCHAR"/>
+		<result column="pdep_id" property="pdepId" jdbcType="VARCHAR"/>
+		<result column="dep_state" property="depState" jdbcType="INTEGER"/>
+		<result column="dep_order" property="depOrder" jdbcType="INTEGER"/>
+	</resultMap>
+	<resultMap id="BaseResultMap_All" type="com.ncms.model.dept.SysDepartmentVO" >
+	    <id column="dep_id" property="depId" jdbcType="VARCHAR" />
+	    <result column="dep_code" property="depCode" jdbcType="VARCHAR" />
+	    <result column="dep_name" property="depName" jdbcType="VARCHAR" />
+	    <result column="dep_note" property="depNote" jdbcType="VARCHAR" />
+	    <result column="pdep_id" property="pdepId" jdbcType="VARCHAR" />
+	    <result column="dep_order" property="depOrder" jdbcType="INTEGER" />
+	    <result column="dep_state" property="depState" jdbcType="INTEGER" />
+	    <result column="parent_Name" property="parentName" jdbcType="VARCHAR" />
+	    <result column="parent_Code" property="parentCode" jdbcType="VARCHAR" />
+  	</resultMap>
+	<sql id="Base_Column_List">
+		sys_department.dep_id,sys_department.dep_code,sys_department.dep_name,sys_department.dep_note,sys_department.pdep_id,sys_department.dep_state,sys_department.dep_order
+	</sql>
+	<select id="queryDepartmentByConditions" resultMap="BaseResultMap_All" parameterType="map" >
+	   <!-- 查询省级用户组织机构 -->
+	    select 
+	     <include refid="Base_Column_List" />,dep2.dep_name as parent_Name,dep2.dep_code AS parent_Code
+	    from sys_department
+	    		LEFT JOIN sys_department dep2 on sys_department.pdep_id = dep2.dep_id
+	    <where>
+	    	<if test="state == null">
+	     		sys_department.dep_state &gt;=0
+	     	</if>
+	     	<if test="state != null">
+	     		and sys_department.dep_state = #{state,jdbcType=INTEGER}
+	     	</if>
+	     </where>
+  	</select>
+  <select id="queryDepartByConditions" parameterType="Map" resultMap="BaseResultMap_All"> 
+  	<!-- 模糊查询 -->
+     select 
+	    <include refid="Base_Column_List" />,dep2.dep_name as parent_Name,dep2.dep_code AS parent_Code
+     from sys_department
+     LEFT JOIN sys_department dep2 
+     ON sys_department.pdep_id = dep2.dep_id
+     <where> 
+    	<if test="funcCode != '' and funcCode != null">
+     		and LOCATE(#{funcCode,jdbcType=VARCHAR},sys_department.dep_code) &gt; 0
+     	</if>
+     	<if test="funcName != '' and funcName != null">
+     		and LOCATE(#{funcName,jdbcType=VARCHAR},sys_department.dep_name) &gt; 0
+     	</if>
+     	<if test="funcState != null">
+     		and sys_department.dep_state = #{funcState,jdbcType=INTEGER} 
+     	</if>
+     	<if test="funcState == null">
+     		and sys_department.dep_state &gt;=0
+     	</if>
+     </where>
+     order by sys_department.dep_order
+   </select> 
+   <select id="queryDeptitemByCode" resultMap="BaseResultMap_All" parameterType="map" >
+   <!-- 通过code查询部门信息 -->
+	    select 
+	    	<include refid="Base_Column_List" />,dep2.dep_name as parent_Name,dep2.dep_code AS parent_Code
+	    from sys_department
+	    		LEFT JOIN sys_department dep2 on sys_department.pdep_id = dep2.dep_id
+	    where 
+	     	 sys_department.dep_code = #{deptCode,jdbcType=VARCHAR}
+	     and sys_department.dep_state = #{state,jdbcType=INTEGER}
+   </select>
+   <update id="modifyDepartStateBath" parameterType="Map">
+   <!-- 批量修改状态【删除、启用、禁用】 -->
+		update sys_department d set d.dep_state=#{state}
+	    where
+	        d.dep_id in  
+	        <foreach collection="idLists" item="item" index="index" open="(" separator="," close=")">  
+                #{item}  
+            </foreach>  
+   </update>
+  
+   <select id="queryAllDepartmentTree" resultType="map">
+    <!-- 查询树结构部门信息 -->
+   		select 	dep_id as depId,
+   				dep_code as depCode,
+   				dep_name as depName,
+   				pdep_id as pdepId
+   		from sys_department
+   		where 
+   		pdep_id = '' and dep_state = 0
+   	union
+   		select 	d1.dep_id as depId,
+   				d1.dep_code as depCode,
+   				d1.dep_name as depName,
+   				d1.pdep_id as pdepId
+   		from sys_department d1
+   		join sys_department d2 on d1.pdep_id = d2.dep_id
+   		where d1.dep_state = 0
+   		and d2.dep_state = 0
+   </select>
+   <!-- 获取选中用户的部门权限 -->
+   <select id="queryDeptByUser" parameterType="java.lang.String" resultType="java.lang.String">
+   		select dep_id 
+   		from sys_userdepartment
+   		where user_id = #{userId}
+   </select>
+</mapper>

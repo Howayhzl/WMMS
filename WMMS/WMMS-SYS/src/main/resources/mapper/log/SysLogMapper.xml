@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ncms.mapper.log.SysLogMapper">
+	<resultMap id="BaseResultMap" type="com.ncms.model.sys.log.SysLog">
+		<id column="log_id" property="logId" jdbcType="INTEGER"/>
+		<result column="log_time" property="logTime" jdbcType="TIMESTAMP"/>
+		<result column="log_type" property="logType" jdbcType="VARCHAR"/>
+		<result column="log_url" property="logUrl" jdbcType="VARCHAR"/>
+		<result column="log_error" property="logError" jdbcType="VARCHAR"/>
+		<result column="log_user" property="logUser" jdbcType="VARCHAR"/>
+		<result column="log_ip" property="logIp" jdbcType="VARCHAR"/>
+		<result column="log_note" property="logNote" jdbcType="VARCHAR"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		sys_log.log_id,sys_log.log_time,sys_log.log_type,sys_log.log_url,sys_log.log_error,sys_log.log_user,sys_log.log_ip,sys_log.log_note
+	</sql>
+</mapper>

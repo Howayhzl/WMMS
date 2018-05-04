@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ncms.mapper.user.SysUserMapper">
+	<resultMap id="BaseResultMap" type="com.ncms.model.sys.user.SysUser">
+		<id column="user_id" property="userId" jdbcType="VARCHAR"/>
+		<result column="dep_id" property="depId" jdbcType="VARCHAR"/>
+		<result column="reg_id" property="regId" jdbcType="VARCHAR"/>
+		<result column="major_id" property="majorId" jdbcType="VARCHAR"/>
+		<result column="user_code" property="userCode" jdbcType="VARCHAR"/>
+		<result column="user_loginname" property="userLoginname" jdbcType="VARCHAR"/>
+		<result column="user_name" property="userName" jdbcType="VARCHAR"/>
+		<result column="user_password" property="userPassword" jdbcType="VARCHAR"/>
+		<result column="user_phone" property="userPhone" jdbcType="VARCHAR"/>
+		<result column="user_email" property="userEmail" jdbcType="VARCHAR"/>
+		<result column="user_note" property="userNote" jdbcType="VARCHAR"/>
+		<result column="user_state" property="userState" jdbcType="INTEGER"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	<resultMap id="BaseResultMap_msg" type="com.ncms.comm.base.loginInfo.SysUserVO">
+		<id column="user_id" property="userId" jdbcType="VARCHAR"/>
+		<result column="dep_id" property="depId" jdbcType="VARCHAR"/>
+		<result column="reg_id" property="regId" jdbcType="VARCHAR"/>
+		<result column="major_id" property="majorId" jdbcType="VARCHAR"/>
+		<result column="user_code" property="userCode" jdbcType="VARCHAR"/>
+		<result column="user_loginname" property="userLoginname" jdbcType="VARCHAR"/>
+		<result column="user_name" property="userName" jdbcType="VARCHAR"/>
+		<result column="user_password" property="userPassword" jdbcType="VARCHAR"/>
+		<result column="user_phone" property="userPhone" jdbcType="VARCHAR"/>
+		<result column="user_email" property="userEmail" jdbcType="VARCHAR"/>
+		<result column="user_note" property="userNote" jdbcType="VARCHAR"/>
+		<result column="user_state" property="userState" jdbcType="INTEGER"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+		<result column="majorName" property="majorName" jdbcType="VARCHAR"/>
+		<result column="depName" property="depName" jdbcType="VARCHAR"/>
+		<result column="regName" property="regName" jdbcType="VARCHAR"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		sys_user.user_id,sys_user.dep_id,sys_user.reg_id,sys_user.major_id,sys_user.user_code,sys_user.user_loginname,sys_user.user_name,
+		sys_user.user_password,sys_user.user_phone,sys_user.user_email,sys_user.user_note,sys_user.user_state,sys_user.create_time,sys_user.update_time
+	</sql>
+	
+	<select id="queryAllUser" resultMap="BaseResultMap_msg" parameterType="Map">
+	<!-- yuefy  查询所有用户 -->
+		SELECT
+		<include refid="Base_Column_List"></include>,
+		sys_region.reg_name as regName,
+		sys_department.dep_name as depName,
+		sys_major.major_name as majorName
+		FROM
+		sys_user
+		left JOIN sys_region ON sys_user.reg_id = sys_region.reg_id
+		left JOIN sys_department ON sys_user.dep_id = sys_department.dep_id
+		left JOIN sys_major ON sys_user.major_id = sys_major.major_id
+		<where>
+			<if test="userState == null">
+				and sys_user.user_state &gt;= 0
+			</if>
+			<if test="userId != '' and userId != null">
+				and sys_user.user_id = #{userId,jdbcType=VARCHAR}
+			</if>
+			<if test="userCode != '' and userCode != null">
+				and sys_user.user_code = #{userCode,jdbcType=VARCHAR}
+			</if>
+			<if test="userLoginName != '' and userLoginName != null">
+				and LOCATE(#{userLoginName,jdbcType=VARCHAR}, sys_user.user_loginname) &gt; 0
+			</if>
+			<if test="LoginName != '' and LoginName != null">
+				and sys_user.user_loginname = #{LoginName,jdbcType=VARCHAR}
+			</if>
+			<if test="userName != '' and userName != null">
+				and LOCATE(#{userName,jdbcType=VARCHAR}, sys_user.user_name) &gt; 0
+			</if>
+			<if test="userState != '' and userState != null">
+				and sys_user.user_state = #{userState,jdbcType=INTEGER}
+			</if>
+			<if test="regId != '' and regId != null">
+				and sys_user.reg_id = #{regId,jdbcType=VARCHAR}
+			</if>
+			<if test="depId != '' and depId != null">
+				and sys_user.dep_id = #{depId,jdbcType=VARCHAR}
+			</if>
+			<if test="majorId != '' and majorId != null">
+				and sys_user.major_id = #{majorId,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+	
+	<select id="queryOneUser" resultMap="BaseResultMap_msg" parameterType="Map">
+	<!-- yuefy  根据登录用户名查询用户 -->
+		SELECT
+		<include refid="Base_Column_List"></include>,
+		sys_region.reg_name as regName,
+		sys_department.dep_name as depName,
+		sys_major.major_name as majorName
+		FROM
+		sys_user
+		left JOIN sys_region ON sys_user.reg_id = sys_region.reg_id
+		left JOIN sys_department ON sys_user.dep_id = sys_department.dep_id
+		left JOIN sys_major ON sys_user.major_id = sys_major.major_id
+		<where>
+			<if test="userState == null">
+				sys_user.user_state &gt;= 0
+			</if>
+			<if test="userId != '' and userId != null">
+				and sys_user.user_id = #{userId,jdbcType=VARCHAR}
+			</if>
+			<if test="userCode != '' and userCode != null">
+				and sys_user.user_code = #{userCode,jdbcType=VARCHAR}
+			</if>
+			<if test="userLoginName != '' and userLoginName != null">
+				and sys_user.user_loginname = #{userLoginName,jdbcType=VARCHAR}
+			</if>
+			<if test="userName != '' and userName != null">
+				and LOCATE(#{userName,jdbcType=VARCHAR}, sys_user.user_name) &gt; 0
+			</if>
+			<if test="userState != '' and userState != null">
+				and sys_user.user_state = #{userState,jdbcType=INTEGER}
+			</if>
+			<if test="regId != '' and regId != null">
+				and sys_user.reg_id = #{regId,jdbcType=VARCHAR}
+			</if>
+			<if test="depId != '' and depId != null">
+				and sys_user.dep_id = #{depId,jdbcType=VARCHAR}
+			</if>
+			<if test="majorId != '' and majorId != null">
+				and sys_user.major_id = #{majorId,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+	
+	<update id="updateUserStateBatch" parameterType="Map">
+	<!-- 批量修改状态 -->
+		update sys_user u set u.user_state=#{userState},u.update_time=now()
+		where u.user_id in
+		<foreach collection="userIdsList" item="item" index="index" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</update>
+	
+	<update id="updateSysUserByUserId" parameterType="com.ncms.comm.base.loginInfo.SysUserVO">
+	<!-- 修改用户 -->
+		update sys_user
+		set
+			user_code = #{userCode,jdbcType=VARCHAR},
+			reg_id = #{regId,jdbcType=VARCHAR},
+			user_name = #{userName,jdbcType=VARCHAR},
+			user_note = #{userNote,jdbcType=VARCHAR},
+			user_phone = #{userPhone,jdbcType=VARCHAR},
+			user_email = #{userEmail,jdbcType=VARCHAR},
+			major_id = #{majorId,jdbcType=VARCHAR},
+			dep_id = #{depId,jdbcType=VARCHAR},
+			update_time = now()
+		where user_id = #{userId,jdbcType=VARCHAR}
+	</update>
+	
+	<insert id="insertSysUser" parameterType="com.ncms.comm.base.loginInfo.SysUserVO">
+	<!-- 新增用户 -->
+		insert into sys_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="depId != null">
+				dep_id,
+			</if>
+			<if test="majorId != null">
+				major_id,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="regId != null">
+				reg_id,
+			</if>
+			<if test="userCode != null">
+				user_code,
+			</if>
+			<if test="userLoginname != null">
+				user_loginname,
+			</if>
+			<if test="userName != null">
+				user_name,
+			</if>
+			<if test="userPassword != null">
+				user_password,
+			</if>
+			<if test="userPhone != null">
+				user_phone,
+			</if>
+			<if test="userEmail != null">
+				user_email,
+			</if>
+			<if test="userNote != null">
+				user_note,
+			</if>
+			<if test="userState != null">
+				user_state,
+			</if>
+			create_time,
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="depId != null">
+				#{depId,jdbcType=VARCHAR},
+			</if>
+			<if test="majorId != null">
+				#{majorId,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="regId != null">
+				#{regId,jdbcType=VARCHAR},
+			</if>
+			<if test="userCode != null">
+				#{userCode,jdbcType=VARCHAR},
+			</if>
+			<if test="userLoginname != null">
+				#{userLoginname,jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="userPassword != null">
+				#{userPassword,jdbcType=VARCHAR},
+			</if>
+			<if test="userPhone != null">
+				#{userPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="userEmail != null">
+				#{userEmail,jdbcType=VARCHAR},
+			</if>
+			<if test="userNote != null">
+				#{userNote,jdbcType=VARCHAR},
+			</if>
+			<if test="userState != null">
+				#{userState,jdbcType=INTEGER},
+			</if>
+			now()
+		</trim>
+	</insert>
+	
+	<update id="updateUserPassword" parameterType="Map">
+	<!-- 修改用户密码 -->
+		update sys_user u set u.user_password=#{userPassword},u.update_time=now()
+		where u.user_id in
+		<foreach collection="userIdsList" item="item" index="index" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</update>
+	
+</mapper>

@@ -1,0 +1,246 @@
+package com.ncms.comm.state.sys;
+
+import com.ncms.comm.base.enums.BaseEnum;
+
+/**
+ * 系统配置管理下状态类型 枚举类
+ * @author admin
+ *
+ */
+public class SysStateEnum {
+
+	public static final DeptStateEnum DeptStateEnum = new DeptStateEnum();
+	public static final MajorStateEnum MajorStateEnum = new MajorStateEnum();
+	public static final DictStateEnum DictStateEnum = new DictStateEnum();
+	public static final MenuStateEnum MenuStateEnum = new MenuStateEnum();
+	public static final UserStateEnum UserStateEnum = new UserStateEnum();
+	public static final RegStateEnum RegStateEnum = new RegStateEnum();
+	public static final ParameterStateEnum ParameterStateEnum = new ParameterStateEnum();
+
+	
+	/**
+	 * 枚举 参数状态
+	* 
+	* Title: ParameterStateEnum
+	* @author 
+	 */
+	public static class ParameterStateEnum extends BaseEnum<Object>{
+		
+		private static final long serialVersionUID = -4414860276928024596L;
+
+		/**
+		 * 部门状态正常 DEPT_STATE_0  可用
+		 */
+		public static Integer CAN_USE = 0;
+		
+		/**
+		 * 部门状态停用 DEPT_STATE_9  停用
+		 */
+		public static Integer STOP_USE = 9;
+		
+		/**
+		 * 部门状态已删除 DEPT_STATE__1  已删除
+		 */
+		public static Integer DROPED = -1;
+
+		private ParameterStateEnum(){
+			super.putEnum(CAN_USE, "可用");
+			super.putEnum(STOP_USE, "停用");
+			super.putEnum(DROPED, "已删除");
+		}
+	}
+	/**
+	 * 枚举 部门状态
+	* 
+	* Title: RegStateEnum
+	* @author 
+	 */
+	public static class DeptStateEnum extends BaseEnum<Object>{
+		
+		private static final long serialVersionUID = 8075596544011186924L;
+
+		/**
+		 * 部门状态正常 DEPT_STATE_0  可用
+		 */
+		public static Integer CAN_USE = 0;
+		
+		/**
+		 * 部门状态停用 DEPT_STATE_9  停用
+		 */
+		public static Integer STOP_USE = 9;
+		
+		/**
+		 * 部门状态已删除 DEPT_STATE__1  已删除
+		 */
+		public static Integer DROPED = -1;
+
+		private DeptStateEnum(){
+			super.putEnum(CAN_USE, "可用");
+			super.putEnum(STOP_USE, "停用");
+			super.putEnum(DROPED, "已删除");
+		}
+	}
+	/**
+	 * 枚举 区县状态
+	* 
+	* Title: DeptStateEnum
+	* @author 
+	 */
+	public static class RegStateEnum extends BaseEnum<Object>{
+		
+		private static final long serialVersionUID = 8075596544011186924L;
+
+		/**
+		 * 区县状态正常 DEPT_STATE_0  可用
+		 */
+		public static Integer CAN_USE = 0;
+		
+		/**
+		 * 区县状态停用 DEPT_STATE_9  停用
+		 */
+		public static Integer STOP_USE = 9;
+		
+		/**
+		 * 区县状态已删除 DEPT_STATE__1  已删除
+		 */
+		public static Integer DROPED = -1;
+
+		private RegStateEnum(){
+			super.putEnum(CAN_USE, "可用");
+			super.putEnum(STOP_USE, "停用");
+			super.putEnum(DROPED, "已删除");
+		}
+	}
+	
+	/**
+	 * 枚举 专业状态
+	* 
+	* Title: MajorStateEnum
+	* @author 
+	 */
+	public static class MajorStateEnum extends BaseEnum<Object>{
+
+		private static final long serialVersionUID = -7223259354944983213L;
+
+		/**
+		 * 专业状态正常 MAJOR_STATE_0  可用
+		 */
+		public static Integer CAN_USE = 0;
+		
+		/**
+		 * 专业状态停用 MAJOR_STATE_9  停用
+		 */
+		public static Integer STOP_USE = 9;
+		
+		/**
+		 * 专业状态已删除 MAJOR_STATE__1  已删除
+		 */
+		public static Integer DROPED = -1;
+
+		private MajorStateEnum(){
+			super.putEnum(CAN_USE, "可用");
+			super.putEnum(STOP_USE, "停用");
+			super.putEnum(DROPED, "已删除");
+		}
+	}
+	/**
+	 * 枚举 数据字典状态
+	* 
+	* Title: DictStateEnum
+	* @author 
+	 */
+	public static class DictStateEnum extends BaseEnum<Object>{
+
+		private static final long serialVersionUID = 1174133575180480014L;
+
+		/**
+		 * 数据字典状态正常 DICT_STATE_0  可用
+		 */
+		public static Integer CAN_USE = 0;
+		
+		/**
+		 * 数据字典状态停用 DICT_STATE_9  停用
+		 */
+		public static Integer STOP_USE = 9;
+		
+		/**
+		 * 数据字典状态已删除 DICT_STATE__1  已删除
+		 */
+		public static Integer DROPED = -1;
+
+		private DictStateEnum(){
+			super.putEnum(CAN_USE, "可用");
+			super.putEnum(STOP_USE, "停用");
+			super.putEnum(DROPED, "已删除");
+		}
+	}
+	
+	/**
+	 * 枚举 菜单状态
+	* 
+	* Title: MenuStateEnum
+	* @author 
+	 */
+	public static class MenuStateEnum extends BaseEnum<Object>{
+
+		private static final long serialVersionUID = -4617198336786947935L;
+
+		/**
+		 * 菜单状态正常 MENU_STATE_0  可用
+		 */
+		public static Integer CAN_USE = 0;
+		
+		/**
+		 * 菜单字典状态停用 MENU_STATE_9  停用
+		 */
+		public static Integer STOP_USE = 9;
+		
+		/**
+		 * 菜单字典状态已删除 MENU_STATE__1  已删除
+		 */
+		public static Integer DROPED = -1;
+
+		private MenuStateEnum(){
+			super.putEnum(CAN_USE, "可用");
+			super.putEnum(STOP_USE, "停用");
+			super.putEnum(DROPED, "已删除");
+		}
+	}
+	
+	/**
+	 * 枚举 用户状态
+	* 
+	* Title: UserStateEnum
+	* @author 
+	 */
+	public static class UserStateEnum extends BaseEnum<Object>{
+
+		private static final long serialVersionUID = -3704311803727497659L;
+
+		/**
+		 * 用户状态正常 MENU_STATE_0  可用
+		 */
+		public static Integer CAN_USE = 0;
+		
+		/**
+		 * 用户状态停用 MENU_STATE_9  停用
+		 */
+		public static Integer STOP_USE = 9;
+		
+		/**
+		 * 用户状态已删除 MENU_STATE__1  已删除
+		 */
+		public static Integer DROPED = -1;
+		/**
+		 * 新增用户默认密码
+		 */
+		public static String U_PASS_WORD = "1234qwer";
+
+		private UserStateEnum(){
+			super.putEnum(CAN_USE, "可用");
+			super.putEnum(STOP_USE, "停用");
+			super.putEnum(DROPED, "已删除");
+			super.putEnum(U_PASS_WORD, "用户默认密码");
+		}
+	}
+}

@@ -1,0 +1,673 @@
+﻿@charset "utf-8";
+/** 初始化全局标签 **/
+body{margin:5px;}
+a{color:#1E9FFF; text-decoration:none; cursor: pointer; }
+a:link{color:#1E9FFF; }
+a:active{color:#1E9FFF;}
+a:hover{color:#1E9FFF; text-decoration:none;}
+a:visited{color:#1E9FFF; }
+.phcolor{ color:#4e4e4e;}
+input[placeholder], [placeholder], *[placeholder] {color:#999 !important;} 
+.content{
+	width:100%;
+	height:100%;
+}
+.left-menutree{
+	width:20%;
+	float:left;
+	border:1px solid #ddd;
+}
+.right-operatearea{
+	width:78%;
+	margin-left:20px;
+	float:left;
+}
+.left-operatearea{
+	width:78%;
+	float:left;
+}
+.right-menutree{
+	width:20%;
+	float:right;
+	border:1px solid #ddd;
+}
+.layui-btn-group{
+	line-height:50px;
+}
+.pull-left,.pull-right {
+	width: 50%;
+	text-align: center
+}
+/* 角色用户管理模块所需的特殊字体文件 样式 start */
+.pull-left {
+	width: 50%;
+	text-align: left;
+}
+.pull-right {
+	width: 50%;
+	text-align: right;
+}
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url('../fonts/glyphicons-halflings-regular.eot');
+  src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+.glyphicon {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.glyphicon-ok:before {
+  content: "\e013";
+}
+.glyphicon-ok-sign:before {
+  content: "\e084";
+}
+.glyphicon-ok-circle:before {
+  content: "\e089";
+}
+.help-block {display:inline;}
+
+#EditPanel .address .btn-group{display:inline-block;width:454px;}
+#ViewPanel .pull-left{text-align:left;margin-top:5px;}
+#ViewPanel .pull-right{text-align:left;margin-top:5px;}
+#ViewPanel .address .btn-group{display:inline-block;width:454px;margin-right:2px;}
+/* #EditPanel .address{float:left;margin-bottom:10px 0 30px 0;} */
+#userMsg{position:absolute;top:50px;left:92px;}
+.special .modal-footer{padding:5px 15px;}
+#userMsg{position:absolute;top:35px;left:90px;}
+.special .modal-body form{border:none;}
+.special .dropdown-toggle,.model_manage .dropdown-toggle{height: 32px;line-height: 15px;border-radius:0;border-color:#a9a9a9; }
+/* end */
+/* 租费合同信息补录和租费合同信息审核  strat */
+.my_upload .list-group .list-group-item{padding:0;}
+.my_upload .list-group .list-group-item span:first-child{
+  display:inline-block;
+  background-color:#f9f9f9;
+  width:200px;
+  height:40px;
+  text-align: center;
+  padding:8px 0;
+  border-right: 1px solid #ddd;
+}
+.input-append{margin-bottom: -1px;}
+.list-group-item .input-append .btn{margin-left:10px;border-radius: 5px;}
+.nav-tabs{
+  background-color:#e1f3fe;
+  border: 1px solid #ddd;
+}
+.nav-tabs>li>a{color:#333;}
+.nav-tabs > li{border-right: 1px solid #ddd;}
+.nav-tabs > li.active{border-right: none;}
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+  border: none;
+  color:#000;
+}
+.my_upload .list-group{margin:0 0 10px 0;}
+#basic_info .contract{color:#ff6600;}
+.tab-content .row{margin-right:0;}
+.tab-content .list-group-item,.info_check .list-group-item,.B_box .list-group-item,
+	#rent_review .list-group-item,#sheetBox .list-group .list-group-item{padding:0;}
+.tab-content .row>div,.info_check .row>div,.B_box .row>div,#rent_review  .row>div{text-align: center;border-right:1px solid #ddd;height:40px;line-height:40px;}
+.tab-content .row div:last-child{border-right:none;}
+.form-control{width:60%;margin-top:3px;}
+#rent_info .row .col-md-4,.info_check .row>.col-md-9,.info_check .row>.col-md-3:nth-child(2n),
+	#rent_review .row>.col-md-9,#rent_review .row>.col-md-3:nth-child(2n){text-align: left;}
+#rent_info .row input[type="text"],.info_check .row input[type="text"],.B_box .row input[type="text"],
+	#rent_review  .row input[type="text"]{height:32px;}
+#rent_info .comment div{height:60px;line-height:60px;}
+#rent_info .comment div textarea{height:53px;}
+.row .form-group .date .form-control,#rent_review .row .form-group .date .form-control{width:100%;height:100%;margin-top:0px;}
+.info_check .row .calendar,#rent_review  .row .calendar{padding-right:0;}
+.info_check .row .col-md-3:nth-child(2n+1),#rent_review .row .col-md-3:nth-child(2n+1){background-color:#dcf3ff;}
+/* end */
+
+/* 查询条件样式统一 */
+.form-inline{margin:0px;padding:5px 5px 0 5px;border:1px solid #ddd;border-radius:5px;-moz-border-radius: 5px;-webkit-border-radius: 5px;}
+.form-inline .form-group{display:inline-block;margin-bottom:5px; margin-right: 15px;}
+.form-inline .form-group label{margin-bottom:0;}
+.form-group input,.form-group textarea,.form-group select,
+.uneditable-input,.pull-left input,.pull-right input,
+.pull-left select,.pull-right select,.pull-right textarea,
+.pull-left textarea{width: 180px;}
+#file{
+  width: 80%!important;
+}
+.form-group input,.pull-left  input,.pull-right  input{padding:4px 5px;}
+.form-group select,.pull-left select,.pull-right  select{padding:5px 5px;}
+.pull-right textarea{padding:0 5px;width:170px;}
+.btn{margin-bottom: 5px;}
+.modal-footer>a.btn{margin-bottom: 0;}
+.btn-toolbar{margin-top:5px;}
+.form-group .control-label,.pull-left .control-label,.pull-right .control-label{display:inline-block;width:105px;text-align:right;}
+.modal-body form .pull-right,.modal-body form .pull-left{margin-bottom:10px;}
+.modal-body form.form-inline{text-align:left;}
+.modal-content .modal-footer .btn-toolbar{text-align:right;}
+.modal-header .close {margin-top: 7px;}
+/* end */
+.form-horizontal .control-group {margin: 15px 0 0 0 ;}
+.bootstrap-table .fixed-table-pagination .pagination-detail{float:left; padding-left: 10px;}
+.bootstrap-table .fixed-table-pagination div.pagination{float:right; padding-right: 10px;}
+.bootstrap-table .fixed-table-pagination .pagination-detail{text-align:left;}
+.modal-body .bootstrap-table .fixed-table-pagination .pagination-detail{display:none;}
+.fixed-table-pagination .pull-right{width:48%;}
+.modal-body .fixed-table-pagination .pull-right {width: 100%;text-align:right;}
+#ViewPanel .fixed-table-pagination .pull-right{width:46%;}
+
+/* 报账点信息管理和报账点信息审核  strat */
+.B_box .list-group-item:first-child,.B_box .list-group-item:last-child{border-radius: 0;}
+.B_box .rela_agreement .list-group .list-group-item:first-child,
+.B_box .associate_room .list-group .list-group-item:first-child,.B_box .row .title{background-color:#f2f2f2;}
+.B_box .rela_agreement .list-group .list-group-item:first-child>div,
+.B_box .associate_room .list-group .list-group-item:first-child>div,.B_box .row .title{text-align: left;}
+.B_box .row .col-md-3:nth-child(2n), .B_box .row>.col-md-9{text-align: left;}
+.B_box .list-group{margin-bottom:0;}
+.B_box .list-group .row .col-md-3:nth-child(2n+1){background-color:#f9f9f9;}
+.B_box .list-group>li:first-child a{background-color:#006dcc;padding:5px 8px;color:#fff;border-radius: 4px;margin-left:15px;}
+.associate_room .table-bordered th,.associate_room .table > thead > tr > th{border:none;}
+.associate_room .table-bordered{border-top:none;}
+.associate_room .table-bordered th{background-color:#e4e4e4;}
+.associate_room .table-bordered tr td{border-right: none;border-bottom: none;}
+.associate_room .table-bordered th,.associate_room .table-bordered td{text-align: center;}
+.associate_room .table-bordered td:last-child{color:red;font-size:20px;cursor: pointer;}
+.B_check_box .list-group-item{padding:0;}
+.B_check_box .row .col-md-3:nth-child(2n+1){background-color:#dcf3ff;}
+.B_check_box .row div{text-align: center;border-right:1px solid #ddd;height:40px;line-height:40px;}
+.B_check_box .row input[type="text"]{height:32px;}
+.B_check_box .form-control {width:50%;margin-top:3px;}
+/* end */
+
+/*报账点租费录入-缴费录入*/
+.B_c_box .list-group-item{padding:0;}
+.B_c_box .row>div,#rent_review .row>div{text-align: center;border-right:1px solid #ddd;height:40px;line-height:40px;}
+.B_c_box .color,#rent_review .color{color: #ff6600;}
+.B_c_box .bank>span{background-color:#c8c8c8;}
+.B_c_box .room_payment .list-group .list-group-item:first-child,
+	#rent_review .room_payment .list-group .list-group-item:first-child{background-color:#f2f2f2;}
+.B_c_box .room_payment .list-group .list-group-item:first-child,
+	#rent_review .room_payment .list-group .list-group-item:first-child{border:none;}
+.B_c_box .room_payment .list-group .list-group-item:first-child>div,
+	#rent_review .room_payment .list-group .list-group-item:first-child>div{text-align: left;}
+.B_c_box .list-group,#rent_review .list-group{margin-bottom:0;}
+.B_c_box .room_payment .tab-pane .list-group .list-group-item:first-child{border:1px solid #ddd;}
+.B_c_box .room_payment .tab-pane .list-group .list-group-item:first-child{background-color:#fff;}
+.B_c_box .room_payment .tab-pane .list-group .list-group-item:first-child>div{text-align: center;}
+.B_c_box .room_payment .nav{margin-bottom:10px;}
+.room_payment .nav-tabs a{color:#333;}
+.B_c_box .row input[type="text"],#rent_review .row input[type="text"]{height:32px;}
+.B_c_box .form-control, #rent_review .form-control{width:90%;margin-top:3px;}
+.B_c_box .row .col-md-2:nth-child(2n),.B_c_box .row .col-md-10,#rent_review .row .col-md-2:nth-child(2n),
+	#rent_review .row .col-md-10{text-align: left;}
+.B_c_box .fix_width{width:60%;}
+.B_c_box .input-append,#rent_review .input-append{width:90%;}
+.B_c_box .input-append>.input-large,#rent_review .input-append>.input-large{width:100%;border-radius: 4px;margin-top:3px;}
+.B_c_box .row .col-md-2 a,#rent_review .row .col-md-2 a{float:left;margin:5px 10px 0 0;}
+.list-group .row {margin-right: 0;}
+#rent_review .row .input-append{border-right:none;}
+/* end */
+/*租费报账汇总 start*/
+.search_title{height:40px;line-height:40px;background-color: #f2f2f2;padding-left:15px;}
+#summary_box .form-group,#createBox .form-group{margin-right:15px;}
+#summary_box .form-group input[type="text"],#summary_box .form-group  select,#createBox .form-group input[type="text"],
+	#createBox .form-group  select{height: 32px;border: 1px solid #ccc;border-radius: 4px;padding: 4px 6px;}
+#createBox .red{color:red;padding-right:5px;}
+#createBox .table_summary{height:40px;line-height:40px;padding-left:15px;border:1px solid #ccc;}
+#createBox .table_summary b{padding-right:15px;}
+#createBox .table_summary b span{color:red;padding:0 4px;}
+/* end */
+.list-group{margin-left: 15px;}
+#sheetBox .list-group{margin-left:15px;margin-bottom:0;}
+#sheetBox .list-group .row>div{height:40px;line-height:40px;text-align: center;border-right: 1px solid #ddd;}
+#sheetBox .list-group .row .col-md-1{padding:0;}
+.tab-content{margin-top:5px;}
+.table-bordered tbody tr td a{font-size:14px;}
+.B_c_box .table-bordered thead tr{background-color:#ccc;}
+.B_c_box .table-bordered td,.B_c_box .table-bordered th{text-align: center;}
+.input-group{border-right:none;}
+.info_check .list-group .row .bootstrap-select{width:60%;}
+#dataForm .pull-left .bootstrap-select,#dataForm .pull-right .bootstrap-select{width: 170px;}
+.table>thead th,.table>tbody td{
+	text-align:center;
+	vertical-align: middle!important;
+}
+/*铁塔新增加的样式*/
+.baseItem{
+	width:110px !important;
+}
+#EditCost .modal-body #dataForm input[type=radio]{
+	width:20px
+}
+#EditCost .modal-body #dataForm #windpressureLower,#EditCost .modal-body #dataForm #windpressureUpper,#EditCost .modal-body #dataForm #highupLower,#EditCost .modal-body #dataForm #highupUpper{
+	width:130px
+}
+.form-inline .form-group #windState,.form-inline .form-group #higState,.form-inline .form-group #pcttypeId,.form-inline .form-group #calpter_state,.form-inline .form-group #City,.form-inline .form-group #Village,.form-inline .form-group #productconfigState,.form-inline .form-group #roomtypeSearchId,.form-inline .form-group #supttypeSearchId,.form-inline .form-group #pctcostState,.form-inline .form-group #provinceChoice{
+	padding: 6px 5px;
+}
+/*铁塔结算管理新增样式*/
+.towerItem select,.towerItem input{
+	height:32px;
+}
+.towerItem .towerTime{
+	margin-left:-15px;
+	margin-right:-15px;
+}
+.towerSpan{
+	display: inline-block;
+  margin-left: 15px;
+  font-size:12px;
+  height: 34px;
+  line-height: 34px;
+  background-color: #ccc;
+  border-radius: 3px;
+  padding: 0 5px;
+}
+.calspecail{   
+	margin-top: 10px;
+  display: inline-block;
+  margin-bottom: 0;
+  margin-left: 19px;
+}
+/*结算管理*/
+#EditCost .modal-body #file,#updateEditCost .modal-body #file{
+	margin-left:200px;
+}
+#EditCost .regenerateItem,#regenerateEditCost .regenerateItem{
+	width:850px;
+}
+#EditCost .affirmItem{
+	width:1000px;
+}
+#EditCost1 .affirmItem{
+	width:1000px;
+}
+.btn-toolbar #educeStyle{
+	height:34px;
+}
+#searchModal .modal-body #modal_message{
+	text-align:center;
+}
+#searchModal .progress{
+	height:30px;
+}
+#searchModal .progress .progress-bar{
+	line-height:30px;
+}
+#searchModal .modal-dialog{	
+  position: absolute;
+	margin-left: -300px;	
+  margin-top: -150px;
+  top: 50%;
+  left: 50%;
+}
+/*考核管理*/
+.examination_title{
+	height: 60px;
+  line-height: 60px;
+  background-color: #f2f2f2;
+  padding-left: 15px;
+  font-size:16px;
+}
+.examination-list{
+	width:1000px;
+}
+.examination-list input,.examination-list select{
+	width: 300px!important;
+}
+.examination-list textarea{
+	min-width: 300px!important;
+	max-width: 600px!important;
+}
+.examination-item{
+	margin-top: 8px;
+	text-align: center;
+}
+input{
+	color:#333!important;
+}
+/*考核管理-地市扣罚审核页面添加了样式*/
+#detailsAuditSubmit{
+	display:none
+}
+.detailsSubmit{
+	display:none
+}
+.list-group .auditCommon div{
+	height:80px;
+	line-height:80px;
+}
+.list-group .auditCommon div textarea{
+	height:74px;
+}
+/*自维房租提示信息添加修改的css*/
+.contract-information .form-control{
+	float:left;	
+}
+.contract-information .help-block{
+	margin-left: 8px;
+	margin-top:0;
+  color: #f00;
+  float: left;
+}
+.list-group-item .commentMsg{
+	display:inline-block;
+}
+.addReburseStyle input,.addReburseStyle select{
+	display:inline-block;
+}
+/*铁塔资源对比审核--审核*/
+
+#towerAudit>.list-group .list-group-item{padding:0;}
+#towerAudit>.list-group>.row>.col-md-3{border-right: 1px solid #ddd;height: 40px;line-height: 40px;}
+#towerAudit>.form-horizontal{margin:15px 0;}
+#towerAudit>.form-horizontal .control-label{display:inline-block;width:70px;}
+#towerAudit>.form-horizontal .row{margin-bottom:20px;}
+#towerAudit>.form-horizontal .row input,#towerAudit>.form-horizontal .row select,#towerAudit>.form-horizontal .row textarea{width:180px;}
+#towerAudit>.form-horizontal .row input,#towerAudit>.form-horizontal .row select{height:34px;padding:0 5px;}
+#towerAudit .redColor{color:#ff0000;} 
+#towerAudit>.btn-toolbar{margin:0 300px;}
+
+/*报账管理*/
+#genreCkeck  label{display:inline-block;padding-right:12px;font-weight:normal;}
+#genreCkeck  label input{float:left;margin-right: 3px;}
+#genreCkeck>div{margin-top:10px;}
+#genreCkeck>div>b{float:left;width:100px;height:80px;}
+.modal-body .row .col-md-3:nth-child(2n+1), #rent_review .row .col-md-3:nth-child(2n+1) {background-color: #dcf3ff;}
+.modal-body .row>.col-md-3:nth-child(2n){text-align: left;padding:0 5px;}
+.modal-body .row>div{text-align: center;border-right: 1px solid #ddd;height: 40px;line-height: 40px;}
+.modal-body .list-group-item{padding: 0;}
+.modal-body .list-group-item select,.modal-body .list-group-item input{width:100%;}
+
+/*数据收集*/
+.reportItem{
+	width:375px;
+}
+.reportItem .item{
+	margin:0 15px;
+}
+.reportItem #datacollectTitle{
+	width:300px;
+}
+.report-list{
+	width:1100px;
+}
+.report-list .report-item{
+	text-align:right;
+	line-height: 40px;
+}
+.report-list .report-mm{
+	line-height: 40px;
+}
+.report-list .report-mm input{
+	width:500px;
+	max-width:500px;
+}
+.report-list .report-mm textarea{
+	width:750px;
+	max-width:750px;
+}
+.distribute-item{
+	width:750px;
+	margin-left:1px;
+}
+.distribute-item input{
+  vertical-align: middle;
+  margin-top: -2px;
+  margin-bottom: 1px;
+  margin-right: 5px;
+}
+.distribute-item span{
+  display: block;
+  float: left;
+  border: 1px solid #ccc;
+  margin-top:-1px;
+  margin-left:-1px;
+  width: 149px;
+  height: 41px;
+  line-height: 41px;
+  font-size:14px;
+  text-align: center;
+  cursor: pointer;
+}
+.distribute-item span i{
+  padding-right: 8px;
+  display: none;
+}
+#datacollectTb,#datacollectPrvTb,#datacollectExamineTb,#datacollectOtherTb,#operationDataTb{
+	border: 1px solid #ddd;
+  border-collapse: collapse!important;
+  width:100%
+}
+#datacollectTb th,#datacollectPrvTb th,#datacollectExamineTb th,#datacollectOtherTb th,#operationDataTb th{
+	height: 40px;
+  text-align: center;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+#datacollectTb th:first-child,#operationDataTb th:first-child{
+	width:5%;
+}
+#datacollectExamineTb th:first-child,#datacollectOtherTb th:first-child{
+	width:50%;
+}
+#datacollectPrvTb th:last-child{
+	width:10%;
+}
+#datacollectTb th:nth-child(2),#datacollectTb th:nth-child(3){
+	width:40%;
+}
+#datacollectTb select{
+	width:200px;
+}
+#addTr{
+	float:right;
+	margin-left:5px;
+}
+#prvData{
+	display:none;
+}
+#OtherData{
+	display:none;
+}
+#operationData{
+	display:none;
+}
+#examineTbData{
+	display:none;
+}
+#datacollectTb td,#datacollectPrvTb td,#datacollectExamineTb td,#datacollectOtherTb td,#operationDataTb td{
+	height: 40px;
+  text-align: center;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+#operationDataTb tr td:nth-child(2){
+  padding:6px 0 6px 25px;
+  text-align: left;
+}
+.collectdataBtn{
+	margin-bottom:0;
+}
+/*修改添加的样式*/
+.list-group-item .lfStyle{
+	float:left;	
+}
+.list-group .list-group-item .percentStyle{
+	float:left;
+	margin-left:8px;
+}
+#control-style .form-group .control-label{
+	width:128px;
+	padding-top: 0
+}
+#control-roomStyle .control-item{
+	width:72%;
+}
+#control-roomStyle .form-group .group-style{
+	width:100%;
+}
+#control-roomStyle .form-group .control-label{
+	width:125px;
+}
+#cityHide{
+	display:none;
+}
+#villageHide{
+	display:none;
+}
+#userList-style .address{
+	padding-left: 18px;	
+}
+#userList-style .pull-left,#userList-style .pull-right{margin-bottom:5px;}
+#userList-style input,#userList-style .pull-left  input, #userList-style .pull-right  input{
+	width:220px;
+	height: 36px;
+}
+#userList-style .address .btn-group{
+	width:220px;
+  margin-bottom: 5px;
+}
+#userList-style .pull-left .bootstrap-select,#userList-style .pull-right .bootstrap-select{
+	width:220px;
+}
+#userList-style .btn-default{
+	height: 36px !important;
+  line-height: 18px !important;
+  width: 220px;
+  float:none;
+}
+#userList-style .filter-option{
+	width:185px !important;
+}
+#collection-style .lable-style{
+	margin: 0 15px;
+}
+#collection-style input,#collection-style select{
+	margin-top:0;
+}
+#selectionRange span{
+  display: block;
+  float: left;
+  border: 1px solid #ccc;
+  margin-top: -1px;
+  margin-left: -1px;
+  width: 113px;
+  height: 41px;
+  line-height: 41px;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+}
+#selectionRange input {
+  vertical-align: middle;
+  margin-top: -2px;
+  margin-bottom: 1px;
+  margin-right: 5px;
+}
+#rejectInfo{
+	display:none;
+}
+#selectionRangePerson{
+	max-width:800px;
+}
+.rangePersonStyle{
+	display:inline-block;
+	padding: 8px 12px !important;
+	margin:0 5px 8px 0;
+	border: 1px solid #ccc;
+	font-size: 14px;
+}
+.rangePersonDelectStyle{
+	font-style: initial;
+	color: #f00;
+	cursor: pointer;
+	padding-left: 8px;
+}
+.distribute-style{
+	color:red;
+} 
+.sortStyleLf{
+	float:left;
+}
+.sortStyleRg{
+	float:right;
+	border:none;
+}  
+#dataForm .pull-left,#dataForm .pull-right{width:50%;margin-bottom: 10px;}
+#dataForm .pull-left .form-control,#dataForm .pull-right .form-control{display:inline;}
+#dataForm .pull-left label,#dataForm .pull-right label{display: inline-block;width: 98px;text-align: right;}
+.columnsRed{color:red;}
+.modal-body{max-height: 350px;overflow-y: auto;}
+#dataForm .form-group,.form-horizontal .form-group{text-align:center;}
+.forbidden[disabled],.forbidden[readonly]{ background-color: #eee;opacity: 1;border: 1px solid #ccc;}
+.lf{display:inline-block;}
+/* 加载中效果 */
+.ui_loading_progressBar {
+	display: block;
+	width: 208px;
+	height: 55px;
+	top: 50%;
+	left: 50%;
+	margin-left: -74px;
+	margin-top: -14px;
+	padding: 10px 10px 10px 50px;
+	text-align: left;
+	line-height: 27px;
+	font-weight: bold;
+	position: absolute;
+	z-index: 2001;
+}
+.ui_loading_background {
+	display: block;
+	width: 100%;
+	height: 100%;
+	opacity: 0.4;
+	filter: alpha(opacity=40);
+	background:#fff;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 2000;
+}
+.ui_loading_progressBar {
+	border: solid 2px #ddd;
+	background: white url(../image/ui.loading.gif) no-repeat 10px 10px;
+}
+#ui_loading_overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height:100%;
+  width:100%;
+}
+.ui_loading_hide {
+  z-index:-100;
+}
+
+.ui_loading_overlayBG {
+  background-color: #000;
+  z-index: 1100;
+}
+#tableForm table,#tableForm table td,#tableForm table th{border:1px solid #ddd;}
+#tableForm table thead tr th{text-align:center;}
+#tableForm table tbody tr input{ border-color: transparent;outline:none;}
+.table-striped>tbody>tr:nth-of-type(odd)>td>input {background-color: #f9f9f9;}
+#tableForm table tbody tr td:last-child>input{border:1px solid #999;padding:0 10px;width: 140px;}
+
+/*解决验证信息位置问题  */
+#err{position:absolute;}
+/* 解决列表底部不对齐问题 */
+.first{width:6%;}
+.second{width:12%;}
+.third{width:15%;}
+.fourths{width:15%;}
+.fifths{width:17%;}
+.sixths{width:17%;}
+.fixed-table-footer td{font-weight:bold;}

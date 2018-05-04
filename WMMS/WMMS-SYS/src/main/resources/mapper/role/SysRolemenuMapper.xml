@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ncms.mapper.role.SysRolemenuMapper">
+	<resultMap id="BaseResultMap" type="com.ncms.model.sys.role.SysRolemenu">
+		<id column="role_id" property="roleId" jdbcType="VARCHAR"/>
+		<result column="menu_id" property="menuId" jdbcType="VARCHAR"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		sys_rolemenu.role_id,sys_rolemenu.menu_id
+	</sql>
+	
+    <insert id="insertRoleMenu" parameterType="map">
+		<!-- 添加角色菜单关系 -->
+		insert into sys_rolemenu
+		values
+		<foreach collection="menuList" item="item" index="index" separator="," >
+			(#{roleId},#{item})
+		</foreach>
+  	</insert>
+</mapper>

@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  	<modelVersion>4.0.0</modelVersion>
+  	<artifactId>WMMS-SYS</artifactId>
+  	<packaging>war</packaging>
+  	<parent>
+    	<groupId>com.WMMS</groupId>
+    	<artifactId>WMMS</artifactId>
+    	<version>0.0.1</version>
+        <relativePath>../pom.xml</relativePath>
+  	</parent>
+  	<dependencies>
+		<dependency>
+	    	<groupId>com.WMMS</groupId>
+	    	<artifactId>WMMS-COMM</artifactId>
+    		<version>0.0.1</version>
+		</dependency>
+		<!-- Junit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		 <!--CKFinder start-->
+       
+         <dependency>
+            <groupId>com.ckfinder</groupId>
+            <artifactId>CKFinder</artifactId>
+            <version>2.6.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>net.coobird</groupId>
+            <artifactId>thumbnailator</artifactId>
+            <version>0.4.8</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+        <!--CKFinder end-->
+        
+  	</dependencies>
+	<build>
+    	<finalName>WMMS-SYS</finalName>
+	    <plugins>
+	         <plugin>
+	             <groupId>org.apache.maven.plugins</groupId>
+	             <artifactId>maven-war-plugin</artifactId>
+	             <version>2.6</version>
+	             <configuration>
+	             	<packagingExcludes>WEB-INF/web.xml</packagingExcludes>
+	                <source>1.7</source>
+	                <target>1.7</target>
+	             </configuration>
+	  		</plugin>
+	  		<plugin>  
+		     	<groupId>org.apache.maven.plugins</groupId>  
+		        <artifactId>maven-surefire-plugin</artifactId>  
+		        <version>2.18.1</version>  
+		        <configuration>  
+		          <skipTests>true</skipTests>  
+		        </configuration>  
+		      </plugin>
+	    </plugins>
+  	</build>
+</project>

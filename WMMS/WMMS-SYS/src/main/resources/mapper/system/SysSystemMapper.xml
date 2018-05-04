@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ncms.mapper.SysSystemMapper">
+	<resultMap id="BaseResultMap" type="com.ncms.model.sys.SysSystem">
+		<id column="sys_id" property="sysId" jdbcType="VARCHAR"/>
+		<result column="sys_code" property="sysCode" jdbcType="VARCHAR"/>
+		<result column="sys_name" property="sysName" jdbcType="VARCHAR"/>
+		<result column="sys_fullname" property="sysFullname" jdbcType="VARCHAR"/>
+		<result column="sys_context" property="sysContext" jdbcType="VARCHAR"/>
+		<result column="sys_icon" property="sysIcon" jdbcType="VARCHAR"/>
+		<result column="sys_note" property="sysNote" jdbcType="VARCHAR"/>
+		<result column="sys_key" property="sysKey" jdbcType="VARCHAR"/>
+		<result column="sys_state" property="sysState" jdbcType="INTEGER"/>
+		<result column="sys_order" property="sysOrder" jdbcType="INTEGER"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		sys_system.sys_id,sys_system.sys_code,sys_system.sys_name,sys_system.sys_fullname,sys_system.sys_context,
+		sys_system.sys_icon,sys_system.sys_note,sys_system.sys_key,sys_system.sys_state,sys_system.sys_order
+	</sql>
+	
+</mapper>

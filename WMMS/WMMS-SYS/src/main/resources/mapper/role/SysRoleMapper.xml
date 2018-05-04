@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ncms.mapper.role.SysRoleMapper">
+	<resultMap id="BaseResultMap" type="com.ncms.model.sys.role.SysRole">
+		<id column="role_id" property="roleId" jdbcType="VARCHAR"/>
+		<result column="role_code" property="roleCode" jdbcType="VARCHAR"/>
+		<result column="role_name" property="roleName" jdbcType="VARCHAR"/>
+		<result column="role_note" property="roleNote" jdbcType="VARCHAR"/>
+		<result column="role_state" property="roleState" jdbcType="INTEGER"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		sys_role.role_id,sys_role.role_code,sys_role.role_name,sys_role.role_note,sys_role.role_state
+	</sql>
+	
+	<!-- 模糊查询 -->
+  <select id="querySysRole" resultType="Map" parameterType="Map" >
+  select
+	<include refid="Base_Column_List"/>,
+	uuser.usernum as userNum,
+	menu.rolenum as roleNum
+	from sys_role
+	LEFT JOIN 
+	(
+	select
+	role_id,COUNT(role_id)AS usernum
+	from sys_roleuser
+	GROUP BY role_id
+	) AS uuser ON uuser.role_id = sys_role.role_id
+	LEFT JOIN 
+	(
+	select
+	role_id,COUNT(role_id)AS rolenum
+	from sys_rolemenu
+	GROUP BY role_id
+	) AS menu ON menu.role_id = sys_role.role_id
+	<where> 
+     	<if test="roleState != null">
+     		and role_state = #{roleState} 
+     	</if>
+     	<if test="roleCode != '' and roleCode != null">
+     		and LOCATE(#{roleCode,jdbcType=VARCHAR},role_code) &gt; 0
+     	</if>
+     	<if test="roleName != '' and roleName != null">
+     		and LOCATE(#{roleName,jdbcType=VARCHAR},role_name) &gt; 0
+     	</if>
+    	<if test="roleNote != '' and roleNote != null">
+    		and LOCATE(#{roleNote,jdbcType=VARCHAR},role_note) &gt; 0
+     	</if>
+     </where>
+	GROUP BY sys_role.role_id
+	ORDER BY sys_role.role_name
+   </select> 
+   
+	<!--开启/关闭角色状态 -->
+  	<update id="updateRoleState" parameterType="Map">
+  	update sys_role set role_state=#{state} 
+  		where role_id in  
+        <foreach collection="idsList" item="item" index="index" open="(" separator="," close=")">  
+             #{item}
+        </foreach>
+	</update>
+	
+  <!-- 根据角色id查询用户id集合 -->
+  <select id="queryUserIdByRoleId" parameterType="java.lang.String" resultType="java.lang.String">
+  	select user_id as userId
+  	from sys_roleuser
+  	where role_id = #{roleId}
+  </select>
+  
+  <!-- 查询所有的用户集合 -->
+  <select id="queryAllUser" resultType="Map" parameterType="map">
+  	select
+  	us.user_id as userId,
+  	us.user_code as userCode,
+  	us.user_loginname as userLoginname,
+  	us.user_name as userName,
+  	us.user_state as userState,
+  	sm.major_name as majorName,
+  	sd.dep_name as depName,
+  	sr.reg_name as regName
+  	from sys_user as us
+  	left join sys_major as sm on sm.major_id = us.major_id
+  	left join sys_department as sd on sd.dep_id = us.dep_id
+  	left join sys_region as sr on sr.reg_id = us.reg_id
+  	where us.user_state = #{state}
+  	<!-- <![CDATA[
+		  us.user_state <> -1 
+	 ]]> -->
+  </select>
+  
+  <!-- 查询已经关联角色的用户 -->
+  <select id="queryUsedUser" resultType="map" parameterType="java.lang.String">
+  	select
+  	us.user_id as userId,
+  	us.user_code as userCode,
+  	us.user_loginname as userLoginname,
+  	us.user_name as userName,
+  	us.user_state as userState,
+  	sm.major_name as majorName,
+  	sd.dep_name as depName,
+  	sr.reg_name as regName
+  	from sys_roleuser as sru
+  	left join sys_user as us on us.user_id = sru.user_id and us.user_state = 0
+  	left join sys_major as sm on sm.major_id = us.major_id
+  	left join sys_department as sd on sd.dep_id = us.dep_id
+  	left join sys_region as sr on sr.reg_id = us.reg_id
+  	where sru.role_id = #{roleId}
+  	<!-- <![CDATA[
+		  us.user_state <> -1 
+	 ]]> -->
+  </select>
+  
+  <!-- 查询尚未关联角色的用户 -->
+  <select id="queryUnusedUser" resultType="map" parameterType="java.lang.String">
+  	select
+	  	us.user_id as userId,
+	  	us.user_code as userCode,
+	  	us.user_loginname as userLoginname,
+	  	us.user_name as userName,
+	  	us.user_state as userState,
+	  	sm.major_name as majorName,
+	  	sd.dep_name as depName,
+	  	sr.reg_name as regName
+  	from sys_user as us
+	  	left join sys_major as sm on sm.major_id = us.major_id
+	  	left join sys_department as sd on sd.dep_id = us.dep_id
+	  	left join sys_region as sr on sr.reg_id = us.reg_id
+	where NOT EXISTS(SELECT user_id from sys_roleuser where role_id = #{roleId} and user_id = us.user_id)
+  </select>
+  
+  <!-- 查询所有菜单列表  -->
+  <select id="queryMenuTree" resultType="Map" parameterType="map">
+  	select 
+  		menu_id as id,
+  		menu_name as name,
+  		pmenu_id as pid
+  	from sys_menu 
+  	where menu_state = #{state}
+  </select>
+  
+  <!-- 查询对应角色的所有菜单 -->
+  <select id="queryMenuIdByRoleId" parameterType="java.lang.String" resultType="java.lang.String">
+  select menu_id from sys_rolemenu where role_id = #{roleId}
+  </select>
+</mapper>
