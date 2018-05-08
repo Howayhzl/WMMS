@@ -18,6 +18,8 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -326,6 +328,7 @@ public class SysUserServiceImpl extends AbstractService<SysUser> implements SysU
 	}
 
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
 	public int insertDepartmentUser(String userId,List<String> list) {
 		sysDepartmentMapper.deleteDeptByUserId(userId);
 		Map<String,Object> map = new HashMap<String,Object>();
