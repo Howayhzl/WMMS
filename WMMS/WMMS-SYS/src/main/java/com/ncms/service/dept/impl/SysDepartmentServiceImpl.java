@@ -1,6 +1,7 @@
 package com.ncms.service.dept.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -18,7 +19,6 @@ import com.ncms.mapper.dept.SysDepartmentMapper;
 import com.ncms.model.dept.SysDepartmentVO;
 import com.ncms.model.sys.dept.SysDepartment;
 import com.ncms.service.dept.SysDepartmentService;
-import com.ncms.service.util.CodeGeneratorUtil;
 import com.ncms.utils.id.T_ID_GEN;
 
 @Service
@@ -66,7 +66,7 @@ public class SysDepartmentServiceImpl extends AbstractService<SysDepartment> imp
 	public String insertDepartNode(HttpServletRequest request) {
 		SysDepartment departmentVO = new SysDepartment();
 		departmentVO.setDepId(T_ID_GEN.sys_id().replace("-", ""));
-		departmentVO.setDepCode(CodeGeneratorUtil.DeptCodeGet(request.getParameter("pdepId"),request.getParameter("frontDeptCode")));
+		departmentVO.setDepCode(new Date().toLocaleString());
 		departmentVO.setDepName(request.getParameter("depName"));
 		departmentVO.setPdepId(request.getParameter("pdepId"));
 		departmentVO.setDepOrder(Integer.parseInt(request.getParameter("depOrder")));
@@ -93,11 +93,12 @@ public class SysDepartmentServiceImpl extends AbstractService<SysDepartment> imp
 	}
 	
 	@Override
-	public SysDepartmentVO queryDeptitemByCodeRedis(String deptCode) {
+
+	public SysDepartmentVO queryDeptitemByIdRedis(String depId) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("deptCode", deptCode);
+		paramMap.put("depId", depId);
 		paramMap.put("state", DeptStateEnum.CAN_USE);
-		return sysDepartmentMapper.queryDeptitemByCode(paramMap);
+		return sysDepartmentMapper.queryDeptitemById(paramMap);
 	}
 	@Override
 	public String deleteDepart(List<SysDepartmentVO> depIds) { 

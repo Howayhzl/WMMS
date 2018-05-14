@@ -129,21 +129,6 @@ public class ShiroUtils {
 	}
 	
 	/**
-	 * 获取用户专业权限集合
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	public static List<String> getUserMajors() {
-		if(!isLogin()){
-			throw new BizException("用户未登录");
-		}
-		Subject subject = SecurityUtils.getSubject();
-		Session session = subject.getSession();
-		List<String> rights = (List<String>) session.getAttribute(Constants.SESSION_ALL_MAJOR);
-		return rights;
-	}
-	
-	/**
 	 * 获取用户区域权限集合
 	 * @return
 	 */

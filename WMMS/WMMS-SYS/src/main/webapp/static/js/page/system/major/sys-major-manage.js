@@ -259,9 +259,9 @@ function update(){
 		return;
 	}
 	operate_type = 2;// 修改
-	majorCode=rowschecked[0].majorCode;
+	majorId=rowschecked[0].majorId;
 	myajax.path({
-	    url:sysContext+'major/queryByCode/'+majorCode,
+	    url:sysContext+'major/id/'+majorId,
  		type : 'GET',
 	    cache:false,
 	    async:true,
@@ -362,8 +362,17 @@ function deleteUse(){
 		alertModel("请先选择操作行");
 		return false;
 	}
-	
-	confirmModel('确定删除所选项目','deleteMajor');
+	var kidsNum=0;
+	$.each(rowschecked,function(){
+		if(this.children!=null&&this.children.length>0){
+			kidsNum++;
+		} 
+	});
+	if(kidsNum>0){
+		alertModel('存在子节点，不能删除所选项目');
+	}else{
+		confirmModel('确定删除所选项目','deleteMajor');
+	}
 }
 
 function deleteMajor(){

@@ -11,7 +11,7 @@ import com.ncms.model.sys.region.SysRegion;
 /**
  * @date 2018-01-09 15:07:21
  */
-public interface SysRegionMapper extends MyMapper<SysRegion> {
+public interface SysRegionVOMapper{
 
 	/**
 	 * 条件查询
@@ -54,10 +54,4 @@ public interface SysRegionMapper extends MyMapper<SysRegion> {
 	 */
 	public List<SysRegionVO> queryAllRegion(Map<String, Object> map);
 	
-	/**
-	 * @author YueFY
-	 * @date 2018年4月26日  
-	 * @Description: 根据regId 查询省份code
-	 */
-	public SysRegion selectSysRegionLikeRegId(Map<String, Object> map);
 }

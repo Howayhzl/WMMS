@@ -10,7 +10,7 @@ import com.ncms.model.sys.region.SysRegion;
 /**
  * @date 2018-01-09 15:07:22
  */
-public interface SysRegionService extends BaseService<SysRegion>{
+public interface SysRegionService{
 
 	/**
 	 * 条件查询

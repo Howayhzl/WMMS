@@ -134,9 +134,9 @@ public class DeptMangerController {
 	 * @param deptCode
 	 * @return
 	 */
-	@RequestMapping(value="/department/queryByCode/{deptCode}",method = RequestMethod.GET)
-	public BackEntity queryDeptitemByCode(@PathVariable(name="deptCode")String deptCode){
-		SysDepartmentVO departmentVO = departmentService.queryDeptitemByCodeRedis(deptCode);
+	@RequestMapping(value="/department/queryById/{depId}",method = RequestMethod.GET)
+	public BackEntity queryDeptitemByCode(@PathVariable(name="depId")String depId){
+		SysDepartmentVO departmentVO = departmentService.queryDeptitemByIdRedis(depId);
 		if(departmentVO!=null){
 			return BackEntity.ok("获取到组织机构信息", departmentVO);
 		}else {

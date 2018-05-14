@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ncms.comm.base.AbstractService;
 import com.ncms.comm.http.RESULT;
-import com.ncms.mapper.role.SysRolemenuMapper;
+import com.ncms.mapper.role.SysRolemenuVOMapper;
 import com.ncms.model.sys.role.SysRolemenu;
 import com.ncms.service.role.SysRolemenuService;
 
@@ -15,7 +15,7 @@ import com.ncms.service.role.SysRolemenuService;
 public class SysRolemenuServiceImpl extends AbstractService<SysRolemenu> implements SysRolemenuService{
 
 	@Autowired
-	private SysRolemenuMapper sysRolemenuMapper;
+	private SysRolemenuVOMapper sysRolemenuMapper;
 
 	@Override
 	public String insertRoleMenu(Map<String, Object> map) {

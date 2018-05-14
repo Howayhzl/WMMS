@@ -56,7 +56,7 @@ function findUsers() {
 				depId : $("#depId").val(),
 				userState : $("#userState").val(),
 				majorId : $("#majorId").val(),
-				regId : $("#regId").val()
+				regId : $("#regId_"+"regSearch").val()
 			};
 			return param;
 		},
@@ -241,40 +241,13 @@ function queryAllParam() {
         async:false,
         success: function (value) {
 			if(value != null){
-				sysReguins = value.obj.sysRegionList;
 				sysDepartmentList = value.obj.sysDepartmentList;
 				sysMajorList = value.obj.sysMajorList;
-				
-				if(sysReguins!=null){
-					var str = "<option value=''>-请选择区域-</option>";
-					$.each(sysReguins, function (i, item){
-						if(item.pregId == null){
-							pid = item.regId;
-							str += "<option value='" +item.regId+"'>"+item.regName+ "</option>";
-							if(item.children != null){
-								$.each(item.children, function (i, item){
-									ppid = item.regId;
-									if(pid = item.pregId){
-										str += "<option value='" +item.regId+"'>"+"&nbsp&nbsp&nbsp&nbsp"+item.regName+ "</option>";
-									}
-									if(item.children != null){
-										$.each(item.children, function (i, item){
-											if(ppid = item.pregId){
-												str += "<option value='" +item.regId+"'>"+"&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp"+item.regName+ "</option>";
-											}
-										});
-									}
-								});
-							}
-						}
-					});
-					$("#regId").append(str);
-				}
-				
+
 				if(sysDepartmentList!=null){
 					var str = "<option value=''>-请选择部门-</option>";
 					$.each(sysDepartmentList, function (i, item){
-						if(item.pdepId == null){
+						if(item.pdepId == null || item.pdepId == ''){
 							pid = item.depId;
 							str += "<option value='" +item.depId+"'>"+item.depName+ "</option>";
 							if(item.children != null){
@@ -300,7 +273,7 @@ function queryAllParam() {
 				if(sysMajorList!=null){
 					var str = "<option value=''>-请选择专业-</option>";
 					$.each(sysMajorList, function (i, item){
-						if(item.pmajorId == null){
+						if(item.pmajorId == null || item.pmajorId == ''){
 							pid = item.majorId;
 							str += "<option value='" +item.majorId+"'>"+item.majorName+ "</option>";
 							if(item.children != null){

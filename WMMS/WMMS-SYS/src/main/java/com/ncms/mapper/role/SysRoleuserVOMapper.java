@@ -9,7 +9,7 @@ import com.ncms.model.sys.role.SysRoleuser;
 /**
  * @date 2018-01-09 13:59:57
  */
-public interface SysRoleuserMapper extends MyMapper<SysRoleuser> {
+public interface SysRoleuserVOMapper extends MyMapper<SysRoleuser> {
 	/**
 	 * @description 根据用户id查询用户所关联角色
 	 * @author yuefy

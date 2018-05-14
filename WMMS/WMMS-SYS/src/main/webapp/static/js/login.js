@@ -112,46 +112,6 @@ $(document).ready(function() {
 		
 	}*/
 	
-	//alert(window.localStorage.getItem("loginUseid"));
-	if(window.localStorage.getItem("loginUseid")==null){
-		//资源预加载
-	    preload([
-	 			'static/echart/echarts.min.js'
-	 			,'static/image/help/2-1.png'
-	            ,'static/image/help/2-2.png'
-	            ,'static/image/help/2-3.png'
-	            ,'static/image/help/2-4.png'
-				,'static/image/help/2-5.png'
-				,'static/image/help/2-6.png'
-				,'static/image/help/2-7.png'
-				,'static/image/help/2-8.png'
-				,'static/image/help/2-9.png'
-				,'static/image/help/2-10.png'
-				,'static/image/help/2-11.png'
-				,'static/image/help/2-12.png'
-				,'static/image/help/2-13.png'
-				,'static/image/help/2-14.png'
-				,'static/image/help/2-15.png'
-				,'static/image/help/lc16.png'
-				,'static/image/help/lc17.png'
-				,'static/image/help/lc18.png'
-				,'static/image/help/lc19.png'
-				,'static/image/help/lc20.png'
-				,'static/image/help/lc21.png'
-				,'static/image/help/lc22.png'
-				,'static/image/help/lc23.png'
-				,'static/image/help/lc24.png'
-				,'static/image/help/lc25.png'
-				,'static/image/help/lc26.png'
-				,'static/image/help/lc27.png'
-				,'static/image/help/lc28.png'
-				,'static/image/help/lc29.png'
-				,'static/image/help/lc30.png'
-				,'static/image/help/lc31.png'
-				,'static/image/help/lc32.png'
-				,'static/image/help/lc33.png'
-		]);
-	}
 	function preload(files){
 	    //如果传入的参数files不是数组，返回
 	    if(Object.prototype.toString.call(files) !== "[object Array]"){return;}
@@ -221,8 +181,8 @@ function formSubmit(){
 	    			if(sysSystemlist != null){
 	    				for (var i = 0; i < sysSystemlist.length; i++) {
 	    					(function(i){
-		    					sessionStorage.setItem(sysSystemlist[i].sysId, sysSystemlist[i].sysFullname);
-//		    					sessionStorage.setItem(sysSystemlist[i].sysId, sysSystemlist[i].sysContext);
+//		    					sessionStorage.setItem(sysSystemlist[i].sysId, sysSystemlist[i].sysFullname);
+		    					sessionStorage.setItem(sysSystemlist[i].sysId, sysSystemlist[i].sysContext);
 	    					})(i)
 						}
 	    			}

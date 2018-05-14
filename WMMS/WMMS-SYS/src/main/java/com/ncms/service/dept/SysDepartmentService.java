@@ -41,7 +41,7 @@ public interface SysDepartmentService extends BaseService<SysDepartment>{
 	 * @param deptCode
 	 * @return
 	 */
-	public SysDepartmentVO queryDeptitemByCodeRedis(String deptCode);
+	public SysDepartmentVO queryDeptitemByIdRedis(String depId);
     /**
 	 * @description 删除组织机构
 	 * @author yanyy

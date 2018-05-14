@@ -26,11 +26,11 @@ public interface SysDepartmentMapper extends MyMapper<SysDepartment> {
 	public List<SysDepartmentVO> queryDepartByConditions(Map<String, Object> paramMap);
 
 	/**
-	 * @description 通过部门编码Code查询组织机构
+	 * @description 通过部门编码Id查询组织机构
 	 * @author yanyy
 	 * @date 创建时间：2018年1月12日
 	 */
-	public SysDepartmentVO queryDeptitemByCode(Map<String, Object> paramMap);
+	public SysDepartmentVO queryDeptitemById(Map<String, Object> paramMap);
 
 	/**
 	 * @description 批量删除组织结构（逻辑删除）

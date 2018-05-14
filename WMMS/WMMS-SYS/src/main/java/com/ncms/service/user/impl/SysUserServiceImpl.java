@@ -27,7 +27,6 @@ import com.ncms.comm.base.AbstractService;
 import com.ncms.comm.base.loginInfo.SysUserVO;
 import com.ncms.comm.http.BackEntity;
 import com.ncms.comm.state.sys.SysStateEnum.DeptStateEnum;
-import com.ncms.comm.state.sys.SysStateEnum.MajorStateEnum;
 import com.ncms.comm.state.sys.SysStateEnum.MenuStateEnum;
 import com.ncms.comm.state.sys.SysStateEnum.RegStateEnum;
 import com.ncms.comm.state.sys.SysStateEnum.UserStateEnum;
@@ -35,12 +34,12 @@ import com.ncms.constant.Constants;
 import com.ncms.constant.PromptMessage;
 import com.ncms.constant.StateComm;
 import com.ncms.mapper.dept.SysDepartmentMapper;
-import com.ncms.mapper.region.SysRegionMapper;
-import com.ncms.mapper.role.SysRoleuserMapper;
+import com.ncms.mapper.region.SysRegionVOMapper;
+import com.ncms.mapper.role.SysRoleuserVOMapper;
+import com.ncms.mapper.sys.region.SysRegionMapper;
 import com.ncms.mapper.user.SysUserMapper;
 import com.ncms.mapper.user.SysUserdepartmentMapper;
 import com.ncms.model.dept.SysDepartmentVO;
-import com.ncms.model.region.SysRegionVO;
 import com.ncms.model.sys.SysSystem;
 import com.ncms.model.sys.region.SysRegion;
 import com.ncms.model.sys.user.SysUser;
@@ -62,10 +61,13 @@ public class SysUserServiceImpl extends AbstractService<SysUser> implements SysU
 	private SysDepartmentMapper sysDepartmentMapper;
 	
 	@Autowired
+	private SysRegionVOMapper sysRegionVOMapper;
+	
+	@Autowired
 	private SysRegionMapper sysRegionMapper;
 
 	@Autowired
-	private SysRoleuserMapper sysRoleuserMapper;
+	private SysRoleuserVOMapper sysRoleuserMapper;
 	
 	@Autowired
 	private SysUserdepartmentMapper sysUserdepartmentMapper;
@@ -104,16 +106,13 @@ public class SysUserServiceImpl extends AbstractService<SysUser> implements SysU
             	ShiroUtils.setSessionAttribute(Constants.SESSION_ROLE_RIGHTS, roleIds);
             	List<String> depIds = sysDepartmentMapper.queryDeptByUser(user.getUserId());
             	ShiroUtils.setSessionAttribute(Constants.SESSION_ALL_DEPT, depIds);
-            	List<String> regIds = sysRegionMapper.queryRegionId(paramMap);
+            	List<String> regIds = sysRegionVOMapper.queryRegionId(paramMap);
             	ShiroUtils.setSessionAttribute(Constants.SESSION_ALL_REGION, regIds);
 	        	if(!StrUtil.isAllBlank(user.getRegId())){
-	        		String likeRegId = user.getRegId().substring(0, 2);
-	        		paramMap.put("likeRegId", likeRegId);
-	        		SysRegion sysRegion = sysRegionMapper.selectSysRegionLikeRegId(paramMap);
-	        		if(sysRegion != null){
-	        			user.setPrvId(sysRegion.getRegId());
-	        			user.setPrvCode(sysRegion.getRegCode());
-	        		}
+	        		SysRegion record = new SysRegion();
+	        		record.setRegState(RegStateEnum.CAN_USE);
+	        		List<SysRegion> sysRegionList = sysRegionMapper.select(record);
+	        		user = getUserPrvId(user,sysRegionList,user.getRegId());
 	        	}
             }
             ShiroUtils.setSessionAttribute(Constants.SESSION_USER, user);
@@ -134,6 +133,22 @@ public class SysUserServiceImpl extends AbstractService<SysUser> implements SysU
         }
 	}
 	
+	public SysUserVO getUserPrvId(SysUserVO user,List<SysRegion> sysRegionList,String regId){
+		for (SysRegion sysRegion : sysRegionList) {
+			if(sysRegion.getRegId().equals(regId)){
+				regId = sysRegion.getPregId();
+				if(StrUtil.isBlank(regId)){
+					user.setPrvId(sysRegion.getRegId());
+					user.setPrvName(sysRegion.getRegName());
+					user.setPrvCode(sysRegion.getRegCode());
+					return user;
+				}else{
+					getUserPrvId(user,sysRegionList,regId);
+				}
+			}
+		}
+		return user;
+	}
 	
 	/**
 	 * @description 查询所有用户
@@ -143,8 +158,8 @@ public class SysUserServiceImpl extends AbstractService<SysUser> implements SysU
 	@Override
 //	@RedisCache
 	public Page<SysUserVO> queryAllUser(Map<String, Object> map,int cur_page_num,int page_count) {
-		Page<SysUserVO> page = PageHelper.startPage(cur_page_num, page_count);
-		sysUserMapper.queryAllUser(map);
+		PageHelper.startPage(cur_page_num, page_count);
+		Page<SysUserVO> page = sysUserMapper.queryAllUser(map);
 		return page;
 	}
 	
@@ -249,23 +264,11 @@ public class SysUserServiceImpl extends AbstractService<SysUser> implements SysU
 		map.put("state", DeptStateEnum.CAN_USE);
 		List<SysDepartmentVO> sysDepartmentList = sysDepartmentMapper.queryDepartmentByConditions(map);
 		for (SysDepartmentVO sysDepartmentVO : sysDepartmentList) {
-			if(sysDepartmentVO.getParentTId() == null){
+			if(StrUtil.isBlank(sysDepartmentVO.getParentTId())){
 				sysDepartmentVO.setChildren(mergeDepList(sysDepartmentList, sysDepartmentVO.getDepId()));
 			}
 		}
-		
-		map.put("state", MajorStateEnum.CAN_USE);
-		
-		paramMap.put("state", RegStateEnum.CAN_USE);
-		List<SysRegionVO> sysRegionList = sysRegionMapper.queryAllRegion(paramMap);
-		for (SysRegionVO sysRegionVO : sysRegionList) {
-			if(sysRegionVO.getPregId() == null){
-				sysRegionVO.setChildren(mergeRegList(sysRegionList, sysRegionVO.getRegId()));
-			}
-		}
-		
 		paramMap.put("sysDepartmentList", sysDepartmentList);
-		paramMap.put("sysRegionList", sysRegionList);
 		return paramMap;
 	}
 	
@@ -282,27 +285,6 @@ public class SysUserServiceImpl extends AbstractService<SysUser> implements SysU
 					reOriMList.remove(item);
 					// 以自己的code作为父code，重新遍历
 					item.setChildren(mergeDepList(reOriMList, item.getDepId()));
-					// 添加节点
-					menuList.add(item);
-				}
-			}
-		}
-		return menuList;
-	}
-	
-	//处理区域数据
-	private List<SysRegionVO> mergeRegList(List<SysRegionVO> oriMList, String pmenuId){
-		List<SysRegionVO> menuList = new ArrayList<SysRegionVO>();
-		// 重新遍历的菜单list
-		List<SysRegionVO> reOriMList = new ArrayList<SysRegionVO>();
-		reOriMList.addAll(oriMList);
-		if(oriMList.size()>0){
-			for(SysRegionVO item : oriMList){
-				if(pmenuId.equals(item.getPregId())){
-					// 去掉本元素
-					reOriMList.remove(item);
-					// 以自己的code作为父code，重新遍历
-					item.setChildren(mergeRegList(reOriMList, item.getRegId()));
 					// 添加节点
 					menuList.add(item);
 				}

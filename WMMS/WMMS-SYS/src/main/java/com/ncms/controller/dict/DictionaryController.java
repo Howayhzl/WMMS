@@ -33,7 +33,7 @@ public class DictionaryController {
 	 * @return
 	 */
 	@RequestMapping(value = "/queryAllDictionaryGroup",method = RequestMethod.GET)
-	public @ResponseBody BackEntity queryAllDictionaryGroup(){
+	public BackEntity queryAllDictionaryGroup(){
 		Map<String,Object> map = new HashMap<String, Object>();
 		List<SysDictionary> list = sysDictionaryService.queryAllDictionaryGroup(map);
 		return BackEntity.ok(PromptMessage.SELECT_DICTIONARY_SUCCESS, list);
@@ -45,7 +45,7 @@ public class DictionaryController {
 	 * @date 创建时间：2018年1月12日
 	 */
 	@RequestMapping(value = "/queryDictionary",method = RequestMethod.GET)
-	public @ResponseBody BackEntity queryAllDictionary(@RequestParam Map<String,Object> map){
+	public BackEntity queryAllDictionary(@RequestParam Map<String,Object> map){
 		Page<SysDictionary> page = sysDictionaryService.queryAllDictionary(map);
 		return BackEntity.ok(PromptMessage.SELECT_DICTIONARY_SUCCESS, page.toPageInfo());
 	}
@@ -56,7 +56,7 @@ public class DictionaryController {
 	 * @date 创建时间：2018年1月15日
 	 */
 	@RequestMapping(value = "/insertDictionary",method = RequestMethod.POST)
-	public @ResponseBody BackEntity insertDictionary(SysDictionary vo) {
+	public BackEntity insertDictionary(SysDictionary vo) {
 		vo.setDictId(T_ID_GEN.sys_id().replace("-", ""));
 		vo.setDictState(StateComm.STATE_0);
 		int result = sysDictionaryService.saveDictionary(vo);
@@ -73,7 +73,7 @@ public class DictionaryController {
 	 * @date 创建时间：2018年1月15日
 	 */
 	@RequestMapping(value= "/updateDictionary",method = RequestMethod.POST)
-	public @ResponseBody BackEntity updateDictionary(SysDictionary vo) {
+	public BackEntity updateDictionary(SysDictionary vo) {
 		int result = sysDictionaryService.updateDictionary(vo);
 		if(result > 0){
 			return BackEntity.ok(PromptMessage.UPDATE_DICTIONARY_SUCCESS);
@@ -88,7 +88,7 @@ public class DictionaryController {
 	 * @date 创建时间：2018年1月15日
 	 */
 	@RequestMapping(value="/deleteDictionaryBranch", method=RequestMethod.POST)
-	public @ResponseBody BackEntity deleteDictionaryBranch(@RequestBody List<String> itemsId) {
+	public BackEntity deleteDictionaryBranch(@RequestBody List<String> itemsId) {
 		Map<String,Object> map = new HashMap<>();
 		map.put("idsList", itemsId);
 		map.put("dictionaryState", DictStateEnum.DROPED);
@@ -106,7 +106,7 @@ public class DictionaryController {
 	 * @date 创建时间：2018年1月15日
 	 */
 	@RequestMapping(value="/openUseDictionaryBranch",method = RequestMethod.POST)
-	public @ResponseBody BackEntity openUseDictionaryBranch(@RequestBody List<String> itemsId) {
+	public BackEntity openUseDictionaryBranch(@RequestBody List<String> itemsId) {
 		Map<String,Object> map = new HashMap<>();
 		map.put("idsList", itemsId);
 		map.put("dictionaryState", DictStateEnum.CAN_USE);
@@ -124,7 +124,7 @@ public class DictionaryController {
 	 * @date 创建时间：2018年1月15日
 	 */
 	@RequestMapping(value = "/stopUseDictionaryBranch",method = RequestMethod.POST)
-	public @ResponseBody BackEntity stopUseDictionaryBranch(@RequestBody List<String> itemsId) {
+	public BackEntity stopUseDictionaryBranch(@RequestBody List<String> itemsId) {
 		Map<String,Object> map = new HashMap<>();
 		map.put("idsList", itemsId);
 		map.put("dictionaryState", DictStateEnum.STOP_USE);
@@ -142,7 +142,7 @@ public class DictionaryController {
 	 * @date 创建时间：2018年1月15日
 	 */
 	@RequestMapping(value = "/queryDictionaryByID",method = RequestMethod.GET)
-	public @ResponseBody BackEntity queryDictionaryByID(String ID){
+	public BackEntity queryDictionaryByID(String ID){
 		SysDictionary list = sysDictionaryService.findById(ID);
 		return BackEntity.ok(PromptMessage.SELECT_DICTIONARY_SUCCESS, list);
 	}
@@ -153,7 +153,7 @@ public class DictionaryController {
 	 * @date 创建时间：2018年1月17日
 	 */
     @RequestMapping(value="/queryFunctionDictTree", method = RequestMethod.GET)
-    public @ResponseBody BackEntity queryFunctionMenuTree(){
+    public BackEntity queryFunctionMenuTree(){
     	Map<String,Object> map = new HashMap<>();
 		map.put("state", DictStateEnum.CAN_USE);
 		List<SysDictionary> MenuTreeNodeList = sysDictionaryService.queryFunctionDictTreeRedis(map);
@@ -170,7 +170,7 @@ public class DictionaryController {
      * @date 创建时间：2018年1月22日
      */
     @RequestMapping(value="/queryDictByConditions",method = RequestMethod.GET)
-    public @ResponseBody  BackEntity queryMenuByConditions(@RequestParam("dictValue") String dictValue,
+    public BackEntity queryMenuByConditions(@RequestParam("dictValue") String dictValue,
     		@RequestParam("dictCode") String dictCode,
     		@RequestParam("dictName") String dictName,@RequestParam("dictState") Integer dictState)  {
     	Map<String,Object> paramMap = new HashMap<>();

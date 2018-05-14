@@ -10,13 +10,12 @@ import com.ncms.comm.base.enums.BaseEnum;
 public class SysStateEnum {
 
 	public static final DeptStateEnum DeptStateEnum = new DeptStateEnum();
-	public static final MajorStateEnum MajorStateEnum = new MajorStateEnum();
 	public static final DictStateEnum DictStateEnum = new DictStateEnum();
 	public static final MenuStateEnum MenuStateEnum = new MenuStateEnum();
 	public static final UserStateEnum UserStateEnum = new UserStateEnum();
 	public static final RegStateEnum RegStateEnum = new RegStateEnum();
 	public static final ParameterStateEnum ParameterStateEnum = new ParameterStateEnum();
-
+	public static final LogTypeEnum LogTypeEnum= new LogTypeEnum();
 	
 	/**
 	 * 枚举 参数状态
@@ -112,37 +111,6 @@ public class SysStateEnum {
 		}
 	}
 	
-	/**
-	 * 枚举 专业状态
-	* 
-	* Title: MajorStateEnum
-	* @author 
-	 */
-	public static class MajorStateEnum extends BaseEnum<Object>{
-
-		private static final long serialVersionUID = -7223259354944983213L;
-
-		/**
-		 * 专业状态正常 MAJOR_STATE_0  可用
-		 */
-		public static Integer CAN_USE = 0;
-		
-		/**
-		 * 专业状态停用 MAJOR_STATE_9  停用
-		 */
-		public static Integer STOP_USE = 9;
-		
-		/**
-		 * 专业状态已删除 MAJOR_STATE__1  已删除
-		 */
-		public static Integer DROPED = -1;
-
-		private MajorStateEnum(){
-			super.putEnum(CAN_USE, "可用");
-			super.putEnum(STOP_USE, "停用");
-			super.putEnum(DROPED, "已删除");
-		}
-	}
 	/**
 	 * 枚举 数据字典状态
 	* 
@@ -242,5 +210,30 @@ public class SysStateEnum {
 			super.putEnum(DROPED, "已删除");
 			super.putEnum(U_PASS_WORD, "用户默认密码");
 		}
+	}
+	
+	public static class LogTypeEnum extends BaseEnum<Object>{
+
+		private static final long serialVersionUID = 2053557275473983131L;
+		
+		/**
+		 * @Description: INFO-提示日志
+		 */
+		public static String LOG_INFO = "INFO";
+		/**
+		 * @Description: ERROR-错误日志
+		 */
+		public static String LOG_ERROR = "ERROR";
+		/**
+		 * @Description: WARN-警告日志
+		 */
+		public static String LOG_WARN = "WARN";
+		/**
+		 * @Description: DEBUG-调试日志
+		 */
+		public static String LOG_DEBUG = "DEBUG";
+		
+		
+		
 	}
 }

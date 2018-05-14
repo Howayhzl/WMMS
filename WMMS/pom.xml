@@ -18,6 +18,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.7</java.version>
+		<poi.version>3.15</poi.version>
 	</properties>
 	<dependencies>
         <!-- Spring Boot Web 依赖 -->
@@ -58,10 +59,10 @@
 		</dependency>
 		 <!--mybatis 分页插件-->
 		<dependency>
-			<groupId>com.github.pagehelper</groupId>
-			<artifactId>pagehelper-spring-boot-starter</artifactId>
-			<version>1.1.3</version>
-		</dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>5.1.2</version>
+        </dependency>
 		<!-- Spring Boot Test 依赖 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -78,6 +79,12 @@
 			<artifactId>tomcat-embed-jasper</artifactId>  
 			<scope>provided</scope>  
 		</dependency> 
+		<!-- string object 工具类 -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.6</version>
+		</dependency>
 		<!-- 阿里巴巴json -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
@@ -122,7 +129,6 @@
 			<artifactId>druid</artifactId>
 			<version>1.1.2</version>
 		</dependency>
-		<!-- string object 工具类 -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
@@ -140,16 +146,17 @@
 			<artifactId>hutool-all</artifactId>
 			<version>3.1.0</version>
 		</dependency>
-        <dependency>
-			<groupId>commons-fileupload</groupId>
-			<artifactId>commons-fileupload</artifactId>
-			<version>1.3.1</version>
-		</dependency>
 		<!-- ftp -->
 		<dependency>
 			<groupId>commons-net</groupId>
 			<artifactId>commons-net</artifactId>
 			<version>3.4</version>
+		</dependency>
+		<!-- fileupload -->
+        <dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3.1</version>
 		</dependency>
 		<!-- CSV -->
 		<dependency>
@@ -157,6 +164,52 @@
 			<artifactId>javacsv</artifactId>
 			<version>2.0</version>
 		</dependency>
+		<!--导入导出Excel-->
+	    <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.14-beta1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.14-beta1</version>
+        </dependency>
+		<!-- poi -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>${poi.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>${poi.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml-schemas</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>xerces</groupId>
+					<artifactId>xercesImpl</artifactId>
+				</exclusion>
+			</exclusions>
+			<version>${poi.version}</version>
+		</dependency>
+		
+		<!-- easypoi 导入导出 -->
+		<dependency>
+            <groupId>com.xunge</groupId>
+            <artifactId>easypoi-base</artifactId>
+            <version>3.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.xunge</groupId>
+            <artifactId>easypoi-annotation</artifactId>
+            <version>3.0.1</version>
+        </dependency>
 	</dependencies>
 	<!-- 设定主仓库 -->
 	<repositories>

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.ncms.comm.base.AbstractService;
 import com.ncms.comm.http.RESULT;
-import com.ncms.mapper.role.SysRoleuserMapper;
+import com.ncms.mapper.role.SysRoleuserVOMapper;
 import com.ncms.model.sys.role.SysRoleuser;
 import com.ncms.service.role.SysRoleuserService;
 
@@ -16,9 +16,9 @@ import com.ncms.service.role.SysRoleuserService;
 public class SysRoleuserServiceImpl extends AbstractService<SysRoleuser> implements SysRoleuserService{
 
 	@Autowired
-	private SysRoleuserMapper sysRoleuserMapper;
+	private SysRoleuserVOMapper sysRoleuserMapper;
 
-	public SysRoleuserMapper setSysRoleuserMapper(SysRoleuserMapper sysRoleuserMapper){
+	public SysRoleuserVOMapper setSysRoleuserMapper(SysRoleuserVOMapper sysRoleuserMapper){
 		return this.sysRoleuserMapper=sysRoleuserMapper;
 	}
 

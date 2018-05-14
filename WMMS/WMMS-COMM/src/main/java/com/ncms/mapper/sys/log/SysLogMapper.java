@@ -1,4 +1,4 @@
-package com.ncms.mapper.log;
+package com.ncms.mapper.sys.log;
 
 import com.ncms.config.mybatis.MyMapper;
 import com.ncms.model.sys.log.SysLog;

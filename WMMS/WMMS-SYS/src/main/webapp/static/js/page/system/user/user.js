@@ -22,6 +22,7 @@ function init(){
 	//每页显示个数
 	ipageCount = 10;
 	findUsers();
+	initRegionTree("regSearch");
 }
 
 /**

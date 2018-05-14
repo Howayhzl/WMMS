@@ -8,7 +8,7 @@ import com.ncms.model.sys.role.SysRolemenu;
 /**
  * @date 2018-01-09 13:59:57
  */
-public interface SysRolemenuMapper extends MyMapper<SysRolemenu> {
+public interface SysRolemenuVOMapper extends MyMapper<SysRolemenu>{
 	/**
 	 * 新增角色菜单权限
 	 * @param map

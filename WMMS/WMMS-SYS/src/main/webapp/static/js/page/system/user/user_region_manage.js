@@ -16,17 +16,16 @@ var nodes;
 		 console.log(id);
 		  result = fun_getCheckValue();
 		  insertUserRegion(id,result);
-	  })
-	  debugger
+	  });
 	  function  fun_getCheckValue(){ 
 		  	treeObj = $.fn.zTree.getZTreeObj("tree");
 		  	var checkNodes = treeObj.getCheckedNodes(true);
 		  	var result=''; 
 		  	var msg = new Array();
 	        for (var i = 0; i < checkNodes.length; i++) { 
-	        	if(!checkNodes[i].isParent){
+//	        	if(!checkNodes[i].isParent){
 	        		result += checkNodes[i].id +','; 
-	        	}
+//	        	}
 	        }  
 	        result=result.substring(0,result.lastIndexOf(",")); 
 	        return result;
@@ -64,7 +63,8 @@ var nodes;
 		        		check : {
 		        			enable : true,
 		        			chkStyle: "checkbox",
-		        			chkboxType: { "Y": "p", "Y": "s" }
+		        			chkboxType: { "Y": "ps", "N": "ps" } //Y 属性定义 checkbox 被勾选后的情况；N 属性定义 checkbox 取消勾选后的情况； 
+		        												//"p" 表示操作会影响父级节点； "s" 表示操作会影响子级节点。
 		        		},
 		        		data: {
 		        			simpleData: {
@@ -95,7 +95,7 @@ var nodes;
 function isCheckedRadio(){
  	var checkNum = 0;
  	rowschecked = new Array();
- 	var checklist = $("#tb tbody input[type='checkbox']");
+ 	var checklist = $("#tb tbody input[type='radio']");
  	for(var i=0;i<checklist.length;i++)
      {
  		// 已选中可操作行

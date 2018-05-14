@@ -17,7 +17,7 @@
  * 
  */
 
-$(document).on('click',function(e){
+/*$(document).on('click',function(e){
 		if($(document).find('body').hasClass('index')==false){
 		 $('.menu-item',parent.document).removeClass('active');
 	      $('.menu-item-child',parent.document).removeClass('menu-open').css('display','none');
@@ -35,7 +35,7 @@ $(document).on('click',function(e){
 	      }
 		}
 		
-	});
+	});*/
 /**---------------
  * ztree树：class=ztree
  * 样式
@@ -65,7 +65,7 @@ $(document).ready(function(){
 var sysId = "S00";
 //获取当前路路径
 var pathName = window.document.location.pathname;
-//获取带"/"的项目名，如：/WMMS
+//获取带"/"的项目名，如：/NCMS
 var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
 var sysContext = sessionStorage.getItem(sysId);
 var sysContext1 = localStorage.getItem(sysId);
@@ -94,8 +94,8 @@ function setCookie(name, value, days) {
 
 /* 获取cookie */
 function getCookie(name){ 
-    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)"); 
-　　 return (arr=document.cookie.match(reg))?unescape(arr[2]).substring(1,unescape(arr[2]).length - 1):null;
+    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+    return (arr=document.cookie.match(reg))?unescape(arr[2]).substring(1,unescape(arr[2]).length - 1):null;
 }
 /* 根据key排序json */
 function sortByKey(array, key) {
@@ -158,6 +158,75 @@ function isChecked(){
 	    }
     } 
 	return checkNum;
+}
+/**
+ * 获取当前登陆人所有可以管辖的区域
+ * @param regSearch 显示的区域的ID
+ * 页面上需要引入<script src="../../../plugins/bootstrap/js/bootstrap-treeview.js"></script>
+ * 页面上在要显示的地方添加 <div class="form-group" style="position:relative;" id="regSearch"></div>		
+ */
+function initRegionTree(regSearch){
+	var htmltree=""
+	    +"<input type=\"text\" id=\"regName_"+regSearch+"\" name=\"regName\" onclick=\"$('#treeview_"+regSearch+"').show()\" placeholder=\"所属区域\">"
+	    +"<input type=\"hidden\" id=\"regId_"+regSearch+"\" name=\"regId\">"
+	    +"<input type=\"hidden\" id=\"regIds_"+regSearch+"\" name=\"regIds\">"
+		+'<div id="treeview_'+regSearch+'" style="display: none;position: absolute;z-index: 10;left: 45px;width: 195px;"></div>';	
+	htmltree+="<script src='../../../plugins/bootstrap/js/bootstrap-treeview.js'></script>";
+	$("#"+regSearch).html(htmltree);
+	$.ajax({
+		url : sysContext+'region/getRegionTreeList',   
+		type : 'get',
+		dataType : 'json',
+		async:false,
+		success : function(result) {				
+			if (result != null&&result.success=="1") {
+				
+				$("#regName_"+regSearch).click(function() {  
+			        var options = {  
+			            bootstrap2 : false,  
+			            showTags : true,  
+			            levels : 2,  
+			            showCheckbox : false,  
+			            checkedIcon : "glyphicon glyphicon-check",  
+			            data :result.obj,  
+			            onNodeSelected : function(event, data) {
+			            	var selectNodes = getNodeIdArr(data);//获取所选父节点下的所有子节点Id
+			                $("#regName_"+regSearch).val(data.text);   
+			                $("#regId_"+regSearch).val(data.id); 
+			                $("#regIds_"+regSearch).val(selectNodes);  
+			                $("#treeview_"+regSearch).hide();  
+			            }
+			        };  
+			  
+			        $('#treeview_'+regSearch).treeview(options);  
+			    }); 
+			}else{
+				alertModel(result.msg);
+			}
+		}
+	});
+}
+
+/**
+ * 递归获取所选父节点下的所有子节点Id
+ */
+function getNodeIdArr(node){
+	debugger;
+    var ts = [];
+    if(node.nodes){
+        for(x in node.nodes){
+            ts.push(node.nodes[x].id)
+            if(node.nodes[x].nodes){
+            var getNodeDieDai = getNodeIdArr(node.nodes[x]);
+                for(j in getNodeDieDai){
+                    ts.push(getNodeDieDai[j]);
+                }
+            }
+        }
+    }else{
+        ts.push(node.id);
+   }
+   return ts;
 }
 
 /**---------------*/
@@ -320,7 +389,7 @@ var myajax = myajax || (function(){
             complete:obj.complete,
             error : function(xhr,status){
                 if(status=='timeout'){
-			    　　　　　alert("请求超时");
+                	alert("请求超时");
                 }
                 if(xhr.status==400){
                 	alert("400 - 错误的请求");

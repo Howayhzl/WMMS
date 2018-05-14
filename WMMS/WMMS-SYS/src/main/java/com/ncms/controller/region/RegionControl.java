@@ -35,7 +35,7 @@ public class RegionControl{
 	 * @return
 	 */
 	@RequestMapping(value="/queryByConditions",method=RequestMethod.GET)
-	public @ResponseBody BackEntity queryByConditions(HttpServletRequest request,@RequestParam("regCode") String regCode,@RequestParam("regName") String regName){
+	public BackEntity queryByConditions(HttpServletRequest request,@RequestParam("regCode") String regCode,@RequestParam("regName") String regName){
 		List<Map<String,Object>> sysRegionList = sysRegionService.selectByConditions(regCode, regName);
 		return BackEntity.ok("查询地市区县信息成功！", sysRegionList);
 	}
@@ -46,7 +46,7 @@ public class RegionControl{
 	 * @return
 	 */
 	@RequestMapping(value="/delRegion",method=RequestMethod.POST)
-	public @ResponseBody BackEntity delRegion(@RequestBody List<String> items){
+	public BackEntity delRegion(@RequestBody List<String> items){
     	String res = sysRegionService.delRegion(items);
     	if(res.equals(RESULT.SUCCESS_1)){
     		if(items.size()>1){
@@ -65,7 +65,7 @@ public class RegionControl{
 	 * @return
 	 */
 	@RequestMapping(value="/stopRegion",method=RequestMethod.POST)
-	public @ResponseBody BackEntity stopRegion(String regId,String regName){
+	public BackEntity stopRegion(String regId,String regName){
     	String res = sysRegionService.stopRegion(regId);
     	if(res.equals(RESULT.SUCCESS_1)){
 			return BackEntity.ok("停用地市区县{"+regName+"}成功！");
@@ -80,7 +80,7 @@ public class RegionControl{
 	 * @return
 	 */
 	@RequestMapping(value="/openRegion",method=RequestMethod.POST)
-	public @ResponseBody BackEntity openRegion(String regId,String regName){
+	public BackEntity openRegion(String regId,String regName){
     	String res = sysRegionService.openRegion(regId);
     	if(res.equals(RESULT.SUCCESS_1)){
 			return BackEntity.ok("启用地市区县{"+regName+"}成功！");
@@ -95,7 +95,7 @@ public class RegionControl{
 	 * @return
 	 */
 	@RequestMapping(value="/insertRegion",method=RequestMethod.POST)
-	public @ResponseBody BackEntity insertRegion(HttpServletRequest request){
+	public BackEntity insertRegion(HttpServletRequest request){
 		SysRegion sysRegion = new SysRegion();
 		sysRegion.setRegId(T_ID_GEN.sys_id().replace("-", ""));
 		sysRegion.setRegCode(request.getParameter("regCode"));
@@ -117,7 +117,7 @@ public class RegionControl{
 	 * @return
 	 */
 	@RequestMapping(value="/getRegion",method=RequestMethod.GET)
-	public @ResponseBody BackEntity getRegionById(String regId){
+	public BackEntity getRegionById(String regId){
 		SysRegion region=sysRegionService.getRegionById(regId);
     	return BackEntity.ok("查询地市区县信息成功！", region);
 
@@ -129,7 +129,7 @@ public class RegionControl{
 	 * @return
 	 */
 	@RequestMapping(value="/updateRegion",method=RequestMethod.POST)
-	public @ResponseBody BackEntity updateRegion(HttpServletRequest request){
+	public BackEntity updateRegion(HttpServletRequest request){
 		SysRegion sysRegion = new SysRegion();
 		sysRegion.setRegId(request.getParameter("regId"));
 		sysRegion.setRegCode(request.getParameter("regCode"));
@@ -151,7 +151,7 @@ public class RegionControl{
 	 * @return
 	 */
 	@RequestMapping(value="/getSysRegionManage",method = RequestMethod.GET)
-	public @ResponseBody BackEntity getDepartmentManage(HttpServletRequest request){
+	public BackEntity getDepartmentManage(HttpServletRequest request){
 		List<Map<String,Object>> sysRegionTreeNodeList = sysRegionService.queryRegionByConditions();
 		return BackEntity.ok("查询地市区县关系成功！", sysRegionTreeNodeList);
 	}

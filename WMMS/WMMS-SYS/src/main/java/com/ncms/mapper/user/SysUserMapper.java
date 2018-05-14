@@ -1,8 +1,8 @@
 package com.ncms.mapper.user;
 
-import java.util.List;
 import java.util.Map;
 
+import com.github.pagehelper.Page;
 import com.ncms.comm.base.loginInfo.SysUserVO;
 import com.ncms.config.mybatis.MyMapper;
 import com.ncms.model.sys.user.SysUser;
@@ -18,7 +18,7 @@ public interface SysUserMapper extends MyMapper<SysUser> {
 	 * @author yuefy
 	 * @date 创建时间：2018年1月25日
 	 */
-	public List<SysUserVO> queryAllUser(Map<String, Object> map);
+	public Page<SysUserVO> queryAllUser(Map<String, Object> map);
 	
 	/**
 	 * @description 根据用户登录名查询用户

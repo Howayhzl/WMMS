@@ -1,6 +1,7 @@
 package com.ncms.controller.user;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,11 +23,15 @@ import com.github.pagehelper.Page;
 import com.ncms.comm.base.loginInfo.SysUserVO;
 import com.ncms.comm.http.BackEntity;
 import com.ncms.comm.http.RESULT;
+import com.ncms.comm.state.sys.SysStateEnum.UserStateEnum;
 import com.ncms.constant.PromptMessage;
 import com.ncms.model.menu.SysDataAuthMenuTreeVO;
+import com.ncms.model.sys.user.SysUser;
 import com.ncms.service.region.SysRegionService;
 import com.ncms.service.role.SysRoleuserService;
 import com.ncms.service.user.SysUserService;
+import com.ncms.utils.id.T_ID_GEN;
+import com.xiaoleilu.hutool.crypto.SecureUtil;
 import com.xiaoleilu.hutool.lang.Assert;
 import com.xiaoleilu.hutool.util.StrUtil;
 
@@ -182,8 +187,9 @@ public class UserController {
 	 * @date 创建时间：2018年1月26日
 	 */
 	@RequestMapping(value ="/user/update", method = RequestMethod.POST)
-	public BackEntity updateSysUser(SysUserVO sysUser) {
-		int result = userService.updateSysUserByUserId(sysUser);
+	public BackEntity updateSysUser(SysUser sysUser) {
+		sysUser.setUpdateTime(new Date());
+		int result = userService.update(sysUser);
 		if(result > 0){
 			return BackEntity.ok(PromptMessage.UPDATE_USER_SUCCESS);
 		}else{
@@ -197,24 +203,17 @@ public class UserController {
 	 * @date 创建时间：2018年1月26日
 	 */
 	@RequestMapping(value ="/user/insert", method = RequestMethod.POST)
-	public BackEntity insertSysUser(SysUserVO sysUser) {
-		int result = userService.insertSysUser(sysUser);
+	public BackEntity insertSysUser(SysUser sysUser) {
+		sysUser.setUserId(T_ID_GEN.sys_id());
+		sysUser.setUserState(UserStateEnum.CAN_USE);
+		sysUser.setUserPassword(SecureUtil.md5(UserStateEnum.U_PASS_WORD));
+		sysUser.setCreateTime(new Date());
+		int result = userService.insert(sysUser);
 		if(result > 0){
 			return BackEntity.ok(PromptMessage.ADD_USER_SUCCESS);
 		}else{
 			return BackEntity.error(PromptMessage.ADD_USER_FAILED);
 		}
-	}
-	
-    /**
-     * @description 查询 部门  归属地  专业
-     * @author yuefy
-     * @date 创建时间：2018年1月25日
-     */
-	@RequestMapping(value ="/parameter/query", method = RequestMethod.GET)
-	public BackEntity queryAllParam() {
-		Map<String,Object>	paramMap = userService.queryAllParam();
-		return BackEntity.ok(PromptMessage.SELECT_DEP_MAJOR_REG_SUCCESS,paramMap);
 	}
 	
 	 /**

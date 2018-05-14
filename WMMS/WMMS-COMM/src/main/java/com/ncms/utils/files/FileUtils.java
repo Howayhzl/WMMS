@@ -17,10 +17,10 @@ import java.net.URLEncoder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.ss.usermodel.Workbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.xiaoleilu.hutool.setting.dialect.Props;
 import com.xiaoleilu.hutool.util.StrUtil;
 public class FileUtils extends org.apache.commons.io.FileUtils {
 	
@@ -790,7 +790,7 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
 	 * @param response 响应对象
 	 * @return 返回错误信息，无错误信息返回null
 	 */
-	/*public static String downFile(Workbook workBook,String fileName, HttpServletRequest request, HttpServletResponse response){
+	public static String downFile(Workbook workBook,String fileName, HttpServletRequest request, HttpServletResponse response){
 		
 		response.reset();
 		OutputStream out =null;
@@ -823,9 +823,10 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
         }
 		return null;
 		
-	}*/
-	public static  Props props = new Props("properties/sysConfig.properties");
-	public static final String basePath = props.getProperty("UploadUrls");
+	}
+//	public static  Props props = new Props("properties/sysConfig.properties");
+//	public static final String basePath = props.getProperty("UploadUrls");
+	public static final String basePath = "D:/file";
 	/**
 	 * 文件下载
 	 * @param path 文件路径

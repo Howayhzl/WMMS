@@ -52,7 +52,7 @@ public class MenuController {
      * @date 创建时间：2018年1月9日
      */
     @RequestMapping(value = "/getMenuList",method = RequestMethod.GET)
-    public @ResponseBody BackEntity getMenuList(@RequestParam Map<String,String> params){
+    public BackEntity getMenuList(@RequestParam Map<String,String> params){
     	List<String> roleIds = ShiroUtils.getUserRoles();
     	if(roleIds==null){
 			throw new BizException(PromptMessage.USER_DOES_NOT_ASSOCIATE_ROLE);
@@ -79,7 +79,7 @@ public class MenuController {
      * @date 创建时间：2018年1月17日
      */
 	@RequestMapping(value = "/saveUserClickedMenuId", method = RequestMethod.POST)
-	public @ResponseBody String saveUserClickedMenuId(String menuId) {
+	public String saveUserClickedMenuId(String menuId) {
 		Subject subject = SecurityUtils.getSubject();
 		subject.getSession().setAttribute("oper_menu_id",menuId);
 		return "1";
@@ -91,7 +91,7 @@ public class MenuController {
 	 * @date 创建时间：2018年1月17日
 	 */
     @RequestMapping(value="/queryFunctionMenuTree", method = RequestMethod.GET)
-    public @ResponseBody BackEntity queryFunctionMenuTree(){
+    public BackEntity queryFunctionMenuTree(){
     	SysSystem sys = new SysSystem();
 		sys.setSysState(MenuStateEnum.CAN_USE);
 		List<SysSystem> sysSystemlist = systemService.findByEntity(sys);
@@ -109,7 +109,7 @@ public class MenuController {
      * @date 创建时间：2018年1月17日
      */
     @RequestMapping(value="/queryMenuByConditions", method = RequestMethod.GET)
-    public @ResponseBody  BackEntity queryMenuByConditions(@RequestParam("menuCode") String menuCode,
+    public BackEntity queryMenuByConditions(@RequestParam("menuCode") String menuCode,
     		@RequestParam("menuName") String menuName)  {
     	List<MenuTreeNodeVO> list = menuService.queryMenuByConditionsRedis(menuCode, menuName);
     	return BackEntity.ok(PromptMessage.SELECT_MENU_SUCCESS, list);
@@ -121,7 +121,7 @@ public class MenuController {
      * @date 创建时间：2018年1月17日
      */
     @RequestMapping(value="/deleteUseMenu", method = RequestMethod.POST)
-    public @ResponseBody BackEntity deleteUse(@RequestBody List<String> items) {
+    public BackEntity deleteUse(@RequestBody List<String> items) {
     	// 拼接查询条件
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("idsList", items);
@@ -140,7 +140,7 @@ public class MenuController {
      * @date 创建时间：2018年1月17日
      */
     @RequestMapping(value="/openUseMenu", method = RequestMethod.POST)
-    public @ResponseBody BackEntity openUseMenu(@RequestBody List<String> items) {
+    public BackEntity openUseMenu(@RequestBody List<String> items) {
     	// 拼接查询条件
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("idsList", items);
@@ -159,7 +159,7 @@ public class MenuController {
      * @date 创建时间：2018年1月17日
      */
     @RequestMapping(value="/stopUseMenu", method = RequestMethod.POST)
-    public @ResponseBody BackEntity stopUseMenu(@RequestBody List<String> items) {
+    public BackEntity stopUseMenu(@RequestBody List<String> items) {
     	// 拼接查询条件
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("idsList", items);
@@ -178,7 +178,7 @@ public class MenuController {
    	 * @return
    	 */
 	@RequestMapping(value = "/queryMenuitemByCode", method = RequestMethod.GET)
-	public @ResponseBody BackEntity queryMenuitemByCode(@RequestParam Map<String, Object> paramMap) {
+	public BackEntity queryMenuitemByCode(@RequestParam Map<String, Object> paramMap) {
 		MenuTreeNodeVO menu = menuService.queryMenuitemByCodeRedis(paramMap);
 		return BackEntity.ok(PromptMessage.SELECT_MENU_SUCCESS,menu);
 	}
@@ -189,7 +189,7 @@ public class MenuController {
 	 * @date 创建时间：2018年1月19日
 	 */
     @RequestMapping(value="/modifyMenuNode", method = RequestMethod.POST)
-    public @ResponseBody BackEntity modifyMenuNode(HttpServletRequest request)  {
+    public BackEntity modifyMenuNode(HttpServletRequest request)  {
     	SysMenu item = new SysMenu();
     	item.setSysId(request.getParameter("sysId"));
     	item.setMenuId(request.getParameter("menuId"));
@@ -216,7 +216,7 @@ public class MenuController {
      * @date 创建时间：2018年1月19日
      */
     @RequestMapping(value="/addNewMenuNode", method = RequestMethod.POST)
-    public @ResponseBody BackEntity addNewMenuNode(HttpServletRequest request)  {
+    public BackEntity addNewMenuNode(HttpServletRequest request)  {
     	SysMenu item = new SysMenu();
     	item.setMenuId(T_ID_GEN.sys_id().replace("-", ""));
     	item.setSysId(request.getParameter("sysId"));

@@ -62,14 +62,14 @@
      </where>
      order by sys_department.dep_order
    </select> 
-   <select id="queryDeptitemByCode" resultMap="BaseResultMap_All" parameterType="map" >
-   <!-- 通过code查询部门信息 -->
+   <select id="queryDeptitemById" resultMap="BaseResultMap_All" parameterType="map" >
+   <!-- 通过Id查询部门信息 -->
 	    select 
 	    	<include refid="Base_Column_List" />,dep2.dep_name as parent_Name,dep2.dep_code AS parent_Code
 	    from sys_department
 	    		LEFT JOIN sys_department dep2 on sys_department.pdep_id = dep2.dep_id
 	    where 
-	     	 sys_department.dep_code = #{deptCode,jdbcType=VARCHAR}
+	     	 sys_department.dep_id = #{depId,jdbcType=VARCHAR}
 	     and sys_department.dep_state = #{state,jdbcType=INTEGER}
    </select>
    <update id="modifyDepartStateBath" parameterType="Map">

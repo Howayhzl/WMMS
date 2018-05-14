@@ -11,7 +11,6 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.http.HttpStatus;
 
 import com.ncms.comm.exception.BizException;
 

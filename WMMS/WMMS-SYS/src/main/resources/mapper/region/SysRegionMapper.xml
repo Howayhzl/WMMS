@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ncms.mapper.region.SysRegionMapper">
+<mapper namespace="com.ncms.mapper.region.SysRegionVOMapper">
 	<resultMap id="BaseResultMap" type="com.ncms.model.sys.region.SysRegion">
 		<id column="reg_id" property="regId" jdbcType="VARCHAR"/>
 		<result column="reg_code" property="regCode" jdbcType="VARCHAR"/>
@@ -140,16 +140,6 @@
 	<select id="queryRegionId" parameterType="Map" resultType="java.lang.String">
 		<!-- 根据用户id查询所管理区县id -->
 		select reg_id from sys_userregion where user_id = #{userId,jdbcType=VARCHAR}
-	</select>
-	
-	<select id="selectSysRegionLikeRegId" parameterType="Map" resultMap="BaseResultMap">
-		<!-- 根据区县id前缀查询 所属省份id 及 code  yuefy -->
-		select
-		<include refid="Base_Column_List"></include>
-		from sys_region 
-		where
-		LOCATE(#{likeRegId,jdbcType=VARCHAR},reg_id) &gt; 0
-		and preg_id = ''
 	</select>
   
 </mapper>

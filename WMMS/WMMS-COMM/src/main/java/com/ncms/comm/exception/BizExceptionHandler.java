@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.ncms.comm.http.BackEntity;
@@ -27,7 +26,7 @@ public class BizExceptionHandler {
 	 * 自定义异常
 	 */
 	@ExceptionHandler(BizException.class)
-	public @ResponseBody BackEntity handleRRException(BizException e){
+	public BackEntity handleRRException(BizException e){
 		if(StrUtil.isNotBlank(e.getCode())){
 			return BackEntity.error(e.getCode(), e.getErr(), null);
 		}
@@ -40,24 +39,24 @@ public class BizExceptionHandler {
 	 * @return
 	 */
 	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-	public @ResponseBody BackEntity handleRequestMethodException(HttpRequestMethodNotSupportedException e){
+	public BackEntity handleRequestMethodException(HttpRequestMethodNotSupportedException e){
 		return BackEntity.error(e.getMessage());
 	}
 
 	@ExceptionHandler(DuplicateKeyException.class)
-	public @ResponseBody BackEntity handleDuplicateKeyException(DuplicateKeyException e){
+	public BackEntity handleDuplicateKeyException(DuplicateKeyException e){
 		logger.error(e.getMessage(), e);
 		return BackEntity.error(e.getMessage());
 	}
 
 	@ExceptionHandler(AuthorizationException.class)
-	public @ResponseBody BackEntity handleAuthorizationException(AuthorizationException e){
+	public BackEntity handleAuthorizationException(AuthorizationException e){
 		logger.error(e.getMessage(), e);
 		return BackEntity.error("无权限访问，请联系管理员授权");
 	}
 
 	@ExceptionHandler(Exception.class)
-	public @ResponseBody BackEntity handleException(Exception e){
+	public BackEntity handleException(Exception e){
 		logger.error(e.getMessage(), e);
 		return BackEntity.error(e.getMessage());
 	}

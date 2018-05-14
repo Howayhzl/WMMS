@@ -3,13 +3,10 @@ package com.ncms.mapper.role;
 import java.util.List;
 import java.util.Map;
 
-import com.ncms.config.mybatis.MyMapper;
-import com.ncms.model.sys.role.SysRole;
-
 /**
  * @date 2018-01-09 13:59:57
  */
-public interface SysRoleMapper extends MyMapper<SysRole> {
+public interface SysRoleVOMapper{
 
 	/**
 	 * 根据添加查询角色列表

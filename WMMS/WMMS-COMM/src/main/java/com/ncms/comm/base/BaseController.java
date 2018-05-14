@@ -9,6 +9,7 @@ import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.util.Map;
 
 public abstract class BaseController {
@@ -34,7 +35,8 @@ public abstract class BaseController {
     /**
      * 将request中的参数重新放到request中去
      */
-    protected void exposeRequestParameter() {
+    @SuppressWarnings("deprecation")
+	protected void exposeRequestParameter() {
         HttpServletRequest request = getRequest();
         Map<String, Object> params = WebUtils.getParametersStartingWith(request, "");
         // 将请求的参数保存到REQUEST中

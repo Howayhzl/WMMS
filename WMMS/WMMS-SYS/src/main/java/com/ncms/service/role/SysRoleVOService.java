@@ -10,7 +10,7 @@ import com.ncms.model.sys.role.SysRole;
 /**
  * @date 2018-01-09 14:17:19
  */
-public interface SysRoleService extends BaseService<SysRole>{
+public interface SysRoleVOService{
 
 	/**
 	 * 条件查询角色列表，根据传入条件

@@ -8,6 +8,8 @@ $(document).ready(function() {
  */
 function initialize(){
 	queryAllParam();
+	initRegionTree("regSearch");
+	$("#regId").val("");
 	if(operate_type==1){
 		$("#userLoginname").removeAttr("readonly");
 		$("#userLoginname").unbind();
@@ -99,6 +101,7 @@ function formSubmit(){
 		alertModel("请输入用户工号！");
 		return;
 	}
+	$("#regId").val($("#regId_"+"regSearch").val());
 	var data=$('#dataForm').serialize();
 	var submitData = decodeURIComponent(data,true);
     if(operate_type==1){
@@ -182,6 +185,8 @@ function findUserData(){
 						$("#regId").val(user.regId);
 						$("#depId").val(user.depId);
 						$("#majorId").val(user.majorId);
+						$("#regId").val(user.regId);
+						$("#regId_"+"regSearch").val(user.regId);
 					}
 				}
 			}
@@ -235,7 +240,7 @@ function queryAllParam() {
 				if(sysReguins!=null){
 					var str = "<option value=''>-请选择区域-</option>";
 					$.each(sysReguins, function (i, item){
-						if(item.pregId == null){
+						if(item.pregId == null || item.pregId == ''){
 							pid = item.regId;
 							str += "<option value='" +item.regId+"'>"+item.regName+ "</option>";
 							if(item.children != null){
@@ -261,7 +266,7 @@ function queryAllParam() {
 				if(sysDepartmentList!=null){
 					var str = "<option value=''>-请选择部门-</option>";
 					$.each(sysDepartmentList, function (i, item){
-						if(item.pdepId == null){
+						if(item.pdepId == null || item.pdepId == ''){
 							pid = item.depId;
 							str += "<option value='" +item.depId+"'>"+item.depName+ "</option>";
 							if(item.children != null){
@@ -287,7 +292,7 @@ function queryAllParam() {
 				if(sysMajorList!=null){
 					var str = "<option value=''>-请选择专业-</option>";
 					$.each(sysMajorList, function (i, item){
-						if(item.pmajorId == null){
+						if(item.pmajorId == null || item.pmajorId == ''){
 							pid = item.majorId;
 							str += "<option value='" +item.majorId+"'>"+item.majorName+ "</option>";
 							if(item.children != null){

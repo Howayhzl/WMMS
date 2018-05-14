@@ -13,7 +13,8 @@ import com.ncms.comm.http.RESULT;
 import com.ncms.comm.state.sys.SysStateEnum.DeptStateEnum;
 import com.ncms.comm.state.sys.SysStateEnum.RegStateEnum;
 import com.ncms.constant.StateComm;
-import com.ncms.mapper.region.SysRegionMapper;
+import com.ncms.mapper.region.SysRegionVOMapper;
+import com.ncms.mapper.sys.region.SysRegionMapper;
 import com.ncms.mapper.user.SysUserregionMapper;
 import com.ncms.model.menu.SysDataAuthMenuTreeVO;
 import com.ncms.model.region.SysProvinceTreeVO;
@@ -23,8 +24,11 @@ import com.ncms.model.sys.user.SysUserregion;
 import com.ncms.service.region.SysRegionService;
 
 @Service
-public class SysRegionServiceImpl extends AbstractService<SysRegion> implements SysRegionService{
+public class SysRegionServiceImpl implements SysRegionService{
 
+	@Autowired
+	private SysRegionVOMapper sysRegionVOMapper;
+	
 	@Autowired
 	private SysRegionMapper sysRegionMapper;
 	
@@ -37,12 +41,12 @@ public class SysRegionServiceImpl extends AbstractService<SysRegion> implements 
 		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("regCode",regCode);
 		map.put("regName",regName);
-		return sysRegionMapper.queryByConditions(map);
+		return sysRegionVOMapper.queryByConditions(map);
 	}
 
 	@Override
 	public List<Map<String,Object>> queryRegionByConditions() {
-		return sysRegionMapper.queryRegionByConditions();
+		return sysRegionVOMapper.queryRegionByConditions();
 	}
 
 	@Override
@@ -61,7 +65,7 @@ public class SysRegionServiceImpl extends AbstractService<SysRegion> implements 
 			map.put("idsList",SysRegionId);
 			map.put("state",DeptStateEnum.DROPED);
 			try {
-				sysRegionMapper.updateRegionState(map);
+				sysRegionVOMapper.updateRegionState(map);
 				return RESULT.SUCCESS_1;
 			} catch (Exception de) {
 				de.printStackTrace();
@@ -107,7 +111,7 @@ public class SysRegionServiceImpl extends AbstractService<SysRegion> implements 
 		map.put("state",RegStateEnum.STOP_USE);
 		map.put("idsList",list);
 		try {
-			sysRegionMapper.updateRegionState(map);
+			sysRegionVOMapper.updateRegionState(map);
 			return RESULT.SUCCESS_1;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -123,7 +127,7 @@ public class SysRegionServiceImpl extends AbstractService<SysRegion> implements 
 		int state = StateComm.STATE_0;
 		paraMap.put("regState", state);
 		//省一级对象
-		List<SysProvinceTreeVO> lspv = sysRegionMapper.queryOnePro(paraMap);
+		List<SysProvinceTreeVO> lspv = sysRegionVOMapper.queryOnePro(paraMap);
 		lssg = new ArrayList<SysDataAuthMenuTreeVO>();
 		//将省市区一级放入tree集合
 		for (int i = 0; i < lspv.size(); i++) {
@@ -146,7 +150,7 @@ public class SysRegionServiceImpl extends AbstractService<SysRegion> implements 
 		Map<String, Object> paraMap = new HashMap<>();
 		paraMap.put("state", state);
 		paraMap.put("userId", userId);
-		return sysRegionMapper.queryRegionId(paraMap);
+		return sysRegionVOMapper.queryRegionId(paraMap);
 	}
 	
 	/**
@@ -165,7 +169,7 @@ public class SysRegionServiceImpl extends AbstractService<SysRegion> implements 
 		}
 		paraMap.put("insertUserRegionList",insertUserRegionList);
 		try {
-			int result = sysRegionMapper.insertUserRegion(paraMap);
+			int result = sysRegionVOMapper.insertUserRegion(paraMap);
 			if(result > 0){
 				return RESULT.SUCCESS_1;
 			}else{
@@ -185,7 +189,7 @@ public class SysRegionServiceImpl extends AbstractService<SysRegion> implements 
 		map.put("state",RegStateEnum.CAN_USE);
 		map.put("idsList",list);
 		try {
-			sysRegionMapper.updateRegionState(map);
+			sysRegionVOMapper.updateRegionState(map);
 			return RESULT.SUCCESS_1;
 		} catch (Exception e) {
 			e.printStackTrace();

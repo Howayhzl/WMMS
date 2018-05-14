@@ -1,6 +1,5 @@
 package com.ncms.comm.http;
 
-import org.springframework.http.HttpStatus;
 
 
 /**

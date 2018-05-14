@@ -63,9 +63,3 @@ mapper:
     not-empty: false
     identity: MYSQL
 
-#pagehelper分页插件配置
-pagehelper:
-    helperDialect: mysql
-    pagehelper: reasonable=true
-    supportMethodsArguments: true
-    params: count=countSql

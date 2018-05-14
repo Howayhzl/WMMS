@@ -312,18 +312,6 @@ public class PromptMessage {
 	 */
 	public static String RESET_USERPWD_FAILED = "重置用户密码失败！";
 	
-
-	/**
-	 * 查询用户部门，用户专业，区域信息成功！
-	 */
-	public static String SELECT_DEP_MAJOR_REG_SUCCESS = "查询用户部门，用户专业，区域信息成功！";
-	
-	/**
-	 * 查询用户部门，用户专业，区域信息失败！
-	 */
-	public static String SELECT_DEP_MAJOR_REG_FAILED = "查询用户部门，用户专业，区域信息失败！";
-	
-	
 	/**
 	 * 缴费起始日期为空，不能生成或推送汇总单
 	 */
@@ -340,11 +328,19 @@ public class PromptMessage {
 	public static String NUMBERMONTH_NULL="缴费月数为空，不能生成或推送汇总单";
 	
 	/**
+	 * @Description: 用电度数为空，不能生成或推送汇总单
+	 */
+	public static String  TOTALCHARGE_NULL="用电度数为空，不能生成或推送汇总单";
+	
+	/**
 	 * @Description: 实际不含税金额为空，不能生成或推送汇总单
 	 */
 	public static String NOTAXAMOUNT_NULL="实际不含税金额为空，不能生成或推送汇总单";
 	
-	public static String TAXAMOUNT_NULL="实际含税金额为空，不能生成或推送汇总单";
+	/**
+	 * @Description: 实际税额为空，不能生成或推送汇总单
+	 */
+	public static String TAXAMOUNT_NULL="实际税额为空，不能生成或推送汇总单";
 	
 	/**
 	 * @Description: 税率为空，不能生成或推送汇总单
@@ -364,6 +360,10 @@ public class PromptMessage {
 	 * @Description: 合同类型为空，不能生成或推送汇总单
 	 */
 	public static String BILLAMOUNTCONTRACTTYEP_NULL="合同类型为空，不能生成或推送汇总单";
+	/**
+	 * @Description: 合同编码为空，不能生成或推送汇总单
+	 */
+	public static String BILLAMOUNTCONTRACTCODE_NULL="合同编码为空，不能生成或推送汇总单";
 	/**
 	 * @Description: 供应商编码为空，不能生成或推送汇总单
 	 */
@@ -412,17 +412,95 @@ public class PromptMessage {
 	 * 准备推送----2：
 	 */
 	public static String  READY_TO_PUSH2 = "准备推送----2：";
+	/**
+	 * ------------开始推送报账接口：
+	 */
 	public static String  START_PUSHING_THE_BILLING_INTERFACE = "------------开始推送报账接口：";
+	/**
+	 * ------------推送完成：
+	 */
 	public static String  PUSH_COMPLETION1 = "------------推送完成：";
+	/**
+	 * 推送完成:
+	 */
 	public static String  PUSH_COMPLETION2 = "推送完成:";
+	/**
+	 * 网络接口异常!请重试
+	 */
 	public static String  NETWORK_INTERFACE_EXCEPTION= "网络接口异常!请重试";
+	/**
+	 * N
+	 */
 	public static String SUCCESS_NO_STR = "N";
+	/**
+	 * Y
+	 */
 	public static String SUCCESS_YES_STR = "Y";
+	/**
+	 * 上报异常，接口返回数据为null！
+	 */
 	public static String ERR_REPORT_MSG = "上报异常，接口返回数据为null！";
+	/**
+	 * 30000
+	 */
 	public static String ERR_REPORT_CODE = "30000";
+	/**
+	 * 接口服务地址错误!
+	 */
 	public static String ERR_SERVICE_ADDRESS = "接口服务地址错误!";
+	/**
+	 * 上报地址错误!
+	 */
 	public static String ERR_REPORT_ADDRESS = "上报地址错误!";
+	/**
+	 * 上报对象不能为空!
+	 */
 	public static String ERR_REPORT_NULL_OBJECT = "上报对象不能为空!";
+	/**
+	 * 修改状态:
+	 */
 	public static String  UPDATE_STATE = "修改状态:";
+	/**
+	 * ZDHZD
+	 */
+	public static String  ZDHZD_SEQ_CODE = "ZDHZD";
+	/**
+	 * 电费汇总单编码自增序列
+	 */
+	public static String  ZDHZD_SEQ_NAME = "电费汇总单编码自增序列";
 	
+	
+	/**
+	 * @Description: ZZHZD
+	 */
+	public static String  ZZHZD_SEQ_CODE = "ZZHZD";
+	
+	/**
+	 * @Description: 租费汇总单编码自增序列
+	 */
+	public static String  ZZHZD_SEQ_NAME = "租费汇总单编码自增序列";
+	/**
+	 * @Description: 报账点层面判断出缴费重复提示信息优化
+	 */
+	public static String BILLACCOUNT_REPEAT_PAYMENTS ="不能重复缴费，该报账点已有";
+	/**
+	 * @Description: 重复提示信息优化
+	 */
+	public static String TO ="至";
+	/**
+	 * @Description: 重复提示信息优化
+	 */
+	public static String REPEAT_PAYMENTS ="的缴费记录";
+	/**
+	 * @Description: 报账点下的资源判断缴费重复提示信息优化
+	 */
+	public static String RESOURCE_REPEAT_PAYMENTS1 ="不能重复缴费，系统中【";
+	/**
+	 * @Description: 报账点下的资源判断缴费重复提示信息优化
+	 */
+	public static String RESOURCE_REPEAT_PAYMENTS2 ="】资源关联报账点：";
+	/**
+	 * @Description: 报账点下的资源判断缴费重复提示信息优化
+	 */
+	public static String RESOURCE_REPEAT_PAYMENTS3 ="时已有";
 }

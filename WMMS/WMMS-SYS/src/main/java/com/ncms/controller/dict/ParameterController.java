@@ -33,7 +33,7 @@ public class ParameterController{
 	 * @return
 	 */
 	@RequestMapping(value="/queryParameter", method = RequestMethod.GET)
-	public @ResponseBody BackEntity queryParameter(int cur_page_num,int page_count,
+	public BackEntity queryParameter(int cur_page_num,int page_count,
 			String paraCode,String paraValue,String paraNote){
 		SysParameter sysparameter = new SysParameter();
 		sysparameter.setParaCode(paraCode);
@@ -50,7 +50,7 @@ public class ParameterController{
 	 * @return
 	 */
 	@RequestMapping(value="/getParameter",method=RequestMethod.GET)
-	public @ResponseBody BackEntity getParameter(String paraId){
+	public BackEntity getParameter(String paraId){
 		SysParameter sysParameter = sysParameterService.getParameter(paraId);
 		return BackEntity.ok("查询成功", sysParameter);
 	}
@@ -61,7 +61,7 @@ public class ParameterController{
 	 * @return
 	 */
 	@RequestMapping(value="/updateParameter",method=RequestMethod.POST)
-	public @ResponseBody BackEntity updateParameter(HttpServletRequest request){
+	public BackEntity updateParameter(HttpServletRequest request){
 		SysParameter sysParameter = new SysParameter();
 		sysParameter.setParaId(request.getParameter("para_id"));
 		sysParameter.setParaCode(request.getParameter("para_code"));
@@ -83,7 +83,7 @@ public class ParameterController{
 	 * @return
 	 */
 	@RequestMapping(value="/insertParameter",method=RequestMethod.POST)
-	public @ResponseBody BackEntity insertParameter(HttpServletRequest request){
+	public BackEntity insertParameter(HttpServletRequest request){
 		SysParameter sysParameter = new SysParameter();
 		sysParameter.setParaId(T_ID_GEN.sys_id().replace("-", ""));
 		sysParameter.setParaCode(request.getParameter("para_code"));
@@ -105,7 +105,7 @@ public class ParameterController{
 	 * @return
 	 */
 	@RequestMapping(value = "openParameter",method=RequestMethod.POST)
-	public @ResponseBody BackEntity openParameter(String paraId,String paraCode){
+	public BackEntity openParameter(String paraId,String paraCode){
 		String res = sysParameterService.openParameter(paraId);
 		if(res.equals(RESULT.SUCCESS_1)){
 			return BackEntity.ok("启用系统参数{"+paraCode+"}成功！");
@@ -120,7 +120,7 @@ public class ParameterController{
 	 * @return
 	 */
 	@RequestMapping(value = "deleteParameter",method=RequestMethod.POST)
-	public @ResponseBody BackEntity deleteParameter(String paraId,String paraCode){
+	public BackEntity deleteParameter(String paraId,String paraCode){
 		String res = sysParameterService.deleteParameter(paraId);
 		if(res.equals(RESULT.SUCCESS_1)){
 			return BackEntity.ok("删除系统参数{"+paraCode+"}成功！");
@@ -135,7 +135,7 @@ public class ParameterController{
 	 * @return
 	 */
 	@RequestMapping(value = "stopParameter",method=RequestMethod.POST)
-	public @ResponseBody BackEntity stopParameter(String paraId,String paraCode){
+	public BackEntity stopParameter(String paraId,String paraCode){
 		String res = sysParameterService.stopParameter(paraId);
 		if(res.equals(RESULT.SUCCESS_1)){
 			return BackEntity.ok("停用系统参数{"+paraCode+"}成功！");
