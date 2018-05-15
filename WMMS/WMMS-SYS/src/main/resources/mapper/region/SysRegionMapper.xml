@@ -19,52 +19,49 @@
 		<result column="preg_id" property="pregId" jdbcType="VARCHAR"/>
 		<result column="reg_state" property="regState" jdbcType="INTEGER"/>
 		<result column="reg_order" property="regOrder" jdbcType="INTEGER"/>
+		<result column="preg_name" property="pregName" jdbcType="VARCHAR"/>
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		sys_region.reg_id,sys_region.reg_code,sys_region.reg_name,sys_region.reg_note,sys_region.preg_id,sys_region.reg_state,sys_region.reg_order
+		sys_region.reg_id,
+		sys_region.reg_code,
+		sys_region.reg_name,
+		sys_region.reg_note,
+		sys_region.preg_id,
+		sys_region.reg_state,
+		sys_region.reg_order
 	</sql>
 	
-	<select id="queryByConditions" parameterType="Map" resultType="map">
+	<select id="queryByConditions" parameterType="Map" resultMap="BaseResultMap_AllRegion">
 	SELECT
-		reg.reg_id as regId,
-		reg.reg_code as rCode,
-		reg.reg_name as rName,
-		reg.reg_note as regNote,
-		reg.preg_id as pRegId,
-		reg.reg_state as regState,
-		reg.reg_order as regOrder,
-		preg.reg_name AS pRegName
+		<include refid="Base_Column_List"></include>,
+		preg.reg_name as preg_name
 	FROM
-		sys_region reg
+		sys_region
 	LEFT JOIN sys_region preg
-	on reg.preg_id = preg.reg_id
+	on sys_region.preg_id = preg.reg_id
 	WHERE 
-		reg.reg_state &gt;= 0
+		sys_region.reg_state &gt;= 0
+		and preg.reg_state &gt;= 0
+		and sys_region.preg_id = #{pRegId}
   		<if test="regCode!='' and regCode!=null">
-  		and LOCATE(#{regCode,jdbcType=VARCHAR},reg.reg_code) &gt; 0
+  			and LOCATE(#{regCode},sys_region.reg_code) &gt; 0
   		</if>
   		<if test="regName!='' and regName!=null">
-  		and LOCATE(#{regName,jdbcType=VARCHAR},reg.reg_name) &gt; 0
+  			and LOCATE(#{regName},sys_region.reg_name) &gt; 0
   		</if>
   </select>
 	
-	<select id="queryRegionByConditions" parameterType="map" resultType="map">
+	<select id="queryRegionByConditions" parameterType="map" resultMap="BaseResultMap_AllRegion">
 	SELECT
-		reg.reg_id as regId,
-		reg.reg_code as rCode,
-		reg.reg_name as rName,
-		reg.reg_order as regOrder,
-		reg.reg_note as regNote,
-		reg.reg_state as regState,
-		reg.preg_id as pRegId,
-		preg.reg_name AS pRegName
+		<include refid="Base_Column_List"></include>,
+		preg.reg_name as preg_name
 	FROM
-	sys_region reg 
+	sys_region
 	LEFT JOIN sys_region preg
-	on reg.preg_id = preg.reg_id
+	on sys_region.preg_id = preg.reg_id
 	WHERE 
-	reg.reg_state &gt;= 0
+	sys_region.reg_state &gt;= 0
   </select>
   
 	

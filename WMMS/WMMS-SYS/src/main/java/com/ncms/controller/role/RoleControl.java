@@ -5,21 +5,26 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.Page;
 import com.ncms.comm.http.BackEntity;
 import com.ncms.comm.http.RESULT;
+import com.ncms.model.sys.dict.SysParameter;
 import com.ncms.model.sys.role.SysRole;
 import com.ncms.service.role.SysRoleVOService;
 import com.ncms.service.role.SysRolemenuService;
 import com.ncms.service.role.SysRoleuserService;
 import com.ncms.utils.id.T_ID_GEN;
+import com.xiaoleilu.hutool.util.RandomUtil;
 @RestController
 /**
  * 角色controller

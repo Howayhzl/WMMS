@@ -48,12 +48,8 @@ var nodes;
 		});
  }
  function queryTree(){
-	 var prvId = $("#userProvince option:selected").val();
 	 myajax.path({  
-			url : sysContext+'region/query/'+prvId,
-			/*data : {
-				prvId : prvId
-			},*/
+			url : sysContext+'region/query',
 			type : 'get',
 			cache : false,
 			dataType : 'json',

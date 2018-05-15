@@ -56,7 +56,7 @@ function findUsers() {
 				depId : $("#depId").val(),
 				userState : $("#userState").val(),
 				majorId : $("#majorId").val(),
-				regId : $("#regId_"+"regSearch").val()
+				regIds: $("#regIds_regSearch").val(),
 			};
 			return param;
 		},

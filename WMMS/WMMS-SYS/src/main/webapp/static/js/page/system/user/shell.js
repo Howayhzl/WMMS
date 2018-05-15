@@ -64,7 +64,7 @@ function findName(){
 				if (back != null) {
 	 				if(back.success=="1"){
 	 					var data = back.Obj;
-	 					if(data != null && data.size > 0){
+	 					if(data != null && data.length > 0){
 	 						$("#userLoginname").next("#err").html("<img src=\"../../../image/error.png\"/>此用户名已存在!");
 	 						$("#userLoginname").next("#err").css({"color":"red"});
 	 						flag = true;
@@ -98,10 +98,9 @@ function formSubmit(){
 		return;
 	}
 	if($("#userCode").val() == ""){
-		alertModel("请输入用户工号！");
+		alertModel("请输入用户代码！");
 		return;
 	}
-	$("#regId").val($("#regId_"+"regSearch").val());
 	var data=$('#dataForm').serialize();
 	var submitData = decodeURIComponent(data,true);
     if(operate_type==1){

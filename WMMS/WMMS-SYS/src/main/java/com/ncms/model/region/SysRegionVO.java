@@ -11,6 +11,10 @@ import javax.persistence.Id;
  */
 public class SysRegionVO implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 789962511122784289L;
 	/** 区域编码 */
 	@Id
 	private	String	regId;
@@ -22,6 +26,8 @@ public class SysRegionVO implements Serializable {
 	private	String	regNote;
 	/** 上级区域编码 */
 	private	String	pregId;
+	/** 上级区域名称 */
+	private String pregName;
 	/** 区域状态（0：正常   9：停用） */
 	private	Integer	regState;
 	/** 区域序号 */
@@ -89,5 +95,11 @@ public class SysRegionVO implements Serializable {
 		this.pregId = pregId;
 		this.regState = regState;
 		this.regOrder = regOrder;
+	}
+	public String getPregName() {
+		return pregName;
+	}
+	public void setPregName(String pregName) {
+		this.pregName = pregName;
 	}
 }

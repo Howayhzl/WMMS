@@ -26,7 +26,7 @@ public interface SysParameterService extends BaseService<SysParameter>{
 	 * @param pageSize
 	 * @return
 	 */
-	public Page<SysParameter> queryParameter(SysParameter sysparameter,int pageNumber,int pageSize);
+	public Page<SysParameter> queryParameter(String paraCode,String paraValue,String paraNote,int pageNumber,int pageSize);
 	
 	/**
 	 * 根据参数Id获取一个参数对象

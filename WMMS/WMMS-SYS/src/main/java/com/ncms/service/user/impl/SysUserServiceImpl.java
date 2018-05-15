@@ -1,6 +1,7 @@
 package com.ncms.service.user.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,6 @@ import com.ncms.comm.state.sys.SysStateEnum.RegStateEnum;
 import com.ncms.comm.state.sys.SysStateEnum.UserStateEnum;
 import com.ncms.constant.Constants;
 import com.ncms.constant.PromptMessage;
-import com.ncms.constant.StateComm;
 import com.ncms.mapper.dept.SysDepartmentMapper;
 import com.ncms.mapper.region.SysRegionVOMapper;
 import com.ncms.mapper.role.SysRoleuserVOMapper;
@@ -47,7 +47,6 @@ import com.ncms.service.SysSystemService;
 import com.ncms.service.user.SysUserService;
 import com.ncms.utils.ShiroUtils;
 import com.ncms.utils.http.IPUtils;
-import com.ncms.utils.id.T_ID_GEN;
 import com.xiaoleilu.hutool.crypto.SecureUtil;
 import com.xiaoleilu.hutool.util.StrUtil;
 
@@ -158,6 +157,18 @@ public class SysUserServiceImpl extends AbstractService<SysUser> implements SysU
 	@Override
 //	@RedisCache
 	public Page<SysUserVO> queryAllUser(Map<String, Object> map,int cur_page_num,int page_count) {
+		List<String> regList = new ArrayList<String>();
+		String regIds = "";
+		if(map.get("regIds") != null){
+			regIds = (String)map.get("regIds");
+		}
+		if (StrUtil.isBlank(regIds)) {
+			regList = ShiroUtils.getUserRegions();
+		}else{
+			String str[] = regIds.split(",");
+			regList = Arrays.asList(str);
+		}
+		map.put("regIds", regList);
 		PageHelper.startPage(cur_page_num, page_count);
 		Page<SysUserVO> page = sysUserMapper.queryAllUser(map);
 		return page;
@@ -226,30 +237,6 @@ public class SysUserServiceImpl extends AbstractService<SysUser> implements SysU
 	 */
 	public List<SysUserVO> findUserById(Map<String, Object> paramMap){
 		return sysUserMapper.queryAllUser(paramMap);
-	}
-	
-	/**
-	 * @description 根据id修改用户
-	 * @author yuefy
-	 * @date 创建时间：2018年1月25日
-	 */
-	@Override
-	public int updateSysUserByUserId(SysUserVO SysUserVO) {
-		// 拼接查询条件
-		return sysUserMapper.updateSysUserByUserId(SysUserVO);
-	}
-	
-	/**
-	 * @description 新增用户
-	 * @author yuefy
-	 * @date 创建时间：2018年1月25日
-	 */
-	@Override
-	public int insertSysUser(SysUserVO sysUserVO) {
-		sysUserVO.setUserId(T_ID_GEN.sys_id().replace("-", ""));
-		sysUserVO.setUserState(StateComm.STATE_0);
-		sysUserVO.setUserPassword(SecureUtil.md5(UserStateEnum.U_PASS_WORD));
-		return sysUserMapper.insertSysUser(sysUserVO);
 	}
 	
 	/**

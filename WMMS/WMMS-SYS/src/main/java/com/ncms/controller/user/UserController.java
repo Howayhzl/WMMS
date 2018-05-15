@@ -216,15 +216,15 @@ public class UserController {
 		}
 	}
 	
-	 /**
-     * 根据省份id查询区县信息树
-     * @param prvId
-     * @return
+    /**
+     * @description 查询 部门  归属地  专业
+     * @author yuefy
+     * @date 创建时间：2018年1月25日
      */
-	@RequestMapping(value="/region/query/{prvId}", method = RequestMethod.GET)
-	public BackEntity queryOnePro(@PathVariable("prvId") String prvId){
-		List<SysDataAuthMenuTreeVO> lsmt = sysRegionService.queryOneProRedis();
-		return BackEntity.ok("查询区县信息成功",lsmt);
+	@RequestMapping(value ="/parameter/query", method = RequestMethod.GET)
+	public BackEntity queryAllParam() {
+		Map<String,Object>	paramMap = userService.queryAllParam();
+		return BackEntity.ok(PromptMessage.SELECT_DEP_MAJOR_REG_SUCCESS,paramMap);
 	}
 	
 	/**

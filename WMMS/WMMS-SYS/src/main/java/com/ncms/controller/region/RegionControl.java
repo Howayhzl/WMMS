@@ -1,11 +1,13 @@
 package com.ncms.controller.region;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.github.pagehelper.Page;
 import com.ncms.comm.http.BackEntity;
 import com.ncms.comm.http.RESULT;
+import com.ncms.model.menu.SysDataAuthMenuTreeVO;
+import com.ncms.model.region.SysRegionVO;
 import com.ncms.model.sys.region.SysRegion;
 import com.ncms.service.region.SysRegionService;
 import com.ncms.utils.id.T_ID_GEN;
@@ -25,6 +30,17 @@ public class RegionControl{
 	@Autowired
 	private SysRegionService sysRegionService;
 	
+	 /**
+     * 根据省份id查询区县信息树
+     * @param prvId
+     * @return
+     */
+	@RequestMapping(value="/region/query", method = RequestMethod.GET)
+	public BackEntity queryOnePro(){
+		List<SysDataAuthMenuTreeVO> lsmt = sysRegionService.queryOneProRedis();
+		return BackEntity.ok("查询区县信息成功",lsmt);
+	}
+	
 	/**
 	 * 条件查询
 	 * @param request
@@ -34,10 +50,11 @@ public class RegionControl{
 	 * @param page_count
 	 * @return
 	 */
-	@RequestMapping(value="/queryByConditions",method=RequestMethod.GET)
-	public BackEntity queryByConditions(HttpServletRequest request,@RequestParam("regCode") String regCode,@RequestParam("regName") String regName){
-		List<Map<String,Object>> sysRegionList = sysRegionService.selectByConditions(regCode, regName);
-		return BackEntity.ok("查询地市区县信息成功！", sysRegionList);
+	@RequestMapping(value="/region/list",method=RequestMethod.POST)
+	public BackEntity queryByConditions(String regCode,String regName,String pRegId,
+			int pageNum,int pageSize){
+		Page<SysRegionVO> sysRegionList = sysRegionService.queryRegionList(regCode, regName, pRegId, pageNum, pageSize);
+		return BackEntity.ok("查询地市区县信息成功！", sysRegionList.toPageInfo());
 	}
 	/**
 	 * 删除区县信息
@@ -45,15 +62,11 @@ public class RegionControl{
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping(value="/delRegion",method=RequestMethod.POST)
-	public BackEntity delRegion(@RequestBody List<String> items){
-    	String res = sysRegionService.delRegion(items);
+	@RequestMapping(value="/region/delete",method=RequestMethod.POST)
+	public BackEntity delRegion(String regIds){
+    	String res = sysRegionService.delRegion(regIds);
     	if(res.equals(RESULT.SUCCESS_1)){
-    		if(items.size()>1){
-    			return BackEntity.ok("批量删除地市区县信息成功！");
-    		}else{
-    			return BackEntity.ok("删除地市区县信息失败！");
-    		}
+    		return BackEntity.ok("批量删除地市区县信息成功！");
 		}else{
 			return BackEntity.error("删除地市区县信息失败！");
 		}
@@ -64,13 +77,13 @@ public class RegionControl{
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping(value="/stopRegion",method=RequestMethod.POST)
-	public BackEntity stopRegion(String regId,String regName){
-    	String res = sysRegionService.stopRegion(regId);
+	@RequestMapping(value="/region/stop",method=RequestMethod.POST)
+	public BackEntity stopRegion(String regIds){
+    	String res = sysRegionService.stopRegion(regIds);
     	if(res.equals(RESULT.SUCCESS_1)){
-			return BackEntity.ok("停用地市区县{"+regName+"}成功！");
+			return BackEntity.ok("停用地市区县成功！");
 		}else{
-			return BackEntity.error("停用地市区县{"+regName+"}失败！");
+			return BackEntity.error("停用地市区县失败！");
 		}
 	}
 	/**
@@ -79,13 +92,13 @@ public class RegionControl{
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping(value="/openRegion",method=RequestMethod.POST)
-	public BackEntity openRegion(String regId,String regName){
-    	String res = sysRegionService.openRegion(regId);
+	@RequestMapping(value="/region/open",method=RequestMethod.POST)
+	public BackEntity openRegion(String regIds){
+    	String res = sysRegionService.openRegion(regIds);
     	if(res.equals(RESULT.SUCCESS_1)){
-			return BackEntity.ok("启用地市区县{"+regName+"}成功！");
+			return BackEntity.ok("启用地市区县成功！");
 		}else{
-			return BackEntity.error("启用地市区县{"+regName+"}失败！");
+			return BackEntity.error("启用地市区县失败！");
 		}
 	}
 	/**
@@ -94,15 +107,15 @@ public class RegionControl{
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping(value="/insertRegion",method=RequestMethod.POST)
-	public BackEntity insertRegion(HttpServletRequest request){
+	@RequestMapping(value="/region/insert",method=RequestMethod.POST)
+	public BackEntity insertRegion(String pregId,String regCode,String regName,String regOrder,String regNote){
 		SysRegion sysRegion = new SysRegion();
 		sysRegion.setRegId(T_ID_GEN.sys_id().replace("-", ""));
-		sysRegion.setRegCode(request.getParameter("regCode"));
-		sysRegion.setRegName(request.getParameter("regName"));
-		sysRegion.setRegNote(request.getParameter("regNote"));
-		sysRegion.setPregId(request.getParameter("pregId"));
-		sysRegion.setRegOrder(Integer.parseInt(request.getParameter("regOrder")));
+		sysRegion.setRegCode(regCode);
+		sysRegion.setRegName(regName);
+		sysRegion.setRegNote(regNote);
+		sysRegion.setPregId(pregId);
+		sysRegion.setRegOrder(Integer.parseInt(regOrder));
 		sysRegion.setRegState(0);
 		String res = sysRegionService.insertRegion(sysRegion);
 		if(res.equals(RESULT.SUCCESS_1)){
@@ -116,8 +129,8 @@ public class RegionControl{
 	 * @param regId
 	 * @return
 	 */
-	@RequestMapping(value="/getRegion",method=RequestMethod.GET)
-	public BackEntity getRegionById(String regId){
+	@RequestMapping(value="/region/one/{regId}",method=RequestMethod.GET)
+	public BackEntity getRegionById(@PathVariable("regId")String regId){
 		SysRegion region=sysRegionService.getRegionById(regId);
     	return BackEntity.ok("查询地市区县信息成功！", region);
 
@@ -128,14 +141,14 @@ public class RegionControl{
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping(value="/updateRegion",method=RequestMethod.POST)
-	public BackEntity updateRegion(HttpServletRequest request){
+	@RequestMapping(value="/region/update",method=RequestMethod.POST)
+	public BackEntity updateRegion(String regId,String regCode,String regName,String regOrder,String regNote){
 		SysRegion sysRegion = new SysRegion();
-		sysRegion.setRegId(request.getParameter("regId"));
-		sysRegion.setRegCode(request.getParameter("regCode"));
-		sysRegion.setRegName(request.getParameter("regName"));
-		sysRegion.setRegNote(request.getParameter("regNote"));
-		sysRegion.setRegOrder(Integer.parseInt(request.getParameter("regOrder")));
+		sysRegion.setRegId(regId);
+		sysRegion.setRegCode(regCode);
+		sysRegion.setRegName(regName);
+		sysRegion.setRegNote(regNote);
+		sysRegion.setRegOrder(Integer.parseInt(regOrder));
     	String res = sysRegionService.updateRegion(sysRegion);
     	if(res.equals(RESULT.SUCCESS_1)){
 			return BackEntity.ok("修改{"+sysRegion.getRegName()+"}成功！");
@@ -152,7 +165,7 @@ public class RegionControl{
 	 */
 	@RequestMapping(value="/getSysRegionManage",method = RequestMethod.GET)
 	public BackEntity getDepartmentManage(HttpServletRequest request){
-		List<Map<String,Object>> sysRegionTreeNodeList = sysRegionService.queryRegionByConditions();
+		List<SysRegionVO> sysRegionTreeNodeList = sysRegionService.queryRegionByConditions();
 		return BackEntity.ok("查询地市区县关系成功！", sysRegionTreeNodeList);
 	}
 	

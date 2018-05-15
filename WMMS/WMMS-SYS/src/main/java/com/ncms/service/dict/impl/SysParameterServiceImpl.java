@@ -1,17 +1,19 @@
 package com.ncms.service.dict.impl;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import tk.mybatis.mapper.entity.Example;
+import tk.mybatis.mapper.entity.Example.Criteria;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.ncms.comm.base.AbstractService;
 import com.ncms.comm.http.RESULT;
 import com.ncms.comm.state.sys.SysStateEnum.ParameterStateEnum;
-import com.ncms.mapper.dict.SysParameterMapper;
+import com.ncms.mapper.sys.dict.SysParameterMapper;
 import com.ncms.model.sys.dict.SysParameter;
 import com.ncms.service.dict.SysParameterService;
 
@@ -25,7 +27,7 @@ public class SysParameterServiceImpl extends AbstractService<SysParameter> imple
 	@Override
 	public String updateParameter(SysParameter sysParameter) {
 		try {
-			sysParameterMapper.updateByPrimaryKey(sysParameter);
+			sysParameterMapper.updateByPrimaryKeySelective(sysParameter);
 			return RESULT.SUCCESS_1;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -34,9 +36,21 @@ public class SysParameterServiceImpl extends AbstractService<SysParameter> imple
 	}
 
 	@Override
-	public Page<SysParameter> queryParameter(SysParameter sysparameter,int pageNumber, int pageSize) {
+
+	public Page<SysParameter> queryParameter(String paraCode,String paraValue,String paraNote,int pageNumber, int pageSize) {
+		Example example = new Example(SysParameter.class);
+		Criteria criteria = example.createCriteria();
+		if(paraCode != null && !"".equals(paraCode)){
+			criteria.andLike("paraCode", paraCode);
+		}
+		if(paraValue != null && !"".equals(paraValue)){
+			criteria.andLike("paraValue", paraValue);
+		}
+		if(paraNote != null && !"".equals(paraNote)){
+			criteria.andLike("paraNote", paraNote);
+		}
 		Page<SysParameter> page = PageHelper.startPage(pageNumber, pageSize);
-		sysParameterMapper.queryParameter(sysparameter); 
+		sysParameterMapper.selectByExample(example);
 		return page;
 	}
 
@@ -49,11 +63,11 @@ public class SysParameterServiceImpl extends AbstractService<SysParameter> imple
 
 	@Override
 	public String openParameter(String paraId) {
-		Map<String,Object> map = new HashMap<String, Object>();
-		map.put("state",ParameterStateEnum.CAN_USE);
-		map.put("paraId",paraId);
+		SysParameter sysParameter = new SysParameter();
+		sysParameter.setParaId(paraId);
+		sysParameter.setParaState(ParameterStateEnum.CAN_USE);
 		try {
-			sysParameterMapper.updateParameterState(map);
+			sysParameterMapper.updateByPrimaryKeySelective(sysParameter);
 			return RESULT.SUCCESS_1;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -63,11 +77,11 @@ public class SysParameterServiceImpl extends AbstractService<SysParameter> imple
 
 	@Override
 	public String stopParameter(String paraId) {
-		Map<String,Object> map = new HashMap<String, Object>();
-		map.put("state",ParameterStateEnum.STOP_USE);
-		map.put("paraId",paraId);
+		SysParameter sysParameter = new SysParameter();
+		sysParameter.setParaId(paraId);
+		sysParameter.setParaState(ParameterStateEnum.STOP_USE);
 		try {
-			sysParameterMapper.updateParameterState(map);
+			sysParameterMapper.updateByPrimaryKeySelective(sysParameter);
 			return RESULT.SUCCESS_1;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -82,11 +96,11 @@ public class SysParameterServiceImpl extends AbstractService<SysParameter> imple
 			return RESULT.SUCCESS_1;
 		} catch (Exception e) {
 			e.printStackTrace();
-			Map<String,Object> map = new HashMap<String, Object>();
-			map.put("state",ParameterStateEnum.DROPED);
-			map.put("paraId",paraId);
+			SysParameter sysParameter = new SysParameter();
+			sysParameter.setParaId(paraId);
+			sysParameter.setParaState(ParameterStateEnum.DROPED);
 			try {
-				sysParameterMapper.updateParameterState(map);
+				sysParameterMapper.updateByPrimaryKeySelective(sysParameter);	
 				return RESULT.SUCCESS_1;
 			} catch (Exception de) {
 				de.printStackTrace();

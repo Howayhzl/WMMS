@@ -8,7 +8,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ncms.comm.base.AbstractService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.ncms.comm.http.RESULT;
 import com.ncms.comm.state.sys.SysStateEnum.DeptStateEnum;
 import com.ncms.comm.state.sys.SysStateEnum.RegStateEnum;
@@ -18,6 +19,7 @@ import com.ncms.mapper.sys.region.SysRegionMapper;
 import com.ncms.mapper.user.SysUserregionMapper;
 import com.ncms.model.menu.SysDataAuthMenuTreeVO;
 import com.ncms.model.region.SysProvinceTreeVO;
+import com.ncms.model.region.SysRegionVO;
 import com.ncms.model.region.UserRegionVO;
 import com.ncms.model.sys.region.SysRegion;
 import com.ncms.model.sys.user.SysUserregion;
@@ -36,33 +38,38 @@ public class SysRegionServiceImpl implements SysRegionService{
 	private SysUserregionMapper sysUserregionMapper;
 
 	@Override
-	public List<Map<String,Object>> selectByConditions(String regCode,
-			String regName) {
+	public Page<SysRegionVO> queryRegionList(String regCode,
+			String regName,String pRegId,int pageNum,int pageSize) {
 		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("regCode",regCode);
 		map.put("regName",regName);
-		return sysRegionVOMapper.queryByConditions(map);
+		map.put("pRegId",pRegId);
+		Page<SysRegionVO> page = PageHelper.startPage(pageNum, pageSize);
+		sysRegionVOMapper.queryByConditions(map);
+		return page;
 	}
 
 	@Override
-	public List<Map<String,Object>> queryRegionByConditions() {
+
+	public List<SysRegionVO> queryRegionByConditions() {
 		return sysRegionVOMapper.queryRegionByConditions();
 	}
 
 	@Override
-	public String delRegion(List<String> SysRegionId) {
-		String ids = "'";
-		for (String a : SysRegionId) {
-			ids += a+"','";
-		}
-		ids=ids.substring(0,ids.length()-2);
+
+	public String delRegion(String ids) {
 		try {
 			sysRegionMapper.deleteByIds(ids);
 			return RESULT.SUCCESS_1;
 		} catch (Exception e) {
 			e.printStackTrace();
+			String[] id = ids.split(",");
+			List<String> items = new ArrayList<String>();
+			for (String a : id) {
+				items.add(a);
+			}
 			Map<String,Object> map = new HashMap<String,Object>();
-			map.put("idsList",SysRegionId);
+			map.put("idsList",items);
 			map.put("state",DeptStateEnum.DROPED);
 			try {
 				sysRegionVOMapper.updateRegionState(map);
@@ -88,7 +95,7 @@ public class SysRegionServiceImpl implements SysRegionService{
 	@Override
 	public String updateRegion(SysRegion sysRegion) {
 		try {
-			sysRegionMapper.updateByPrimaryKey(sysRegion);
+			sysRegionMapper.updateByPrimaryKeySelective(sysRegion);
 			return RESULT.SUCCESS_1;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -104,12 +111,16 @@ public class SysRegionServiceImpl implements SysRegionService{
 	}
 
 	@Override
-	public String stopRegion(String regId) {
-		List<String> list = new ArrayList<String>();
-		list.add(regId);
+
+	public String stopRegion(String regIds) {
+		String[] ids = regIds.split(",");
+		List<String> items = new ArrayList<String>();
+		for (String a : ids) {
+			items.add(a);
+		}
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("state",RegStateEnum.STOP_USE);
-		map.put("idsList",list);
+		map.put("idsList",items);
 		try {
 			sysRegionVOMapper.updateRegionState(map);
 			return RESULT.SUCCESS_1;
@@ -134,8 +145,7 @@ public class SysRegionServiceImpl implements SysRegionService{
 			SysDataAuthMenuTreeVO tree = new SysDataAuthMenuTreeVO();
 			tree.setId(lspv.get(i).getId());
 			tree.setPid(lspv.get(i).getPid());
-			tree.setName("-" + lspv.get(i).getCode() + "-"
-					+ lspv.get(i).getName());
+			tree.setName("-"+lspv.get(i).getName());
 			lssg.add(tree);
 		}
 		return lssg;
@@ -182,12 +192,16 @@ public class SysRegionServiceImpl implements SysRegionService{
 	}
 
 	@Override
-	public String openRegion(String regId) {
-		List<String> list = new ArrayList<String>();
-		list.add(regId);
+
+	public String openRegion(String regIds) {
+		String[] ids = regIds.split(",");
+		List<String> items = new ArrayList<String>();
+		for (String a : ids) {
+			items.add(a);
+		}
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("state",RegStateEnum.CAN_USE);
-		map.put("idsList",list);
+		map.put("idsList",items);
 		try {
 			sysRegionVOMapper.updateRegionState(map);
 			return RESULT.SUCCESS_1;

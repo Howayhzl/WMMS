@@ -213,9 +213,10 @@ function initRegionTree(regSearch){
 function getNodeIdArr(node){
 	debugger;
     var ts = [];
+    ts.push(node.id);
     if(node.nodes){
         for(x in node.nodes){
-            ts.push(node.nodes[x].id)
+            ts.push(node.nodes[x].id);
             if(node.nodes[x].nodes){
             var getNodeDieDai = getNodeIdArr(node.nodes[x]);
                 for(j in getNodeDieDai){
@@ -223,9 +224,7 @@ function getNodeIdArr(node){
                 }
             }
         }
-    }else{
-        ts.push(node.id);
-   }
+    }
    return ts;
 }
 

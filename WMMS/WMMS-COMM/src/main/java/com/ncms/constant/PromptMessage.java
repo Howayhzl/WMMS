@@ -312,6 +312,18 @@ public class PromptMessage {
 	 */
 	public static String RESET_USERPWD_FAILED = "重置用户密码失败！";
 	
+
+	/**
+	 * 查询用户部门，用户专业，区域信息成功！
+	 */
+	public static String SELECT_DEP_MAJOR_REG_SUCCESS = "查询用户部门，用户专业，区域信息成功！";
+	
+	/**
+	 * 查询用户部门，用户专业，区域信息失败！
+	 */
+	public static String SELECT_DEP_MAJOR_REG_FAILED = "查询用户部门，用户专业，区域信息失败！";
+	
+	
 	/**
 	 * 缴费起始日期为空，不能生成或推送汇总单
 	 */
@@ -503,4 +515,17 @@ public class PromptMessage {
 	 * @Description: 报账点下的资源判断缴费重复提示信息优化
 	 */
 	public static String RESOURCE_REPEAT_PAYMENTS3 ="时已有";
+	
+	/**
+	 * @Description: 租费合同预警信息
+	 */
+	public static String RENT_WARNING_XLS = "租费合同预警信息.xls";
+	/**
+	 * 电费缴费提醒天数(ELEC_ALERT_DAYS)
+	 */
+	public static String ELEC_ALERT_DAYS="ELEC_ALERT_DAYS";
+	/**
+	 * 合同到期预警提前天数(CONT_ALERT_DAYS)
+	 */
+	public static String CONT_ALERT_DAYS="CONT_ALERT_DAYS";
 }

@@ -69,20 +69,6 @@ public interface SysUserService extends BaseService<SysUser>{
 	public List<SysUserVO> findUserById(Map<String, Object> paramMap);
 	
 	/**
-	 * @description 根据id修改用户
-	 * @author yuefy
-	 * @date 创建时间：2018年1月26日
-	 */
-	public int updateSysUserByUserId(SysUserVO sysUser);
-	
-	/**
-	 * @description 新增用户
-	 * @author yuefy
-	 * @date 创建时间：2018年1月26日
-	 */
-	public int insertSysUser(SysUserVO sysUser);
-	
-	/**
 	 * @description 查询用户 部门 区域 专业
 	 * @author yuefy
 	 * @date 创建时间：2018年1月26日

@@ -41,11 +41,17 @@ public class SysStateEnum {
 		 * 部门状态已删除 DEPT_STATE__1  已删除
 		 */
 		public static Integer DROPED = -1;
+		
+		/**
+		 * @Description: 房租缴费提醒天数
+		 */
+		public static String RENT_ALERT_DAYS="RENT_ALERT_DAYS";
 
 		private ParameterStateEnum(){
 			super.putEnum(CAN_USE, "可用");
 			super.putEnum(STOP_USE, "停用");
 			super.putEnum(DROPED, "已删除");
+			super.putEnum(RENT_ALERT_DAYS, "RENT_ALERT_DAYS");
 		}
 	}
 	/**

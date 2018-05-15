@@ -65,12 +65,12 @@ public class LogAspect {
 
     @AfterThrowing(pointcut = "serviceAspect()", throwing = "e")
     public void doAfterThrowing(JoinPoint joinPoint, Exception e) {
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = attributes.getRequest();
-
-        LOGGER.info("ERROR_CODE : " + e.getClass().getName());
-        LOGGER.info("ERROR_MSG : " + (joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()"));
-        LOGGER.info("REQ_IP : " + request.getRemoteAddr());
+//        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+//        HttpServletRequest request = attributes.getRequest();
+//
+//        LOGGER.info("ERROR_CODE : " + e.getClass().getName());
+//        LOGGER.info("ERROR_MSG : " + (joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()"));
+//        LOGGER.info("REQ_IP : " + request.getRemoteAddr());
     }
 
 

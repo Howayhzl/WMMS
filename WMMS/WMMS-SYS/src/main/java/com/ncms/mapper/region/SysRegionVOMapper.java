@@ -3,10 +3,8 @@ package com.ncms.mapper.region;
 import java.util.List;
 import java.util.Map;
 
-import com.ncms.config.mybatis.MyMapper;
 import com.ncms.model.region.SysProvinceTreeVO;
 import com.ncms.model.region.SysRegionVO;
-import com.ncms.model.sys.region.SysRegion;
 
 /**
  * @date 2018-01-09 15:07:21
@@ -16,7 +14,7 @@ public interface SysRegionVOMapper{
 	/**
 	 * 条件查询
 	 */
-	public List<Map<String,Object>> queryByConditions(Map<String, Object> map );
+	public List<SysRegionVO> queryByConditions(Map<String, Object> map );
 	/**
 	 * 逻辑删除
 	 */
@@ -32,7 +30,7 @@ public interface SysRegionVOMapper{
 	 * @param paramMap
 	 * @return
 	 */
-	List<Map<String,Object>> queryRegionByConditions();	
+	List<SysRegionVO> queryRegionByConditions();	
 	/**
 	 * @description 用户区县管理 区县树信息查询
 	 * @author yuefy

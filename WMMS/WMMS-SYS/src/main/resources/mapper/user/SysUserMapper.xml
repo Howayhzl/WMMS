@@ -70,11 +70,15 @@
 			<if test="userState != '' and userState != null">
 				and sys_user.user_state = #{userState,jdbcType=INTEGER}
 			</if>
-			<if test="regId != '' and regId != null">
-				and sys_user.reg_id = #{regId,jdbcType=VARCHAR}
-			</if>
 			<if test="depId != '' and depId != null">
 				and sys_user.dep_id = #{depId,jdbcType=VARCHAR}
+			</if>
+			<if test="regIds != null and regIds.size()>0">
+				and sys_user.reg_id in
+				<foreach collection="regIds" item="item" index="index" open="("
+					separator="," close=")">
+					#{item}
+				</foreach>
 			</if>
 		</where>
 	</select>

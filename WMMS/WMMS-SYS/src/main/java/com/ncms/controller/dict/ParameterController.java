@@ -39,9 +39,7 @@ public class ParameterController{
 		sysparameter.setParaCode(paraCode);
 		sysparameter.setParaValue(paraValue);
 		sysparameter.setParaNote(paraNote);
-		/*sysparameter.setParaState(paraState);
-		sysparameter.setParaOrder(paraOrder);*/
-		Page<SysParameter> SysParameterPage = sysParameterService.queryParameter(sysparameter,cur_page_num,page_count);
+		Page<SysParameter> SysParameterPage = sysParameterService.queryParameter(paraCode,paraValue,paraNote,cur_page_num,page_count);
 		return BackEntity.ok("查询系统参数成功！", SysParameterPage.toPageInfo());
 	}
 	/**

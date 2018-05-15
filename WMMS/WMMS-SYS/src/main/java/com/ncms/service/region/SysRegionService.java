@@ -1,10 +1,10 @@
 package com.ncms.service.region;
 
 import java.util.List;
-import java.util.Map;
 
-import com.ncms.comm.base.BaseService;
+import com.github.pagehelper.Page;
 import com.ncms.model.menu.SysDataAuthMenuTreeVO;
+import com.ncms.model.region.SysRegionVO;
 import com.ncms.model.sys.region.SysRegion;
 
 /**
@@ -15,19 +15,19 @@ public interface SysRegionService{
 	/**
 	 * 条件查询
 	 */
-	public List<Map<String,Object>> selectByConditions(String regCode,String regName);
+	public Page<SysRegionVO> queryRegionList(String regCode,String regName,String pRegId,int pageNum,int pageSize);
 	/**
 	 * 根据条件进行查询
 	 * @param paramMap
 	 * @return
 	 */
-	public List<Map<String,Object>> queryRegionByConditions();
+	public List<SysRegionVO> queryRegionByConditions();
 	/**
 	 * 删除区县信息
 	 * @param sysRegionVO
 	 * @return
 	 */
-	public String delRegion(List<String> SysRegionId);
+	public String delRegion(String ids);
 	/**
 	 * 增加区县信息
 	 * @param request

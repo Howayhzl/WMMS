@@ -4,6 +4,12 @@
 	<meta charset="UTF-8">
 	<meta name="renderer" content="webkit">
 	<link href="../../../plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="../../../plugins/bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+	<script src="../../../plugins/lib/jquery.js" type="text/javascript"></script>
+	<script src="../../../plugins/bootstrap/js/ui-loading.js"></script>
+	<script src="../../../plugins/bootstrap/js/bootstrap-table.min.js"></script>
+	<script src="../../../plugins/bootstrap/js/bootstrap-table-zh-CN.js"></script>
+	<script src="../../../plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 	<link rel="stylesheet" href="../../../plugins/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css">
 	<link rel="stylesheet" href="../../../static/css/ncms-page.css">
 </head>
@@ -33,21 +39,6 @@
 				<button class="btn btn-danger" type="button" id="deleteRegion">删除</button>
 			</div>
 			<table class="table table-bordered table-striped  table-hover " id="tb">
-				<thead>
-					<tr>
-						<th style="width:20px;"><input type="checkbox"></th>
-						<th>区域状态</th>
-						<th>行政区编码</th>
-						<th>行政区名称</th>
-						<th>排序号</th>
-						<th>上级行政区</th>
-						<th>备注</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr id="tr">
-					</tr>
-				</tbody>
 			</table>
 			<div class="pagination pagination-centered">
 				<ul id="page_ctr">
@@ -109,7 +100,6 @@
         </div>
         <div class="modal-body">
           <form id="insertRegion" class="form-horizontal" action="">
-            <input type="hidden" id="reg_id1" name="regId"/>
             <input type="hidden" id="preg_id1" name="pregId"/>
             <div class="form-group">
               <label class="control-label">上级行政区:</label>
@@ -146,9 +136,6 @@
       </div>
     </div>
   </div>
-	<script type="text/javascript" src="../../../plugins/lib/jquery.js"></script>
-	<script src="../../../plugins/bootstrap/js/ui-loading.js" type="text/javascript"></script>
-	<script type="text/javascript" src="../../../plugins/bootstrap/js/bootstrap.min.js"></script>
 	<!--[if lte IE 9]>
   <script src="../../../plugins/bootstrap/js/html5shiv.js"></script>
   <script src="../../../plugins/bootstrap/js/respond.min.js"></script>
@@ -159,6 +146,6 @@
 	<script src="../../../plugins/bootstrap/js/messages-zh.min.js"></script>
 	<!-- ZTree树形插件 -->
 	<script type="text/javascript" src="../../../plugins/zTree/js/jquery.ztree.core-3.5.js"></script>
-	<script type="text/javascript" src="../../../static/js/page/system/region/sys-region-manage.js"></script>
+	<script type="text/javascript" src="../../../static/js/page/system/region/sys-region-second-manage.js"></script>
 </body>
 </html>
