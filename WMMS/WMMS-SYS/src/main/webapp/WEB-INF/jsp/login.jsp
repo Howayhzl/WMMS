@@ -13,11 +13,11 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="renderer" content="webkit">
-    <title>中国移动电费租费管理系统</title>  
+    <title>水务管理系统</title>  
 	<link rel="stylesheet" href="<%=basePath%>static/css/ncms.css">
   </head>
   <body id="login-bg">
-  <div class="login-logo"></div>
+  <!--<div class="login-logo"></div>-->
   <div style="height:380px;width:1200px;margin:0 auto;position:relative;top: 50%;margin-top: -190px;">
   	<div class="login-box">
 		<div class="header">
@@ -89,11 +89,11 @@
   </div>
 	<div class="copyright">
 			<ul>
-				<li>官网网站:www.10086.cn</li>
-				<li>语音自助服务:10086</li>
-				<li>短信服务:10086</li>
+				<li>官网网站:www.*****.cn</li>
+				<li>语音自助服务:*****</li>
+				<li>短信服务:*****</li>
 			</ul>
-		<p>CopyRight@1999-2017. 中国移动 版权所有</p>
+		<p>CopyRight@1999-2017.  版权所有</p>
 		</div>	 
 	<script type="text/javascript" src="<%=basePath%>plugins/lib/jquery.js"></script>
 	<script type="text/javascript" src="<%=basePath%>plugins/bootstrap/js/bootstrap.min.js"></script>
