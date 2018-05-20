@@ -11,8 +11,12 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ncms.comm.base.loginInfo.SysUserVO;
 import com.ncms.constant.Constants;
 import com.ncms.utils.string.VerifyCodeUtil;
+import com.ncms.utils.ShiroUtils;
+
+import org.springframework.web.servlet.ModelAndView; 
 
 /**
  * Created by Administrator on 2017/8/3.
@@ -26,8 +30,11 @@ public class IndexController {
     }
 
     @RequestMapping(value = "/welcome")
-    public String index(){
-        return Constants.URL_HOME;
+    public ModelAndView index(){
+		String loginuser_name = ShiroUtils.getUsername();
+		ModelAndView mav=new ModelAndView(Constants.URL_HOME);
+		mav.addObject("loginuser_name", loginuser_name);
+        return mav;
     }
 
     @RequestMapping(value="/logout")

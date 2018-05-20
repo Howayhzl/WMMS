@@ -18,10 +18,10 @@
   </head>
   <body id="login-bg">
   <!--<div class="login-logo"></div>-->
-  <div style="height:380px;width:400px;margin:0 auto;position:relative;top: 50%;margin-top: -190px;">
+  <div style="height:380px;width:1200px;margin:0 auto;position:relative;top: 50%;margin-top: -190px;">
   	<div class="login-box">
 		<div class="header">
-			<h1>欢迎登录</h1>
+			<h1>水务管理系统登录</h1>
 		</div>
 		<div class="login-main">
 			 <form class="form-horizontal" role="form" form action="login.action" id="loginSubmit" method="post">

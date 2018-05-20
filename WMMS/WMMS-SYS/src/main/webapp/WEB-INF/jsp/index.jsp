@@ -54,16 +54,16 @@
 			<!--<div class="locationImg"></div><span id="prvname" >${prvName}</span>-->
 			<div class="layout-side-arrow"></div>
 			<ul class="header-bar">
-				<div style="float: left;margin:30px 20px 0 0;font-size: 16px;">欢迎使用【水务管理系统】
-					<span id="userName">${userShowName}</span>
+				<div style="float: left;margin:30px 20px 0 0;font-size: 16px;">欢迎您：
+					<span id="userName">${loginuser_name}</span>
 				</div>
-				<!--<li id="taskagents">
+				<li id="taskagents">
 					<div class="agency first">
 						<div id="agencyNum">-</div>
 					</div>
 					<div class="message">待办任务</div>
 				</li>
-				<li id="guideIcon">
+				<!--<li id="guideIcon">
 					<div class="guideIcon first" id="openGuide"></div>
 					<div class="message">引导</div>
 				</li>

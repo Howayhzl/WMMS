@@ -50,10 +50,10 @@ function queryAllOrder(){
             title: '安装年限'
         }, {
             field: 'userState',
-            title: '状态'
+            title: '提交人'
         },{
             field: 'userState',
-            title: '提交工单人'
+            title: '提交时间'
         },],
         onCheck: function (row) {
         	showBack(row.userId);
