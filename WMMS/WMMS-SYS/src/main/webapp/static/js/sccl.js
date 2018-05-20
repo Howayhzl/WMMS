@@ -516,7 +516,6 @@ function initMenu(menu,parent){
 
 function openWin(obj, url, menuId,icon)
 {
-    ajaxRecordMenuId(menuId);
     obj.href = url;
     $(obj).parents('.menu-item-child').hide();
     var curSrc=$(obj).parents('.menu-item').find(".sign img").attr('src');
@@ -550,13 +549,6 @@ function openWin(obj, url, menuId,icon)
     $('.wrap').css('width',"120px");
     $('.menu_l').css('width',"120px");
 }
-
-/**系统记录用户点击按钮id*/
-function ajaxRecordMenuId(menuId){
-    myajax.json_ajax({"url":"saveUserClickedMenuId","type":"post","data":{"menuId":menuId}});
-}
-
-
 
 /*头部下拉框移入移出*/
 $(document).on("mouseover",".header-bar-nav",function(){
