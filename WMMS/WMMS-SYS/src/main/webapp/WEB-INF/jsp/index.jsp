@@ -54,7 +54,7 @@
 			<!--<div class="locationImg"></div><span id="prvname" >${prvName}</span>-->
 			<div class="layout-side-arrow"></div>
 			<ul class="header-bar">
-				<div style="float: left;margin:30px 20px 0 0;font-size: 16px;">欢迎使用
+				<div style="float: left;margin:30px 20px 0 0;font-size: 16px;">欢迎使用【水务管理系统】
 					<span id="userName">${userShowName}</span>
 				</div>
 				<!--<li id="taskagents">
