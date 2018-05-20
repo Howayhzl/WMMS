@@ -12,32 +12,22 @@
 <body>
 	<form class="form-inline" >
 		<div class="form-group">
-			<label>水表类型:</label>
-			<select id="meterType">
+			<label>单位名称:</label>
+			<select id="departId">
 				<option value="">请选择</option>
-				<option value="0">机械水表</option>
-				<option value="1">远传水表</option>
-				<option value="2">电磁水表</option>
-				<option value="3">电磁流量计</option>
-				<option value="4">超声波水表</option>
-				<option value="5">超声波流量计</option>
-				<option value="6">预付费卡式水表</option>
+				<option value="0">西安森科软件</option>
+				<option value="1">陕西自标公司</option>
 			</select>
 		</div>
 		<div class="form-group">
-			<label>水表口径:</label> 
-			<select id="meterSize">
+			<label>水表级别:</label>
+			<select id="meterLevel">
 				<option value="">请选择</option>
-				<option value="0">40</option>
-				<option value="1">50</option>
-				<option value="2">65</option>
-				<option value="3">80</option>
-				<option value="4">100</option>
-				<option value="5">150</option>
-				<option value="6">200</option>
-				<option value="7">300</option>
-				<option value="8">400</option>
-				<option value="9">500</option>
+				<option value="0">一级表</option>
+				<option value="1">二级表</option>
+				<option value="2">三级表</option>
+				<option value="3">四级表</option>
+				<option value="4">五级表</option>
 			</select>
 		</div>
 		<div class="form-group">
@@ -49,11 +39,18 @@
 				<option value="3">待更换状态</option>
 			</select>
 		</div>
+
+		<div class="form-group">
+				<label>水表编号:</label>
+				<input type="text" autocomplete="off" name="meterId" id="meterId"/>
+		</div>
 		<button type="button" class="btn btn-success" onclick="">查询</button>
 	</form>
 	<div class="btn-toolbar">
-		<button type="button" class="btn btn-primary" onclick="">打印</button>
-		<button type="button" class="btn btn-primary" onclick="">下载</button>
+		<button type="button" class="btn btn-primary" onclick="">启用</button>
+		<button type="button" class="btn btn-primary" onclick="">停用</button>
+		<button type="button" class="btn btn-primary" onclick="">待校验</button>
+		<button type="button" class="btn btn-primary" onclick="">待更换</button>
 	</div>
 	<div>
 		<table id="tb">
@@ -95,17 +92,8 @@
         	field: 'userName',
             title: '单位'
         }, {
-        	field: 'userLoginname',
-            title: '品牌'
-        },{
             field: 'depName',
             title: '口径'
-        },  {
-            field: 'regName',
-            title: '型号'
-        }, {
-        	field: 'majorName',
-            title: '规格名称'
         }, {
             field: 'userEmail',
             title: '级别'

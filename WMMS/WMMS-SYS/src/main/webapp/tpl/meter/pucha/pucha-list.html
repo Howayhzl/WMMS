@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html lang="ch">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="renderer" content="webkit">
+  <link href="../../../plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+  <link href="../../../plugins/bootstrap/css/bootstrap-select.css" rel="stylesheet" media="screen">
+  <link href="../../../plugins/bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+  <link href="../../../static/css/ncms-page.css" rel="stylesheet" media="screen">
+</head>
+<body>
+	<form class="form-inline" >
+		<div class="form-group">
+			<label>单位名称:</label>
+			<select id="departId">
+				<option value="">请选择</option>
+				<option value="0">西安森科软件</option>
+				<option value="1">陕西自标公司</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label>开始时间:</label> 
+			<input type="date" name="startDate" id="startDate" />
+		</div>
+		<div class="form-group">
+			<label>结束时间:</label> 
+			<input type="date" name="endDate" id="endDate" />
+		</div>
+		<button type="button" class="btn btn-success" onclick="">查询</button>
+	</form>
+	<div class="btn-toolbar">
+		<button type="button" class="btn btn-primary" onclick="">新增</button>
+		<button type="button" class="btn btn-primary" onclick="">修改</button>
+		<button type="button" class="btn btn-primary" onclick="">生成报告</button>
+	</div>
+	<div>
+			<table id="tb">
+				
+			</table>
+			<div class="pagination pagination-centered">
+		  <ul id="page_ctr">
+				</ul>
+			</div>
+	</div>
+	
+
+	<script src="../../../plugins/lib/jquery.js" type="text/javascript"></script>
+	<script src="../../../plugins/bootstrap/js/ui-loading.js" type="text/javascript"></script>
+	<script src="../../../plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+
+	<script type="text/javascript" src="../../../plugins/bootstrap/js/bootstrap-select.min.js"></script>
+	<script type="text/javascript" src="../../../static/js/common.js"></script>
+	<script src="../../../plugins/bootstrap/js/jquery.validate.min.js"></script>
+	<script src="../../../plugins/bootstrap/js/messages-zh.min.js"></script>
+	<script src="../../../plugins/bootstrap/js/bootstrap-table.min.js"></script>
+	<script>
+		$("#tb").bootstrapTable({
+
+			striped : true, // 表格显示条纹
+			pagination : true, // 启动分页
+			pageSize : ipageCount, // 每页显示的记录数
+			pageNumber : curPageNum, // 当前第几页
+			minimumCountColumns: 1,  //最少允许的列数
+			clickToSelect: true,  //是否启用点击选中行
+			pageList : [10, 25, 50, 100, 500], // 记录数可选列表
+			search : false, // 是否启用查询
+
+			columns: [{
+						checkbox: true
+					}, {
+						field: 'userCode',
+						title: '单位'
+					}, {
+						field: 'userName',
+						title: '水表编号'
+					}, {
+						field: 'userLoginname',
+						title: '口径'
+					}, {
+						field: 'depName',
+						title: '读数'
+					}, {
+						field: 'depName',
+						title: '位置'
+					}, {
+						field: 'regName',
+						title: '判断结果'
+					}, {
+						field: 'majorName',
+						title: '处理建议'
+					}, {
+						field: 'userEmail',
+						title: '普查时间'
+					}, {
+						field: 'userState',
+						title: '状态'
+					},],
+			onCheck: function (row) {
+				showBack(row.userId);
+			},
+			onLoadError : function(status) { // 加载失败时执行
+				if(status==400){
+					alert("400 - 错误的请求");
+				}else if(status==405){
+					alert("405错误");
+				}else if(status==403){
+					alert("403 - 请求不允许");
+				}else if(status==500){
+					alert("500 - 内部服务器错误");
+				}else{
+					//alert("网络错误");
+				}
+			},
+			responseHandler: function(res) {
+				if(res != null){//报错反馈
+					if(res.success != "1"){
+						alertModel(res.msg);
+					}
+					showTableList = res.obj.list;
+				}
+				return {
+					"total": res.obj.total,//总页数
+					"rows": res.obj.list //数据
+				};
+			}
+		});
+	</script>
+</body>
+</html>
