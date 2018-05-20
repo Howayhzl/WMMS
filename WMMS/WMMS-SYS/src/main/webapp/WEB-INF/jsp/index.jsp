@@ -50,12 +50,14 @@
 
 	<div class="layout-admin">
 		<div class="layout-header">
-			<div class="logo" title="中国移动"></div>
+			<!--<div class="logo" title=""></div>-->
+			<!--<div class="locationImg"></div><span id="prvname" >${prvName}</span>-->
 			<div class="layout-side-arrow"></div>
-			<div class="locationImg"></div><span id="prvname" >${prvName}</span>
 			<ul class="header-bar">
-				<div style="float: left;margin:30px 20px 0 0;font-size: 16px;">欢迎登录,<span id="userName">${userShowName}</span></div>
-				<li id="taskagents">
+				<div style="float: left;margin:30px 20px 0 0;font-size: 16px;">欢迎使用
+					<span id="userName">${userShowName}</span>
+				</div>
+				<!--<li id="taskagents">
 					<div class="agency first">
 						<div id="agencyNum">-</div>
 					</div>
@@ -72,68 +74,13 @@
 				<li id="userInfo">
 					<div class="userPhoto first"></div>
 					<div class="message">个人中心</div>
-				</li>
+				</li>-->
 				<li id="exitSystem">
 					<div class="exit first"></div>
 					<div class="message">退出系统</div>
 				</li>
 			</ul>
 			
-		</div>
-		<!-- 个人信息弹窗 -->
-		<div class="modal hide fade" id="EditPanel" tabindex="-1">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button class="close" type="button" data-dismiss="modal">×</button>
-						<h4 id="myModalLabel1" style="font-size:18px;">个人信息</h4>
-					</div>
-					<div class="modal-body">
-						<form class="form-horizontal" id="dataForm1" style="text-align:center;">
-							<div class="form-group">
-				    			<label class="control-label" style="display:inline-block;width:80px;text-align: right;">登录名称:</label>
-							    <input type="text" id="login_name" name="login_name" style="width:170px;padding: 4px 5px;" disabled="disabled">
-				  			</div>
-				  			<div class="form-group">
-				    			<label class="control-label" style="display:inline-block;width:80px;text-align: right;">用户邮箱:</label>
-							    <input type="text" id="user_email" name="user_email" style="width:170px;padding: 4px 5px;">
-							    <input type="hidden" id="user_id" name="user_id">
-				  			</div>
-				  			<div class="form-group">
-				    			<label class="control-label" style="display:inline-block;width:80px;text-align: right;">手机号:</label>
-							    <input type="text" id="user_phone" name="user_phone"style="width:170px;padding: 4px 5px;">
-				  			</div>
-				  			<div class="form-group">
-				    			<label class="control-label" style="display:inline-block;width:80px;text-align: right;">修改密码:</label>
-							   	<input type="button" id="updatePsw" style="width: 170px;height:31px;" value="点击修改密码"/>
-				  			</div>
-						</form>
-					</div>
-					<div class="modal-footer">
-						<a href="javascript:void(0)" class="btn" data-dismiss="modal" style="color:#333;">关闭</a>
-						<a href="javascript:void(0)" class="btn btn-primary" onclick="formSubmit();">确定修改</a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- 个人信息弹窗 end -->
-		<!-- 切换账号 弹窗 -->
-		<div class="modal hide fade" id="EditPanelAccount" tabindex="-1">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button class="close" type="button" data-dismiss="modal">×</button>
-						<h4 id="myModalLabel2" style="font-size:18px;">切换账号</h4>
-					</div>
-					<div class="modal-body">
-						<p>确定切换用户？</p>
-					</div>
-					<div class="modal-footer">
-						<a href="javascript:void(0)" class="btn" data-dismiss="modal" style="color:#333;">关闭</a>
-						<a href="javascript:void(0)" class="btn btn-primary" onclick="formAccount();">确定</a>
-					</div>
-				</div>
-			</div>
 		</div>
 		<!-- 切换账号 end -->
 		<!-- 退出系统 弹窗 -->
@@ -150,38 +97,6 @@
 					<div class="modal-footer">
 						<a href="javascript:void(0)" class="btn" data-dismiss="modal" style="color:#333;">关闭</a>
 						<a href="javascript:void(0)" class="btn btn-primary" onclick="formAccount();">确定</a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- 退出系统 end -->
-		<!-- 修改密码弹窗 -->
-		<div class="modal hide fade" id="EditPanelPsw" tabindex="-1" style="z-index:1100;">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button class="close" type="button" data-dismiss="modal">×</button>
-						<h4 id="myModalLabel4" style="font-size:18px;">修改密码</h4>
-					</div>
-					<div class="modal-body">
-						<form class="form-horizontal" id="dataForm" style="text-align:center;">
-						<div class="form-group">
-				    			<label class="control-label" style="display:inline-block;width:80px;text-align: right;">旧密码:</label>
-							    <input type="password" id="oldPsw"  name="oldPsw" placeholder="请输旧密码" style="width:170px;padding: 4px 5px;">
-				  			</div>
-							<div class="form-group">
-				    			<label class="control-label" style="display:inline-block;width:80px;text-align: right;">新密码:</label>
-							    <input type="password" id="newPsw" name="newPsw" minlength ="6" placeholder="请输入新密码" style="width:170px;padding: 4px 5px;">
-				  			</div>
-				  			<div class="form-group">
-				    			<label class="control-label" style="display:inline-block;width:80px;text-align: right;">确认新密码:</label>
-							    <input type="password" id="newPsw1" name="newPsw1" minlength ="6" placeholder="请输入新密码" style="width:170px;padding: 4px 5px;">
-				  			</div>
-						</form>
-					</div>
-					<div class="modal-footer">
-						<a href="javascript:void(0)" class="btn" data-dismiss="modal" style="color:#333;">关闭</a>
-						<a href="javascript:void(0)" class="btn btn-primary" onclick="formSubmitPsw();">保存</a>
 					</div>
 				</div>
 			</div>
@@ -211,7 +126,7 @@
 				frameborder="0" data-id="tpl/home-page.html" seamless></iframe>
 			</div>
 		</section>
-		<div class="layout-footer">Copyright©1999-2017.中国移动&nbsp;版权所有</div>
+		<div class="layout-footer">Copyright©1999-2017.&nbsp;版权所有</div>
 	</div>
 	
 	<script src="<%=basePath%>plugins/lib/jquery.js" type="text/javascript"></script>

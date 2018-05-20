@@ -5,26 +5,9 @@ $(document).ready(function(){
 	 * 初始化菜单
 	 */
 	initSystemMenu();
-	//待办任务
-	$("#taskagents").click(function(){
-		addIframeTop("asserts/tpl/main/task-agent.html","1000","待办任务");
-	});
-	
-	//个人信息
-	$('#userInfo').click(function() {
-		userInfoPage();
-	});
-	//修改密码
-	$('#updatePsw').click(function() {
-		updatePswPage();
-	});
 	//用户退出
 	$('#exitSystem').click(function() {
 		$('#EditPanelExit').modal();
-	});
-	//切换用户
-	$('#switchUser').click(function() {
-		$('#EditPanelAccount').modal();
 	});
 	$('.header-bar li .first').hover(function(){
 		$(this).next('.message').show();
