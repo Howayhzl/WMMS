@@ -59,8 +59,8 @@ input:focus::-webkit-input-placeholder,input:focus:-moz-placeholder,input:focus:
 .login-box {
 	float:right;
 	width: 400px;
-  background-color:#f7fbfe;
-  border-radius:5px;
+	background-color:#f7fbfe;
+	border-radius:5px;
 }	
 .login-box .header {height: 60px;}
 .login-box .header h1 {    
@@ -71,7 +71,7 @@ input:focus::-webkit-input-placeholder,input:focus:-moz-placeholder,input:focus:
   padding-left:36px;
 }
 .login-box .login-main {
-	height: 320px;
+	height: 220px;
   width: 100%;
   padding: 10px 39px 0;
 }
