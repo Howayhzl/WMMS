@@ -5,6 +5,10 @@ $(document).ready(function(){
 	 * 初始化菜单
 	 */
 	initSystemMenu();
+	//代办任务
+	$('#taskagents').click(function() {
+		openWin(this,"tpl/daiban/change-list.html","S01M0201");
+	});
 	//用户退出
 	$('#exitSystem').click(function() {
 		$('#EditPanelExit').modal();

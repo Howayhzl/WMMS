@@ -1,18 +1,12 @@
 
 $(document).ready(function() {
-	queryAllOrder();
+	
 });
 
-
-function handle_change(){	
-	window.location.href="change-order-detail.html";
-}
-
-function handle_check(){	
-	window.location.href="check-order-detail.html";
-}
-
-function queryAllOrder(){	
+/**
+ * 选择关联水表弹出 
+ */
+function selmeterPopup(){	
 	$("#selectMeter").modal("show");
 	$("#tb").bootstrapTable({
 		striped : true, // 表格显示条纹
@@ -53,13 +47,7 @@ function queryAllOrder(){
         }, {
             field: 'userState',
             title: '安装年限'
-        }, {
-            field: 'userState',
-            title: '提交人'
-        },{
-            field: 'userState',
-            title: '提交时间'
-        },],
+        }, ],
         onCheck: function (row) {
         	showBack(row.userId);
         },
@@ -89,4 +77,15 @@ function queryAllOrder(){
 	         };
 		}
 	});
+}
+
+
+function handle(){	
+	window.location.href="order-detail.html";
+}
+function saveAndSubmit(){
+	confirmModel("发送成功",'back');
+}
+function back(){
+	javascript:history.back(-1);
 }

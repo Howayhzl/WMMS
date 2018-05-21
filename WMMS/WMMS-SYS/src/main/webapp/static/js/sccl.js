@@ -521,10 +521,10 @@ function openWin(obj, url, menuId,icon)
     var curSrc=$(obj).parents('.menu-item').find(".sign img").attr('src');
     if(curSrc!=='undefined'&&curSrc!==undefined){
         if($(obj).hasClass('level3')==false){
-        $(obj).parent().parent().parent().parent().find('.sign img').attr('src',""+projectName+"/static/image/xiao.png");
-        var curImg=$($(obj).parents('.menu-item').find('.sign').get(0)).find("img").attr('src').split('image')[1];
-        var newImg=curImg.split('/')[1].split('.')[0].split('-')[0];
-        $($(obj).parents('.menu-item').find('.sign').get(0)).find("img").attr('src',""+projectName+"/static/image/"+newImg+".png");
+			//$(obj).parent().parent().parent().parent().find('.sign img').attr('src',""+projectName+"/static/image/xiao.png");
+			var curImg=$($(obj).parents('.menu-item').find('.sign').get(0)).find("img").attr('src').split('image')[1];
+			var newImg=curImg.split('/')[1].split('.')[0].split('-')[0];
+			$($(obj).parents('.menu-item').find('.sign').get(0)).find("img").attr('src',""+projectName+"/static/image/"+newImg+".png");
         }else{
             //没有二级菜单
             $(obj).find('.sign img').attr('src',""+projectName+"/static/image/xiao.png");
