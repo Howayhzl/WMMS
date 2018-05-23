@@ -47,7 +47,6 @@ function findUsers() {
 		// 设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
 		// 设置为limit可以获取limit, offset, search, sort, order
 		queryParamsType : "undefined",
-		ajaxOptions:{headers: {"x-auth-token":sessionStorage.getItem("token")}},
 		queryParams : function queryParams(params) { // 设置查询参数
 			var param = {
 				cur_page_num: params.pageNumber,    
@@ -78,9 +77,15 @@ function findUsers() {
             field: 'regName',
             title: '归属区域'
         }, {
+        	field: 'userPhone',
+            title: '电话'
+        },{
             field: 'userEmail',
             title: '电子邮箱'
         }, {
+        	field: 'userAddr',
+            title: '地址'
+        },{
             field: 'userState',
             title: '当前状态',
             formatter:function(value,row,index){

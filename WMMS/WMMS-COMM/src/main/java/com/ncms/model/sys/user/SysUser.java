@@ -35,7 +35,7 @@ public class SysUser implements Serializable {
 	/** 用户电子邮件 */
 	private	String	userEmail;
 	/** 用户说明 */
-	private	String	userNote;
+	private	String	userAddr;
 	/** 用户状态（0：正常   9：停用） */
 	private	Integer	userState;
 	/** 创建时间 */
@@ -69,8 +69,8 @@ public class SysUser implements Serializable {
 	public	String	getUserEmail(){
 		return	userEmail;
 	}
-	public	String	getUserNote(){
-		return	userNote;
+	public	String	getUserAddr(){
+		return	userAddr;
 	}
 	public	Integer	getUserState(){
 		return	userState;
@@ -108,8 +108,8 @@ public class SysUser implements Serializable {
 	public void	setUserEmail(String userEmail){
 		this.userEmail = userEmail;
 	}
-	public void	setUserNote(String userNote){
-		this.userNote = userNote;
+	public void	setUserAddr(String userAddr){
+		this.userAddr = userAddr;
 	}
 	public void	setUserState(Integer userState){
 		this.userState = userState;
@@ -123,7 +123,7 @@ public class SysUser implements Serializable {
 	public	SysUser(){
 		super();
 	}
-	public SysUser(String userId,String depId,String regId,String userCode,String userLoginname,String userName,String userPassword,String userPhone,String userEmail,String userNote,Integer userState,Date createTime,Date updateTime){
+	public SysUser(String userId,String depId,String regId,String userCode,String userLoginname,String userName,String userPassword,String userPhone,String userEmail,String userAddr,Integer userState,Date createTime,Date updateTime){
 		super();
 		this.userId = userId;
 		this.depId = depId;
@@ -134,7 +134,7 @@ public class SysUser implements Serializable {
 		this.userPassword = userPassword;
 		this.userPhone = userPhone;
 		this.userEmail = userEmail;
-		this.userNote = userNote;
+		this.userAddr = userAddr;
 		this.userState = userState;
 		this.createTime = createTime;
 		this.updateTime = updateTime;

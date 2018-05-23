@@ -180,7 +180,7 @@ function findUserData(){
 					var user = list[0];
 					if (user != null) {
 						$("input[name=userLoginname]").val(user.userLoginname);
-						$("#userNote").val(user.userNote);
+						$("#userAddr").val(user.userAddr);
 						$("input[name=userCode]").val(user.userCode);
 						$("input[name=userName]").val(user.userName);
 						$("input[name=userPhone]").val(user.userPhone);

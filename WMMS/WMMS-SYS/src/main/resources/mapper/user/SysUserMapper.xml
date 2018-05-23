@@ -11,7 +11,7 @@
 		<result column="user_password" property="userPassword" jdbcType="VARCHAR"/>
 		<result column="user_phone" property="userPhone" jdbcType="VARCHAR"/>
 		<result column="user_email" property="userEmail" jdbcType="VARCHAR"/>
-		<result column="user_note" property="userNote" jdbcType="VARCHAR"/>
+		<result column="user_addr" property="userAddr" jdbcType="VARCHAR"/>
 		<result column="user_state" property="userState" jdbcType="INTEGER"/>
 		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
 		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
@@ -26,7 +26,7 @@
 		<result column="user_password" property="userPassword" jdbcType="VARCHAR"/>
 		<result column="user_phone" property="userPhone" jdbcType="VARCHAR"/>
 		<result column="user_email" property="userEmail" jdbcType="VARCHAR"/>
-		<result column="user_note" property="userNote" jdbcType="VARCHAR"/>
+		<result column="user_addr" property="userAddr" jdbcType="VARCHAR"/>
 		<result column="user_state" property="userState" jdbcType="INTEGER"/>
 		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
 		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
@@ -35,7 +35,7 @@
 	</resultMap>
 	<sql id="Base_Column_List">
 		sys_user.user_id,sys_user.dep_id,sys_user.reg_id,sys_user.user_code,sys_user.user_loginname,sys_user.user_name,
-		sys_user.user_password,sys_user.user_phone,sys_user.user_email,sys_user.user_note,sys_user.user_state,sys_user.create_time,sys_user.update_time
+		sys_user.user_password,sys_user.user_phone,sys_user.user_email,sys_user.user_addr,sys_user.user_state,sys_user.create_time,sys_user.update_time
 	</sql>
 	
 	<select id="queryAllUser" resultMap="BaseResultMap_msg" parameterType="Map">
