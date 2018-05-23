@@ -58,7 +58,7 @@ function queryTree(){
 function zTreeOnClick(event, treeId, treeNode) {// treeNode 已选的节点
 	pRegId = treeNode.id;
 	pRegName = treeNode.name;
-	queryRegion();
+	queryTree();
 }
 $("#queryRegion").click(function(){
 	queryRegion();
@@ -83,6 +83,7 @@ function queryRegion(){
 		// 设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
 		// 设置为limit可以获取limit, offset, search, sort, order
 		queryParamsType : "undefined",
+		ajaxOptions:{headers: {"x-auth-token":sessionStorage.getItem("token")}},
 		queryParams : function queryParams(params) { // 设置查询参数
 			var param = {
 					regCode : $("#regCode").val(),
@@ -108,6 +109,9 @@ function queryRegion(){
             field: 'regOrder',
             title: '编号'
         }, {
+            field: 'pregName',
+            title: '上级行政区'
+        }, {
             field: 'regState',
             title: '区域状态',
             formatter:function(value,row,index){
@@ -119,9 +123,6 @@ function queryRegion(){
             	}
             	return value;
             }
-        }, {
-            field: 'pregName',
-            title: '上级行政区'
         }],
         onLoadError : function(status) { // 加载失败时执行
 			if(status==400){
@@ -174,7 +175,6 @@ $("#stopRegion").click(function(){
 	for(var i=1;i<rowschecked.length;i++){
 		regIds += ","+rowschecked[i].regId; 
 	}
-	alert(regIds);
 	myajax.path({
 		url : sysContext+'region/stop',// 跳转到 action
 		data : {
@@ -197,14 +197,12 @@ $("#openRegion").click(function(){
 	for(var i=1;i<rowschecked.length;i++){
 		regIds += ","+rowschecked[i].regId; 
 	}
-	alert(regIds);
 	myajax.path({
 		url : sysContext+'region/open',// 跳转到 action
 		data : {
 			regIds:regIds
 			},
 		type : 'post',
-		dataType : 'json',
 		success : function(back) {
 				alertModel(back.msg);
 				queryRegion();
@@ -220,7 +218,6 @@ $("#deleteRegion").click(function(){
 	for(var i=1;i<rowschecked.length;i++){
 		regIds += ","+rowschecked[i].regId; 
 	}
-	alert(regIds);
     if(confirm("确定删除所选项目?")){
 		myajax.path({
 	       type:"post",
@@ -228,7 +225,6 @@ $("#deleteRegion").click(function(){
 	       data : {
 				regIds:regIds
 				},
-	   	   dataType : 'json',
 	       success:function(data){
 		    	alertModel(data.msg);
 		    	queryTree();
@@ -240,7 +236,7 @@ $("#insertRegions").click(function(){
 	 $("#preg_name1").val(pRegName);
 	 $("#preg_id1").val(pRegId);
 	 $('#EditPanel1 .form-group span.modal-error').children().remove();
-	 $('#EditPanel1').modal();
+	 $('#EditPanel1').modal({backdrop: 'static', keyboard: false});
 });
 $("#insertFormSubmit").click(function(){
 	myajax.path({

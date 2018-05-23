@@ -3,6 +3,9 @@ package com.ncms.service.menu;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import com.github.pagehelper.Page;
 import com.ncms.comm.base.BaseService;
 import com.ncms.model.menu.MenuTreeNodeVO;
 import com.ncms.model.menu.SysAutoMenuVO;
@@ -19,7 +22,7 @@ public interface SysMenuService extends BaseService<SysMenu>{
 	 * @author yuefy
 	 * @date 创建时间：2018年1月9日
 	 */
-	public List<SysAutoMenuVO> queryMenuIndexByRole(List<String> roleIds);
+	public List<SysAutoMenuVO> queryMenuIndexByRole(List<String> roleIds, String sys_menuId);
 	
 	/**
 	 * @description 获取菜单树节点 
@@ -36,11 +39,32 @@ public interface SysMenuService extends BaseService<SysMenu>{
 	public List<MenuTreeNodeVO> queryMenuByConditionsRedis(String menuCode, String menuName);
 	
 	/**
+	 * @author YueFY
+	 * @date 2018年5月16日  
+	 * @Description: 根据父级id 查询表格列表
+	 */
+	public Page<SysMenu> queryMenuList(String regCode,
+			String regName,String pRegId,int pageNum,int pageSize);
+	/**
 	 * @description 修改菜单状态
 	 * @author yuefy
 	 * @date 创建时间：2018年1月17日
 	 */
 	public int updateMenuStateBatch(Map<String, Object> paramMap);
+	
+	/**
+	 * @description 新增菜单
+	 * @author yuefy
+	 * @date 创建时间：2018年1月17日
+	 */
+	public int insertMenu(HttpServletRequest request);
+	
+	/**
+	 * @description 修改菜单
+	 * @author yuefy
+	 * @date 创建时间：2018年1月17日
+	 */
+	public int updateMenu(HttpServletRequest request);
 	
 	/**
 	 * @description 根据code或者 id 单条查询

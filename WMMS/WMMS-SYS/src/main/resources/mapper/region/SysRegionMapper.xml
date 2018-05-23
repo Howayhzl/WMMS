@@ -50,6 +50,7 @@
   		<if test="regName!='' and regName!=null">
   			and LOCATE(#{regName},sys_region.reg_name) &gt; 0
   		</if>
+  		order by sys_region.reg_order
   </select>
 	
 	<select id="queryRegionByConditions" parameterType="map" resultMap="BaseResultMap_AllRegion">

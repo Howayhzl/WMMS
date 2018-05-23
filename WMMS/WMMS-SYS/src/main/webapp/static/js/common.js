@@ -94,8 +94,14 @@ function setCookie(name, value, days) {
 
 /* 获取cookie */
 function getCookie(name){ 
-    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
-    return (arr=document.cookie.match(reg))?unescape(arr[2]).substring(1,unescape(arr[2]).length - 1):null;
+    var arrStr = document.cookie.split("; ");  
+    for(var i = 0;i < arrStr.length;i ++){  
+        var temp = arrStr[i].split("=");  
+        if(temp[0] == name) {  
+          return unescape(temp[1]);  
+        }  
+    }  
+    return "";
 }
 /* 根据key排序json */
 function sortByKey(array, key) {
@@ -167,38 +173,41 @@ function isChecked(){
  */
 function initRegionTree(regSearch){
 	var htmltree=""
-	    +"<input type=\"text\" id=\"regName_"+regSearch+"\" name=\"regName\" onclick=\"$('#treeview_"+regSearch+"').show()\" placeholder=\"所属区域\">"
+	    +"<input type=\"text\" id=\"regName_"+regSearch+"\" name=\"regName\" readonly=\"readonly\"  onclick=\"$('#treeview_"+regSearch+"').show()\" placeholder=\"所属区域\">"
 	    +"<input type=\"hidden\" id=\"regId_"+regSearch+"\" name=\"regId\">"
 	    +"<input type=\"hidden\" id=\"regIds_"+regSearch+"\" name=\"regIds\">"
-		+'<div id="treeview_'+regSearch+'" style="display: none;position: absolute;z-index: 10;left: 45px;width: 195px;"></div>';	
-	htmltree+="<script src='../../../plugins/bootstrap/js/bootstrap-treeview.js'></script>";
+	    +'<div id="treeview_'+regSearch+'" style="display: none;position: absolute;z-index: 10;left:-15px;width:195px;"></div>';	
+		htmltree+="<script src='../../../plugins/bootstrap/js/bootstrap-treeview.js'></script>";
 	$("#"+regSearch).html(htmltree);
-	$.ajax({
-		url : sysContext+'region/getRegionTreeList',   
-		type : 'get',
-		dataType : 'json',
-		async:false,
+	var nodeState=false;
+	myajax.path({
+		type : "get",
+		url : sysContext+'region/getRegionTreeList',
 		success : function(result) {				
 			if (result != null&&result.success=="1") {
-				
-				$("#regName_"+regSearch).click(function() {  
-			        var options = {  
-			            bootstrap2 : false,  
-			            showTags : true,  
-			            levels : 2,  
-			            showCheckbox : false,  
-			            checkedIcon : "glyphicon glyphicon-check",  
-			            data :result.obj,  
-			            onNodeSelected : function(event, data) {
-			            	var selectNodes = getNodeIdArr(data);//获取所选父节点下的所有子节点Id
-			                $("#regName_"+regSearch).val(data.text);   
-			                $("#regId_"+regSearch).val(data.id); 
-			                $("#regIds_"+regSearch).val(selectNodes);  
-			                $("#treeview_"+regSearch).hide();  
-			            }
-			        };  
-			  
+				$("#regName_"+regSearch).focus(function() {
+				      var options = {  
+				            bootstrap2 : false,  
+				            showTags : true,  
+				            levels : 2,  
+				            showCheckbox : false,  
+				            checkedIcon : "glyphicon glyphicon-check",  
+				            data :result.obj,  
+				            onNodeSelected : function(event, data) {
+				            	var selectNodes = getNodeIdArr(data);//获取所选父节点下的所有子节点Id
+				                $("#regName_"+regSearch).val(data.text);   
+				                $("#regId_"+regSearch).val(data.id); 
+				                $("#regIds_"+regSearch).val(selectNodes);  
+				                $("#treeview_"+regSearch).hide(); 
+				            	nodeState=true; 
+				            }
+				        };  
+				  
 			        $('#treeview_'+regSearch).treeview(options);  
+			    }).blur(function(){
+			    	if(nodeState)
+			    	$("#treeview_"+regSearch).delay(100).hide(1);//blur和click事件冲突。因此采用延迟解决
+	            	nodeState=false;
 			    }); 
 			}else{
 				alertModel(result.msg);
@@ -211,7 +220,6 @@ function initRegionTree(regSearch){
  * 递归获取所选父节点下的所有子节点Id
  */
 function getNodeIdArr(node){
-	debugger;
     var ts = [];
     ts.push(node.id);
     if(node.nodes){
@@ -380,10 +388,9 @@ var myajax = myajax || (function(){
             type:obj.type,
             timeout : 600000, //超时时间设置10分钟，单位毫秒
             data:obj.data,
-            dataType :obj.dataType ,
-            async:obj.async,
+            async:obj.async || false,
+            dataType :'json',
             contentType:obj.contentType,
-            beforeSend:obj.beforeSend,
             success:obj.success,
             complete:obj.complete,
             error : function(xhr,status){
@@ -899,6 +906,10 @@ function getSelectItem(type){
 		}
 	}
 	return selectItems;
+}
+//判断是否为空 zhangq
+function ISNUll(o){
+    return ((o == undefined || o == null || o == "") ? true : false);
 }
 
 //时间格式化

@@ -46,7 +46,7 @@
     	menu_id, menu_code, menu_name, pmenu_id, menu_url, menu_order,menu_state
   	</sql>
   	
-	<!-- 查询顶级菜单 -->
+	<!-- 根据系统顶级菜单id查询子系统菜单 -->
 	<select id="queryMenuIndexByRole" parameterType="Map" resultMap="BaseResultMap_AutoMenu">
 	    select DISTINCT
 	 		<include refid="Base_Column_List"></include>
@@ -61,9 +61,12 @@
 	   	<foreach collection="role_ids" item="item" index="index" open="(" separator="," close=")">  
 	    	#{item}  
 	    </foreach>
+	   	<if test="sys_menuId != '' and sys_menuId != null">
+			AND sys_id=#{sys_menuId} 
+	   	</if>
 		AND sys_menu.menu_state = #{menu_state,jdbcType=INTEGER} 
 		ORDER BY
-		sys_menu.menu_order
+			sys_menu.pmenu_id,sys_menu.menu_order
 	</select>
 	
   	<select id="querySystemMenuTree" parameterType="Map" resultMap="BaseResultMap_TreeNode">
@@ -73,19 +76,19 @@
 			mout.* 
 		from(
 			select 
-		    	<include refid="Base_Column_List_TreeNode" />
+		    	<include refid="Base_Column_List_TreeNode" />,sys_id
 			FROM
 				sys_menu m
 			WHERE
 				m.menu_id = #{menuId,jdbcType=VARCHAR} and m.menu_state &gt;=0
 			union all 
 			select 
-				<include refid="Base_Column_List_TreeNode" />
+				<include refid="Base_Column_List_TreeNode" />,sys_id
 			FROM
 				sys_menu m
 			WHERE
 				m.menu_state &gt;=0
-				and LOCATE(#{menuId,jdbcType=VARCHAR}, pmenu_id) &gt; 0
+				and LOCATE(#{menuId,jdbcType=VARCHAR}, m.menu_code) &gt; 0
 		) mout
   	</select>
   	
@@ -153,4 +156,24 @@
 			m.menu_state=#{menuState,jdbcType=INTEGER}
 	    where m.menu_id=#{menuId,jdbcType=VARCHAR}
 	</update>
+	
+	<select id="queryMenuList" parameterType="Map" resultMap="BaseResultMap">
+		SELECT
+			<include refid="Base_Column_List"></include>,
+			preg.menu_name as pmenu_name
+		FROM
+			sys_menu
+		LEFT JOIN sys_menu preg
+		on sys_menu.pmenu_id = preg.menu_id
+		WHERE 
+			sys_menu.menu_state &gt;= 0
+<!-- 			and preg.menu_state &gt;= 0 -->
+			and sys_menu.pmenu_id = #{pMenuId}
+	  		<if test="menuCode!='' and menuCode!=null">
+	  			and LOCATE(#{menuCode},sys_menu.menu_code) &gt; 0
+	  		</if>
+	  		<if test="menuName!='' and menuName!=null">
+	  			and LOCATE(#{menuName},sys_menu.menu_name) &gt; 0
+	  		</if>
+	</select>
 </mapper>

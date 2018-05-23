@@ -1,7 +1,6 @@
 package com.ncms.service.dept.impl;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -12,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
 import com.ncms.comm.base.AbstractService;
+import com.ncms.comm.base.page.PageInfo;
 import com.ncms.comm.http.RESULT;
 import com.ncms.comm.state.sys.SysStateEnum.DeptStateEnum;
 import com.ncms.mapper.dept.SysDepartmentMapper;
@@ -20,6 +21,7 @@ import com.ncms.model.dept.SysDepartmentVO;
 import com.ncms.model.sys.dept.SysDepartment;
 import com.ncms.service.dept.SysDepartmentService;
 import com.ncms.utils.id.T_ID_GEN;
+import com.xiaoleilu.hutool.date.DateUtil;
 
 @Service
 public class SysDepartmentServiceImpl extends AbstractService<SysDepartment> implements SysDepartmentService{
@@ -39,7 +41,8 @@ public class SysDepartmentServiceImpl extends AbstractService<SysDepartment> imp
 	        for (SysDepartmentVO x : departmentVOs) {     
 	            Map<String,Object> mapArr = new LinkedHashMap<String, Object>();  
 	            mapArr.put("depCode", x.getDepCode());  
-                mapArr.put("depName", x.getDepName()); 
+                mapArr.put("depName", x.getDepName());
+                mapArr.put("pdepId", x.getPdepId());
                 mapArr.put("parentCode", x.getParentCode()); 
                 mapArr.put("parentName", x.getParentName()); 
                 
@@ -53,20 +56,19 @@ public class SysDepartmentServiceImpl extends AbstractService<SysDepartment> imp
 	}
 	
 	@Override
-	public List<Object> queryDepartByConditionsRedis(String funcCode,String funcName,Integer funcState) {
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("funcCode", funcCode);
-		paramMap.put("funcName", funcName);
-		paramMap.put("funcState", funcState);
-		List<SysDepartmentVO> list=sysDepartmentMapper.queryDepartByConditions(paramMap);
-		return menuList(list);
+
+	public PageInfo<SysDepartmentVO> queryDepartByConditionsRedis(Map<String, Object> map,int pageNum,int pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		List<SysDepartmentVO> list=sysDepartmentMapper.queryDepartByConditions(map);
+		PageInfo<SysDepartmentVO> page=new PageInfo<>(list);
+		return page;
 	}
 	
 	@Override
 	public String insertDepartNode(HttpServletRequest request) {
 		SysDepartment departmentVO = new SysDepartment();
 		departmentVO.setDepId(T_ID_GEN.sys_id().replace("-", ""));
-		departmentVO.setDepCode(new Date().toLocaleString());
+		departmentVO.setDepCode(DateUtil.now());
 		departmentVO.setDepName(request.getParameter("depName"));
 		departmentVO.setPdepId(request.getParameter("pdepId"));
 		departmentVO.setDepOrder(Integer.parseInt(request.getParameter("depOrder")));

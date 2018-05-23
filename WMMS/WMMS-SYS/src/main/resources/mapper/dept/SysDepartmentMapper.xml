@@ -53,11 +53,14 @@
      	<if test="funcName != '' and funcName != null">
      		and LOCATE(#{funcName,jdbcType=VARCHAR},sys_department.dep_name) &gt; 0
      	</if>
-     	<if test="funcState != null">
+     	<if test="funcState != null and funcState != ''">
      		and sys_department.dep_state = #{funcState,jdbcType=INTEGER} 
      	</if>
-     	<if test="funcState == null">
+     	<if test="funcState == null or funcState != ''">
      		and sys_department.dep_state &gt;=0
+     	</if>
+     	<if test="pdepId != null and pdepId != ''">
+     		and sys_department.pdep_id = #{pdepId} 
      	</if>
      </where>
      order by sys_department.dep_order

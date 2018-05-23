@@ -46,6 +46,11 @@ public class SysStateEnum {
 		 * @Description: 房租缴费提醒天数
 		 */
 		public static String RENT_ALERT_DAYS="RENT_ALERT_DAYS";
+		
+		/**
+		 * @Description: 合同到期预警提醒天数
+		 */
+		public static String CONT_ALERT = "CONT_ALERT_DAYS";
 
 		private ParameterStateEnum(){
 			super.putEnum(CAN_USE, "可用");

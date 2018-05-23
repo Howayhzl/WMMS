@@ -208,6 +208,12 @@ public class UserController {
 		sysUser.setUserState(UserStateEnum.CAN_USE);
 		sysUser.setUserPassword(SecureUtil.md5(UserStateEnum.U_PASS_WORD));
 		sysUser.setCreateTime(new Date());
+		if(StrUtil.isBlank(sysUser.getRegId())){
+			sysUser.setRegId(null);
+		}
+		if(StrUtil.isBlank(sysUser.getDepId())){
+			sysUser.setDepId(null);
+		}
 		int result = userService.insert(sysUser);
 		if(result > 0){
 			return BackEntity.ok(PromptMessage.ADD_USER_SUCCESS);

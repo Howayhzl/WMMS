@@ -5,9 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.ncms.comm.base.AbstractService;
 import com.ncms.comm.state.sys.SysStateEnum.MenuStateEnum;
 import com.ncms.mapper.menu.SysMenuMapper;
@@ -16,6 +20,9 @@ import com.ncms.model.menu.SysAutoMenuVO;
 import com.ncms.model.sys.SysSystem;
 import com.ncms.model.sys.menu.SysMenu;
 import com.ncms.service.menu.SysMenuService;
+import com.ncms.utils.id.T_ID_GEN;
+import com.xiaoleilu.hutool.date.DateUtil;
+import com.xiaoleilu.hutool.util.StrUtil;
 
 @Service
 public class SysMenuServiceImpl extends AbstractService<SysMenu> implements SysMenuService{
@@ -29,13 +36,20 @@ public class SysMenuServiceImpl extends AbstractService<SysMenu> implements SysM
 	 * @date 创建时间：2018年1月9日
 	 */
 	@Override
-	public List<SysAutoMenuVO> queryMenuIndexByRole(List<String> roleIds){
+
+	public List<SysAutoMenuVO> queryMenuIndexByRole(List<String> roleIds,String sys_menuId){
 		//通过可操作菜单集合查询对应顶级菜单实体集合
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("role_ids", roleIds);
+		param.put("sys_menuId", sys_menuId);
 		param.put("menu_state", MenuStateEnum.CAN_USE);
 		// 查询所有子菜单
 		List<SysAutoMenuVO> oriMenuList = sysMenuMapper.queryMenuIndexByRole(param);
+		if(StrUtil.isNotBlank(sys_menuId)){
+			// 拼接菜单
+			List<SysAutoMenuVO> menuList = mergeMenuList(oriMenuList, sys_menuId);
+			return menuList;
+		}
 		return oriMenuList;
 	}
 	
@@ -67,6 +81,18 @@ public class SysMenuServiceImpl extends AbstractService<SysMenu> implements SysM
 		return list;
 	}
 	
+	@Override
+	public Page<SysMenu> queryMenuList(String menuCode,
+			String menuName,String pMenuId,int pageNum,int pageSize) {
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("menuCode",menuCode);
+		map.put("menuName",menuName);
+		map.put("pMenuId",pMenuId);
+		PageHelper.startPage(pageNum, pageSize);
+		Page<SysMenu> page = (Page<SysMenu>)sysMenuMapper.queryMenuList(map);
+		return page;
+	}
+	
 	/**
 	 * @description 修改菜单状态
 	 * @author yuefy
@@ -77,6 +103,49 @@ public class SysMenuServiceImpl extends AbstractService<SysMenu> implements SysM
 		int result = sysMenuMapper.updateMenuStateBatch(paramMap);
 		return result;
 	}
+	
+	/**
+	 * @description 新增菜单
+	 * @author yuefy
+	 * @date 创建时间：2018年1月17日
+	 */
+	@Override
+	public int insertMenu(HttpServletRequest request) {
+		SysMenu item = new SysMenu();
+    	item.setMenuId(T_ID_GEN.sys_id().replace("-", ""));
+    	item.setSysId(request.getParameter("sysId"));
+    	item.setMenuCode(DateUtil.now());
+    	item.setMenuName(request.getParameter("menuName"));
+    	item.setMenuUrl(request.getParameter("menuUrl"));
+    	item.setMenuIcon("xiao");
+    	item.setMenuState(MenuStateEnum.CAN_USE);
+    	item.setPmenuId(request.getParameter("pmenuId"));
+    	item.setMenuNote(request.getParameter("menuNote"));
+    	item.setMenuOrder(Integer.parseInt(request.getParameter("menuOrder")));
+    	return insert(item);
+	}
+	
+	/**
+	 * @description 修改菜单
+	 * @author yuefy
+	 * @date 创建时间：2018年1月17日
+	 */
+	@Override
+	public int updateMenu(HttpServletRequest request) {
+		SysMenu item = new SysMenu();
+    	item.setSysId(request.getParameter("sysId"));
+    	item.setMenuId(request.getParameter("menuId"));
+    	item.setMenuCode(request.getParameter("menuCode"));
+    	item.setMenuName(request.getParameter("menuName"));
+    	item.setPmenuId(request.getParameter("pmenuId"));
+    	item.setMenuIcon(request.getParameter("menuIcon"));
+    	item.setMenuNote(request.getParameter("menuNote"));
+    	item.setMenuOrder(Integer.parseInt(request.getParameter("menuOrder")));
+    	item.setMenuState(Integer.parseInt(request.getParameter("menuState")));
+    	item.setMenuUrl(request.getParameter("menuUrl"));
+    	return sysMenuMapper.updateMenuNode(item);
+	}
+	
 	
 	/**
 	 * @description 根据code或者 id 单条查询
@@ -157,10 +226,10 @@ public class SysMenuServiceImpl extends AbstractService<SysMenu> implements SysM
 		
 		if(oriMList.size()>0){
 			for(SysAutoMenuVO item : oriMList){
-				if(pmenuId.equals(item.getParentId())){
+				if(item.getParentId().equals(pmenuId)){
 					// 去掉本元素
 					reOriMList.remove(item);
-					// 以自己的code作为父code，重新遍历
+					// 以自己的id作为父id，重新遍历
 					item.setChildMenus(mergeMenuList(reOriMList, item.getMenuId()));
 					// 添加节点
 					menuList.add(item);
@@ -185,6 +254,7 @@ public class SysMenuServiceImpl extends AbstractService<SysMenu> implements SysM
 			sysAutoMenuVO.setLinkUrl(sysItem.getSysIcon());
 			sysAutoMenuVO.setCode(sysItem.getSysCode());
 			sysAutoMenuVO.setOrder(sysItem.getSysOrder()+"");
+			sysAutoMenuVO.setSysId(sysItem.getSysId());
 			MenuTreeNodeList.add(sysAutoMenuVO);
 			MenuTreeNodeList.addAll(queryFunctionMenuTreeRedis(sysItem.getSysId()));
 		}

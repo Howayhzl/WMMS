@@ -39,6 +39,7 @@ function findRole() {
 	var roleCode =  $("#functionCode").val();
 	var roleName =  $("#functionName").val();
 	var roleState =  $("#functionState").val();
+	var roleNote =  $("#functionNote").val();
 	$('#tb').bootstrapTable('destroy');
 	$("#tb").bootstrapTable({
 		method : "post",
@@ -56,13 +57,15 @@ function findRole() {
 		// 设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
 		// 设置为limit可以获取limit, offset, search, sort, order
 		queryParamsType : "undefined",
+		ajaxOptions:{headers: {"x-auth-token":sessionStorage.getItem("token")}},
 		queryParams : function queryParams(params) { // 设置查询参数
 			var param = {
 				cur_page_num: params.pageNumber,    
 				page_count: params.pageSize,
 	            roleCode : roleCode,
 				roleName : roleName,
-				roleState:roleState
+				roleState:roleState,
+				roleNote : roleNote,
 			};
 			return param;
 		},
@@ -272,7 +275,7 @@ function updateRole(){
     		$("input[name='roleCode']").val(item.roleCode);
     		$("input[name='roleId']").val(item.roleId);
     		$("input[name='roleState']").val(item.roleState);
-    		$("input[name='roleCode']").attr("readonly",true);
+//    		$("input[name='roleCode']").attr("readonly",true);
 			$('#EditPanel .form-group span.modal-error').children().remove();
     		$('#EditPanel').modal();
 		}/*,
@@ -286,11 +289,7 @@ function updateRole(){
  */
 function formSubmit(){
 	if(validform().form()){
-		var s=$("input[name='roleName']").val();
-		if(s=="" ){
-			alertModel("角色名不能为空！");
-			return false;
-		}
+		
 		var data=$('#dataForm').serialize();
 		var submitData=decodeURIComponent(data,true);
 	    if(operate_type==1){
@@ -343,10 +342,23 @@ function validform(){
 	var addnew_validate= bindformvalidate("#dataForm", {
 		roleName:{
 			required : true,
+		},roleCode:{
+			required : true,
+			remote:{  
+                type:"POST",  
+                url:sysContext+'role/exist', //请求地址  
+                data:{  
+                	roleCode:$("#roleCode").val()  
+                }  
+            } 
 		}
 	},{
 		roleName:{
 			required : "必填！"
+		},
+		roleCode:{
+			required : "必填！",
+			remote:"角色编码已存在"
 		}
 	});
 
@@ -427,6 +439,7 @@ function allUser(){
 		// 设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
 		// 设置为limit可以获取limit, offset, search, sort, order
 		queryParamsType : "undefined",
+		ajaxOptions:{headers: {"x-auth-token":sessionStorage.getItem("token")}},
 		queryParams : function queryParams(params) { // 设置查询参数
 			var param = {
 				cur_page_num: params.pageNumber,    

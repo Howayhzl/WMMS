@@ -47,6 +47,7 @@ function findUsers() {
 		// 设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
 		// 设置为limit可以获取limit, offset, search, sort, order
 		queryParamsType : "undefined",
+		ajaxOptions:{headers: {"x-auth-token":sessionStorage.getItem("token")}},
 		queryParams : function queryParams(params) { // 设置查询参数
 			var param = {
 				cur_page_num: params.pageNumber,    
@@ -55,7 +56,6 @@ function findUsers() {
 				userName : $("#userNameFind").val().replace(/\s/g, ""),
 				depId : $("#depId").val(),
 				userState : $("#userState").val(),
-				majorId : $("#majorId").val(),
 				regIds: $("#regIds_regSearch").val(),
 			};
 			return param;
@@ -77,9 +77,6 @@ function findUsers() {
         },  {
             field: 'regName',
             title: '归属区域'
-        }, {
-        	field: 'majorName',
-            title: '归属专业'
         }, {
             field: 'userEmail',
             title: '电子邮箱'
@@ -146,6 +143,7 @@ function findUsersRedio() {
 		pageList : [10, 25, 50, 100, 500], // 记录数可选列表
 		search : false, // 是否启用查询
 		sidePagination : "server", // 表示服务端请求
+		ajaxOptions:{headers: {"x-auth-token":sessionStorage.getItem("token")}},
 		// 设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
 		// 设置为limit可以获取limit, offset, search, sort, order
 		queryParamsType : "undefined",
@@ -157,7 +155,6 @@ function findUsersRedio() {
 				userName : $("#userNameFind").val().replace(/\s/g, ""),
 				depId : $("#depId").val(),
 				userState : $("#userState").val(),
-				majorId : $("#majorId").val(),
 				regId : $("#regId").val()
 			};
 			return param;
@@ -179,9 +176,6 @@ function findUsersRedio() {
         },  {
             field: 'regName',
             title: '归属区域'
-        }, {
-        	field: 'majorName',
-            title: '归属专业'
         }, {
             field: 'userEmail',
             title: '电子邮箱'
@@ -242,7 +236,6 @@ function queryAllParam() {
         success: function (value) {
 			if(value != null){
 				sysDepartmentList = value.obj.sysDepartmentList;
-				sysMajorList = value.obj.sysMajorList;
 
 				if(sysDepartmentList!=null){
 					var str = "<option value=''>-请选择部门-</option>";
@@ -268,32 +261,6 @@ function queryAllParam() {
 						}
 					});
 					$("#depId").append(str);
-				}
-				
-				if(sysMajorList!=null){
-					var str = "<option value=''>-请选择专业-</option>";
-					$.each(sysMajorList, function (i, item){
-						if(item.pmajorId == null || item.pmajorId == ''){
-							pid = item.majorId;
-							str += "<option value='" +item.majorId+"'>"+item.majorName+ "</option>";
-							if(item.children != null){
-								$.each(item.children, function (i, item){
-									ppid = item.majorId;
-									if(pid = item.pmajorId){
-										str += "<option value='" +item.majorId+"'>"+"&nbsp&nbsp&nbsp&nbsp"+item.majorName+ "</option>";
-									}
-									if(item.children != null){
-										$.each(item.children, function (i, item){
-											if(ppid = item.pmajorId){
-												str += "<option value='" +item.majorId+"'>"+"&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp"+item.majorName+ "</option>";
-											}
-										});
-									}
-								});
-							}
-						}
-					});
-					$("#majorId").append(str);
 				}
 			}
 		}

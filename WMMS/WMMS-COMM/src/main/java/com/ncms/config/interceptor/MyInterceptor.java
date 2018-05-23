@@ -24,7 +24,7 @@ public class MyInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse res, Object o) throws Exception {
-
+    	setResHeader(request, res);
         return true;
     }
 
@@ -32,13 +32,12 @@ public class MyInterceptor implements HandlerInterceptor {
      * 设置请求头格式
      * @param res
      */
-    public void setResHeader(HttpServletResponse res){
-        res.setContentType("application/octet-stream"); //设置返回格式二进制流
-        res.setHeader("Access-Control-Allow-Origin", "*");
-        res.setHeader("Access-Control-Allow-Credentials", "true");
-        res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
-        res.setHeader("Access-Control-Max-Age", "0");
-        res.setHeader("Access-Control-Allow-Headers", "Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With,userId,token");
+    public void setResHeader(HttpServletRequest request, HttpServletResponse res){
+        res.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));  
+        res.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");  
+        res.setHeader("Access-Control-Max-Age", "0");  
+        res.setHeader("Access-Control-Allow-Headers", "Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With,userId,token,Access-Control-Allow-Headers");  
+        res.setHeader("Access-Control-Allow-Credentials", "true"); 
         res.setHeader("XDomainRequestAllowed","1");
     }
     /**

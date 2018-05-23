@@ -9,21 +9,21 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ncms.comm.base.loginInfo.SysUserVO;
+import com.github.pagehelper.Page;
 import com.ncms.comm.exception.BizException;
 import com.ncms.comm.http.BackEntity;
 import com.ncms.comm.state.sys.SysStateEnum.MenuStateEnum;
-import com.ncms.constant.Constants;
 import com.ncms.constant.PromptMessage;
 import com.ncms.model.menu.MenuTreeNodeVO;
 import com.ncms.model.menu.SysAutoMenuVO;
+import com.ncms.model.region.SysRegionVO;
 import com.ncms.model.sys.SysSystem;
 import com.ncms.model.sys.menu.SysMenu;
 import com.ncms.service.SysSystemService;
@@ -47,18 +47,56 @@ public class MenuController {
     SysSystemService systemService;
 
     /**
-     * @description 查询所有菜单
+     * @description 查询顶级菜单
      * @author yuefy
      * @date 创建时间：2018年1月9日
      */
-    @RequestMapping(value = "/getMenuList",method = RequestMethod.GET)
-    public BackEntity getMenuList(@RequestParam Map<String,String> params){
+    @RequestMapping(value = "/systemMenu",method = RequestMethod.GET)
+    public BackEntity getSystemMenu(){
+    	SysSystem sys = new SysSystem();
+		sys.setSysState(MenuStateEnum.CAN_USE);
+		List<SysSystem> sysSystemlist = systemService.findByEntity(sys);
+		if(sysSystemlist.size()>0){
+			return BackEntity.ok(PromptMessage.GET_MENU_SUCCESS, sysSystemlist);
+		}else{
+			return BackEntity.error(PromptMessage.SELECT_MENU_FAILED);
+		}
+    }
+
+    /**
+     * @description 根据顶级菜单获取子菜单
+     * @author yuefy
+     * @date 创建时间：2018年1月9日
+     */
+    @RequestMapping(value = "/secondMenu/{pmenuId}",method = RequestMethod.GET)
+    public BackEntity getSecondMenu(@PathVariable(name="pmenuId")String sys_menuId){
     	List<String> roleIds = ShiroUtils.getUserRoles();
     	if(roleIds==null){
 			throw new BizException(PromptMessage.USER_DOES_NOT_ASSOCIATE_ROLE);
 		}
     	//所有菜单
-    	List<SysAutoMenuVO> topMenuList = menuService.queryMenuIndexByRole(roleIds);
+    	List<SysAutoMenuVO> secMenuList = menuService.queryMenuIndexByRole(roleIds, sys_menuId);
+		
+		if(secMenuList.size()>0){
+			return BackEntity.ok(PromptMessage.GET_MENU_SUCCESS, secMenuList);
+		}else{
+			return BackEntity.error(PromptMessage.SELECT_MENU_FAILED);
+		}
+    }
+
+    /**
+     * @description 查询所有菜单
+     * @author yuefy
+     * @date 创建时间：2018年1月9日
+     */
+    @RequestMapping(value = "/getMenuList",method = RequestMethod.GET)
+    public BackEntity getMenuList(){
+    	List<String> roleIds = ShiroUtils.getUserRoles();
+    	if(roleIds==null){
+			throw new BizException(PromptMessage.USER_DOES_NOT_ASSOCIATE_ROLE);
+		}
+    	//所有菜单
+    	List<SysAutoMenuVO> topMenuList = menuService.queryMenuIndexByRole(roleIds, null);
 		
     	SysSystem sys = new SysSystem();
 		sys.setSysState(MenuStateEnum.CAN_USE);
@@ -71,7 +109,6 @@ public class MenuController {
 			return BackEntity.error(PromptMessage.SELECT_MENU_FAILED);
 		}
     }
-    
     
     /**
      * @description 保存用户选中的菜单
@@ -114,6 +151,18 @@ public class MenuController {
     	List<MenuTreeNodeVO> list = menuService.queryMenuByConditionsRedis(menuCode, menuName);
     	return BackEntity.ok(PromptMessage.SELECT_MENU_SUCCESS, list);
     }
+    
+    /**
+     * @author YueFY
+     * @date 2018年5月16日  
+     * @Description: 根据条件选择父级id查询菜单右侧表格列表
+     */
+	@RequestMapping(value="/menu/list",method=RequestMethod.POST)
+	public BackEntity queryMenuList(String menuCode,String menuName,String pMenuId,
+			int pageNum,int pageSize){
+		Page<SysMenu> sysMenuList = menuService.queryMenuList(menuCode, menuName, pMenuId, pageNum, pageSize);
+		return BackEntity.ok("查询菜单信息成功！", sysMenuList.toPageInfo());
+	}
     
     /**
      * @description 删除菜单项
@@ -190,19 +239,7 @@ public class MenuController {
 	 */
     @RequestMapping(value="/modifyMenuNode", method = RequestMethod.POST)
     public BackEntity modifyMenuNode(HttpServletRequest request)  {
-    	SysMenu item = new SysMenu();
-    	item.setSysId(request.getParameter("sysId"));
-    	item.setMenuId(request.getParameter("menuId"));
-    	item.setMenuCode(request.getParameter("menuCode"));
-    	item.setMenuName(request.getParameter("menuName"));
-    	item.setPmenuId(request.getParameter("pmenuId"));
-    	item.setMenuIcon(request.getParameter("menuIcon"));
-    	item.setMenuNote(request.getParameter("menuNote"));
-    	item.setMenuOrder(Integer.parseInt(request.getParameter("menuOrder")));
-    	item.setMenuState(Integer.parseInt(request.getParameter("menuState")));
-    	item.setMenuUrl(request.getParameter("menuUrl"));
-    	
-    	int result = menuService.updateMenuNode(item);
+    	int result = menuService.updateMenu(request);
     	if(result > 0){
     		return BackEntity.ok(PromptMessage.UPDATE_MENU_SUCCESS);
     	}else{
@@ -217,18 +254,7 @@ public class MenuController {
      */
     @RequestMapping(value="/addNewMenuNode", method = RequestMethod.POST)
     public BackEntity addNewMenuNode(HttpServletRequest request)  {
-    	SysMenu item = new SysMenu();
-    	item.setMenuId(T_ID_GEN.sys_id().replace("-", ""));
-    	item.setSysId(request.getParameter("sysId"));
-    	item.setMenuCode(request.getParameter("menuCode"));
-    	item.setMenuName(request.getParameter("menuName"));
-    	item.setMenuUrl(request.getParameter("menuUrl"));
-    	item.setMenuIcon(request.getParameter("menuIcon"));
-    	item.setMenuState(MenuStateEnum.CAN_USE);
-    	item.setPmenuId(request.getParameter("pmenuId"));
-    	item.setMenuNote(request.getParameter("menuNote"));
-    	item.setMenuOrder(Integer.parseInt(request.getParameter("menuOrder")));
-    	int result = menuService.insert(item);
+    	int result = menuService.insertMenu(request);
     	if(result > 0){
     		return BackEntity.ok(PromptMessage.ADD_MENU_SUCCESS);
     	}else{

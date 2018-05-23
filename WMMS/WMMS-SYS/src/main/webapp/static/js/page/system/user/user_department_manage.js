@@ -80,7 +80,7 @@ var nodes;
 	 if(curPageNum == i)
 		 return;
 	 curPageNum = i;
-	 loadUserTableData();
+	 findUsersRedio();
 }
  /**
   * 获取选中的radio

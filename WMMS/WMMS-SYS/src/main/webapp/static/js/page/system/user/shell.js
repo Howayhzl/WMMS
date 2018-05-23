@@ -47,8 +47,9 @@ function findName(){
 	var name = $("#userLoginname").val();
 	var userLoginname = name.replace(/\s/g, "");
 	if(userLoginname.length <= 0){
-		$("#userLoginname").next("#err").html("<img src=\"../../../image/error.png\"/>用户账户不能为空!！");
+		$("#userLoginname").next("#err").html("<img src=\"../../../static/image/error.png\"/>用户账户不能为空!！");
 		$("#userLoginname").next("#err").css({"color":"red"});
+		flag = true;
 		return;
 	}else{
 		myajax.path({
@@ -65,20 +66,17 @@ function findName(){
 	 				if(back.success=="1"){
 	 					var data = back.Obj;
 	 					if(data != null && data.length > 0){
-	 						$("#userLoginname").next("#err").html("<img src=\"../../../image/error.png\"/>此用户名已存在!");
+	 						$("#userLoginname").next("#err").html("<img src=\"../../../static/image/error.png\"/>此用户名已存在!");
 	 						$("#userLoginname").next("#err").css({"color":"red"});
 	 						flag = true;
 	 					}else{
-	 						$("#userLoginname").next("#err").html("<img src=\"../../../image/right_1.png\"/>此用户名可用!");
+	 						$("#userLoginname").next("#err").html("<img src=\"../../../static/image/right_1.png\"/>此用户名可用!");
 	 						$("#userLoginname").next("#err").css({"color":"green"});
 	 						flag = false;
 	 					}
 	 				}
 				}
-			}/*,
-			error : function() {
-				alertModel("请求异常");
-			}*/
+			}
 		});
 	}
 }
@@ -101,6 +99,10 @@ function formSubmit(){
 		alertModel("请输入用户代码！");
 		return;
 	}
+	if($("#regId_regSearch").val() == ""){
+		alertModel("请选择区域信息！");
+		return;
+	}
 	var data=$('#dataForm').serialize();
 	var submitData = decodeURIComponent(data,true);
     if(operate_type==1){
@@ -113,6 +115,7 @@ function formSubmit(){
 			async:false,
 			success : function(result) {
 				//请求成功时
+				$("#ui_loading_progressBar").hide();
 		    	if(result!=null){
 		    		alertModel(result.msg,back);
 	    			findUsers();
@@ -120,6 +123,7 @@ function formSubmit(){
 				$("#saveSet").attr("disabled",false);
 			},
 			complete : function() {
+				$("#ui_loading_progressBar").hide();
 				//alertModel("请求失败！");
 				$("#saveSet").attr("disabled",false);
 			}
@@ -135,6 +139,7 @@ function formSubmit(){
 		    async:false,
 			dataType : 'json',
 		    success:function(result){
+		    	$("#ui_loading_progressBar").hide();
 		        //请求成功时
 		    	if(result!=null){
 		    		alertModel(result.msg,back);
@@ -146,6 +151,7 @@ function formSubmit(){
     			$("#saveSet").attr("disabled",false);
 		    },
 		    complete:function(){
+		    	$("#ui_loading_progressBar").hide();
 				//alertModel("请求失败！");
 				$("#saveSet").attr("disabled",false);
 		    }
@@ -183,7 +189,6 @@ function findUserData(){
 						$("input[name=userCode]").val(user.userCode);
 						$("#regId").val(user.regId);
 						$("#depId").val(user.depId);
-						$("#majorId").val(user.majorId);
 						$("#regId").val(user.regId);
 						$("#regId_"+"regSearch").val(user.regId);
 					}
@@ -234,7 +239,6 @@ function queryAllParam() {
 			if(value != null){
 				sysReguins = value.obj.sysRegionList;
 				sysDepartmentList = value.obj.sysDepartmentList;
-				sysMajorList = value.obj.sysMajorList;
 				
 				if(sysReguins!=null){
 					var str = "<option value=''>-请选择区域-</option>";
@@ -286,32 +290,6 @@ function queryAllParam() {
 						}
 					});
 					$("#depId").append(str);
-				}
-				
-				if(sysMajorList!=null){
-					var str = "<option value=''>-请选择专业-</option>";
-					$.each(sysMajorList, function (i, item){
-						if(item.pmajorId == null || item.pmajorId == ''){
-							pid = item.majorId;
-							str += "<option value='" +item.majorId+"'>"+item.majorName+ "</option>";
-							if(item.children != null){
-								$.each(item.children, function (i, item){
-									ppid = item.majorId;
-									if(pid = item.pmajorId){
-										str += "<option value='" +item.majorId+"'>"+"&nbsp&nbsp&nbsp&nbsp"+item.majorName+ "</option>";
-									}
-									if(item.children != null){
-										$.each(item.children, function (i, item){
-											if(ppid = item.pmajorId){
-												str += "<option value='" +item.majorId+"'>"+"&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp"+item.majorName+ "</option>";
-											}
-										});
-									}
-								});
-							}
-						}
-					});
-					$("#majorId").append(str);
 				}
 			}
 		}

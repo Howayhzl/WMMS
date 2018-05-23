@@ -1,6 +1,8 @@
 package com.ncms.controller.dept;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,9 +14,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import tk.mybatis.mapper.entity.Condition;
+import tk.mybatis.mapper.entity.Example.Criteria;
+
+import com.ncms.comm.base.page.PageInfo;
 import com.ncms.comm.http.BackEntity;
 import com.ncms.comm.http.RESULT;
+import com.ncms.comm.state.sys.SysStateEnum.DeptStateEnum;
 import com.ncms.model.dept.SysDepartmentVO;
+import com.ncms.model.sys.dept.SysDepartment;
 import com.ncms.service.dept.SysDepartmentService;
 
 @RestController
@@ -29,7 +37,6 @@ public class DeptMangerController {
 	 */
 	@RequestMapping(value="/department/insert", method = RequestMethod.POST)
 	public BackEntity addNewDepartNode(HttpServletRequest request){
-		
 		String result = departmentService.insertDepartNode(request);
 		if(result.equals(RESULT.SUCCESS_1)){
 			return BackEntity.ok("新增组织机构"+request.getParameter("depName")+"操作成功");
@@ -44,7 +51,18 @@ public class DeptMangerController {
 	 */
 	@RequestMapping(value="/department/delete", method = RequestMethod.POST)
 	public BackEntity deleteDepart(@RequestBody List<SysDepartmentVO> items){
-		
+		List<String> list=new ArrayList<>();
+		for (SysDepartmentVO sysDepartmentVO:items) {
+			list.add(sysDepartmentVO.getDepId());
+		}
+		Condition condition=new Condition(SysDepartment.class);
+		Criteria criteria = condition.createCriteria();
+		criteria.andIn("pdepId", list);
+		criteria.andNotEqualTo("depState", DeptStateEnum.DROPED);
+		List<SysDepartment> findByCondition = departmentService.findByCondition(condition);
+		if(findByCondition!=null && findByCondition.size()>0){
+			return BackEntity.error("删除失败，请先删除子节点");
+		}
 		String result = departmentService.deleteDepart(items);
 		if(result.equals(RESULT.SUCCESS_1)){
 			return BackEntity.ok("删除组织机构操作成功");
@@ -118,15 +136,10 @@ public class DeptMangerController {
 	 * @param 
 	 * @return
 	 */
-    @RequestMapping(value="/department/queryByConditions", method = RequestMethod.GET)
-    public BackEntity queryDepartByConditions(@RequestParam(name="funcCode") String funcCode,
-    		@RequestParam(name="funcName") String funcName,@RequestParam(name="funcState") Integer funcState)  {
-    	List<Object> list = departmentService.queryDepartByConditionsRedis(funcCode, funcName,funcState);
-    	if(list.size()>0){
-			return BackEntity.ok("查询组织机构成功",list);
-		}else{
-			return BackEntity.error("未查询到组织机构");
-		}
+    @RequestMapping(value="/department/queryByConditions", method = RequestMethod.POST)
+    public BackEntity queryDepartByConditions(@RequestParam Map<String, Object> map,int pageNum,int pageSize)  {
+    	PageInfo<SysDepartmentVO> list = departmentService.queryDepartByConditionsRedis(map,pageNum,pageSize);
+		return BackEntity.ok("查询组织机构成功",list);
     }
 	
     /**

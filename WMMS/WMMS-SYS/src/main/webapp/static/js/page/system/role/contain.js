@@ -44,6 +44,7 @@ function leftTable(){
 function left(lResult){
 	$('#tab_sendValue1 tr').remove();
 	if(lResult.length>0){
+		var html="";
 		for(var i=0;i<lResult.length;i++){
 			if(lResult[i] != null){
 				var state = null;
@@ -53,15 +54,13 @@ function left(lResult){
 					case 9:state="停用"
 						break;
 				}
-				var html;
 				html+='<tr>'
 				html+='<td><input type="checkbox" id="id'+i+'" name="item" value="'+ lResult[i].userId +'"></td>';
 				html+='<td>'+ lResult[i].userLoginname +'</td>';
 				html+='<td>'+ lResult[i].userCode +'</td>';
 				html+='<td>'+ lResult[i].userName +'</td>';
-				html+='<td>'+ lResult[i].depName +'</td>';
+				html+='<td>'+ (lResult[i].depName||lResult[j].depName==undefined?"-":lResult[j].depName) +'</td>';
 				html+='<td>'+ lResult[i].regName +'</td>';
-				html+='<td>'+ lResult[i].majorName +'</td>';
 				html+='<td>'+ state +'</td>';
 				html+='</tr>';
 			}
@@ -72,6 +71,7 @@ function left(lResult){
 function right(rResult){
 	$('#tab_sendValue3 tr').remove();
 	if(rResult.length>0){
+		var str="";
 		for(var j=0;j<rResult.length;j++){
 			if(rResult[j] != null){
 				var state = null;
@@ -81,15 +81,15 @@ function right(rResult){
 					case 9:state="停用"
 						break;
 				}
-				var str,s;
-				str+='<tr>'
+				str+='<tr>';
 				str+='<td><input type="checkbox" id="check_one" name="item1" value="'+ rResult[j].userId +'"></td>';
 				str+='<td>'+ rResult[j].userLoginname +'</td>';
 				str+='<td>'+ rResult[j].userCode +'</td>';
 				str+='<td>'+ rResult[j].userName +'</td>';
-				str+='<td>'+ rResult[j].depName +'</td>';
-				str+='<td>'+ rResult[j].regName +'</td>';
-				str+='<td>'+ rResult[j].majorName +'</td>';
+				
+				str+='<td>'+ (rResult[j].depName||rResult[j].depName==undefined?"-":rResult[j].depName )+'</td>';
+				str+='<td>'+ rResult[j].regName+'</td>';
+			
 				str+='<td>'+ state +'</td>';
 				str+='</tr>';
 			}
@@ -114,8 +114,6 @@ $('#leftTB').blur(function(){
 				leftCopy[leftCopy.length] = lResult[i];
 			}else if(lResult[i].regName.indexOf(leftPara) >= 0){
 				leftCopy[leftCopy.length] = lResult[i];
-			}else if(lResult[i].majorName.indexOf(leftPara) >= 0){
-				leftCopy[leftCopy.length] = lResult[i];
 			}
 		}
 	}
@@ -134,11 +132,9 @@ $('#rightTB').blur(function(){
 				rightCopy[rightCopy.length] = rResult[i];
 			}else if(rResult[i].userName.indexOf(rightPara) >= 0){
 				rightCopy[rightCopy.length] = rResult[i];
-			}else if(rResult[i].depName.indexOf(rightPara) >= 0){
+			}else if(rResult[i].depName!=null&&rResult[i].depName.indexOf(rightPara) >= 0){
 				rightCopy[rightCopy.length] = rResult[i];
 			}else if(rResult[i].regName.indexOf(rightPara) >= 0){
-				rightCopy[rightCopy.length] = rResult[i];
-			}else if(rResult[i].majorName.indexOf(rightPara) >= 0){
 				rightCopy[rightCopy.length] = rResult[i];
 			}
 		}

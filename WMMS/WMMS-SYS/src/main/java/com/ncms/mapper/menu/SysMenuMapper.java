@@ -3,6 +3,7 @@ package com.ncms.mapper.menu;
 import java.util.List;
 import java.util.Map;
 
+import com.github.pagehelper.Page;
 import com.ncms.config.mybatis.MyMapper;
 import com.ncms.model.menu.MenuTreeNodeVO;
 import com.ncms.model.menu.SysAutoMenuVO;
@@ -48,6 +49,12 @@ public interface SysMenuMapper extends MyMapper<SysMenu> {
 	 */
 	public MenuTreeNodeVO queryMenuitemByCode(Map<String, Object> paramMap);
 	
+	/**
+	 * @author YueFY
+	 * @date 2018年5月16日  
+	 * @Description: 根据父级id 查询表格列表
+	 */
+	public Page<SysMenu> queryMenuList(Map<String, Object> paramMap);
 	/**
 	 * @description 批量删除菜单
 	 * @author yuefy
