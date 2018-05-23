@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ncms.mapper.meter.order.PrdOrderMapper">
+	<resultMap id="BaseResultMap" type="com.ncms.model.meter.order.PrdOrder">
+		<id column="prd_order_id" property="prdOrderId" jdbcType="VARCHAR"/>
+		<result column="prd_id" property="prdId" jdbcType="VARCHAR"/>
+		<result column="prd_order_type" property="prdOrderType" jdbcType="INTEGER"/>
+		<result column="submit_user_id" property="submitUserId" jdbcType="VARCHAR"/>
+		<result column="submit_datetime" property="submitDatetime" jdbcType="DATE"/>
+		<result column="handle_user_id" property="handleUserId" jdbcType="VARCHAR"/>
+		<result column="handle_datetime" property="handleDatetime" jdbcType="DATE"/>
+		<result column="handle_state" property="handleState" jdbcType="INTEGER"/>
+		<result column="send_email" property="sendEmail" jdbcType="VARCHAR"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		prd_order.prd_order_id,prd_order.prd_id,prd_order.prd_order_type,prd_order.submit_user_id,prd_order.submit_datetime,prd_order.handle_user_id,prd_order.handle_datetime,prd_order.handle_state,prd_order.send_email
+	</sql>
+</mapper>
