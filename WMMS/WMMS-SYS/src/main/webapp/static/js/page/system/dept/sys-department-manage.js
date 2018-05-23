@@ -106,7 +106,7 @@ function searchFuncMenus(){
             checkbox: true
         }, {
             field: 'depCode',
-            title: '组织编码'
+            title: '组织代码'
         }, {
             field: 'depName',
             title: '组织名称'
@@ -121,9 +121,9 @@ function searchFuncMenus(){
             title: '状态',
             formatter:function(value,row,index){
             	switch(value){
-            		case 0:return '已启用';
-            		case 9:return '已停用';
-            		case -1:return '已删除';
+            		case 0:return '0：正常';
+            		case 9:return '9：停用';
+            		case -1:return '-1：删除';
             		default:return '/';
             	}
             	return value;

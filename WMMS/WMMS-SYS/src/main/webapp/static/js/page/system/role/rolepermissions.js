@@ -28,7 +28,7 @@ $(document).ready(function() {
 		  var id =  rowschecked[0].role_id;
 		  result = fun_getCheckValue();
 		  insertRoleMenu(id,result);
-	  })
+	  });
 });
 
 function  fun_getCheckValue(){ 

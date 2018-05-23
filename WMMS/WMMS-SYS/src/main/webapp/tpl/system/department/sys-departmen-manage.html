@@ -17,18 +17,18 @@
 		<div class="right-operatearea">
 			<form class="form-inline">
 				<div class="form-group">
-					<label>组织编码:</label>
-					<input type="text" id="funcCode" placeholder="请输入组织编码"/>
+					<label>组织代码:</label>
+					<input type="text" id="funcCode"/>
 				</div>
 				<div class="form-group">
 					<label>组织名称:</label>
-					<input type="text" id="funcName" placeholder="请输入组织名称"/>
+					<input type="text" id="funcName"/>
 				</div>
 				<div class="form-group">
 					<label>状态:</label>
 					<select id=funcState>
 						<option value="">-请选择-</option>
-						<option value="0">启用</option>
+						<option value="0">正常</option>
 						<option value="9">停用</option>
 					</select>
 				</div>
@@ -54,33 +54,33 @@
 			<form id="dataForm">
 				<div class="modal-header">
 					<button class="close" type="button" data-dismiss="modal">×</button>
-					<h4 id="myModalLabel">编辑功能菜单</h4>
+					<h4 id="myModalLabel">编辑组织机构</h4>
 				</div>
 				<div class="modal-body">
 						<input type="hidden" name="depId"/>
 						<input type="hidden" name="pdepId"/>
 						<input type="hidden" name="depCode"/>
-						<div class="form-group">
+						<div class="pull-left">
 			    			<label class="control-label">上级组织:</label>
-						    <input type="text" name="frontDeptName" id="frontDeptName" readonly="readonly" placeholder="-"/>
+						    <input type="text" name="frontDeptName" id="frontDeptName" readonly="readonly"/>
 						</div>
-						<div class="form-group">
-			    			<label class="control-label">上级编码:</label>
-						    <input type="text" name="frontDeptCode" id="frontDeptCode" readonly="readonly" placeholder="-"/>
+						<div class="pull-right">
+			    			<label class="control-label">上级代码:</label>
+						    <input type="text" name="frontDeptCode" id="frontDeptCode" readonly="readonly"/>
 						</div>
-						<div class="form-group">
+						<div class="pull-left">
 			    			<label class="control-label">部门名称:</label>
-						    <input type="text" name="depName" id="depName" placeholder="请输入部门名称"/>
+						    <input type="text" name="depName" id="depName"/>
 						    <span id="err" class="modal-error"></span>
 						</div>
-						<div class="form-group">
+						<div class="pull-right">
 			    			<label class="control-label">排序号:</label>
-						    <input type="text" name="depOrder" id="depOrder" placeholder="请输入排序号" />
+						    <input type="text" name="depOrder" id="depOrder"/>
 							<span id="err" class="modal-error"></span>
 						</div>
-						<div class="form-group">
+						<div class="pull-left"  style="width:100%;">
 			    			<label class="control-label" style="position: relative;top: -30px;">部门说明:</label>
-						    <textarea rows="3" id="depNote" name="depNote" ></textarea>
+						    <textarea rows="3" id="depNote" name="depNote" style="width: 466px;"></textarea>
 			  			</div> 
 						<div style="clear:both;"></div>
 				</div>

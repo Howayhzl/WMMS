@@ -11,10 +11,14 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.ncms.comm.http.RESULT;
+import com.ncms.comm.state.sys.SysStateEnum.MenuStateEnum;
 import com.ncms.comm.state.sys.SysStateEnum.UserStateEnum;
 import com.ncms.mapper.role.SysRoleVOMapper;
 import com.ncms.mapper.sys.role.SysRoleMapper;
+import com.ncms.model.menu.MenuTreeNodeVO;
+import com.ncms.model.sys.SysSystem;
 import com.ncms.model.sys.role.SysRole;
+import com.ncms.service.SysSystemService;
 import com.ncms.service.role.SysRoleVOService;
 
 @Service
@@ -26,6 +30,8 @@ public class SysRoleVOServiceImpl implements SysRoleVOService{
 	@Autowired
 	private SysRoleMapper sysRoleMapper;
 
+    @Autowired
+    SysSystemService systemService;
 	@Override
 	//角色页面分页数据查询
 	public Page<Map<String,Object>> querySysRoleByName(Map<String,Object> map,
@@ -172,7 +178,20 @@ public class SysRoleVOServiceImpl implements SysRoleVOService{
 	public List<Map<String, Object>> queryMenuTree() {
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("state",UserStateEnum.CAN_USE);
-		return sysRoleVOMapper.queryMenuTree(map);
+		
+		SysSystem sys = new SysSystem();
+		sys.setSysState(MenuStateEnum.CAN_USE);
+		List<SysSystem> sysSystemlist = systemService.findByEntity(sys);
+		List<Map<String, Object>> MenuTreeNodeList = new ArrayList<>();
+		for(SysSystem sysItem : sysSystemlist){
+			Map<String,Object> sysmap=new HashMap<String,Object>();
+			sysmap.put("id", sysItem.getSysId());
+			sysmap.put("name", sysItem.getSysName());
+			sysmap.put("pid",null);
+			MenuTreeNodeList.add(sysmap);
+		}
+		MenuTreeNodeList.addAll(sysRoleVOMapper.queryMenuTree(map));
+		return MenuTreeNodeList;
 	}
 
 	@Override
