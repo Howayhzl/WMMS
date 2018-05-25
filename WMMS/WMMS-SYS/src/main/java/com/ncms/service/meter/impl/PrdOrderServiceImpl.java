@@ -1,4 +1,4 @@
-package com.ncms.service.meter.order.impl;
+package com.ncms.service.meter.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
