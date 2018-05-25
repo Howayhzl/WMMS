@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ncms.mapper.meter.PrdMeterMapper">
+	<resultMap id="BaseResultMap" type="com.ncms.model.meter.PrdMeter">
+		<id column="meter_id" property="meterId" jdbcType="VARCHAR"/>
+		<result column="meter_company_id" property="meterCompanyId" jdbcType="VARCHAR"/>
+		<result column="meter_brand" property="meterBrand" jdbcType="VARCHAR"/>
+		<result column="meter_size" property="meterSize" jdbcType="VARCHAR"/>
+		<result column="meter_type" property="meterType" jdbcType="VARCHAR"/>
+		<result column="parent_meter_id" property="parentMeterId" jdbcType="VARCHAR"/>
+		<result column="meter_level" property="meterLevel" jdbcType="VARCHAR"/>
+		<result column="meter_value" property="meterValue" jdbcType=""/>
+		<result column="meter_use_time" property="meterUseTime" jdbcType="INTEGER"/>
+		<result column="meter_address" property="meterAddress" jdbcType="VARCHAR"/>
+		<result column="meter_installer" property="meterInstaller" jdbcType="VARCHAR"/>
+		<result column="meter_owner_id" property="meterOwnerId" jdbcType="VARCHAR"/>
+		<result column="meter_creater_id" property="meterCreaterId" jdbcType="VARCHAR"/>
+		<result column="meter_create_time" property="meterCreateTime" jdbcType="DATE"/>
+		<result column="meter_editer_id" property="meterEditerId" jdbcType="VARCHAR"/>
+		<result column="meter_edit_time" property="meterEditTime" jdbcType="DATE"/>
+		<result column="meter_status" property="meterStatus" jdbcType="INTEGER"/>
+		<result column="meter_setup_time" property="meterSetupTime" jdbcType="DATE"/>
+		<result column="meter_last_check_time" property="meterLastCheckTime" jdbcType="DATE"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		prd_meter.meter_id,prd_meter.meter_company_id,prd_meter.meter_brand,prd_meter.meter_size,prd_meter.meter_type,prd_meter.parent_meter_id,prd_meter.meter_level,prd_meter.meter_value,prd_meter.meter_use_time,prd_meter.meter_address,prd_meter.meter_installer,prd_meter.meter_owner_id,prd_meter.meter_creater_id,prd_meter.meter_create_time,prd_meter.meter_editer_id,prd_meter.meter_edit_time,prd_meter.meter_status,prd_meter.meter_setup_time,prd_meter.meter_last_check_time
+	</sql>
+</mapper>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ncms.mapper.meter.PrdMeterTypeDefineMapper">
+	<resultMap id="BaseResultMap" type="com.ncms.model.meter.PrdMeterTypeDefine">
+		<id column="meter_type_id" property="meterTypeId" jdbcType="VARCHAR"/>
+		<result column="meter_brand" property="meterBrand" jdbcType="VARCHAR"/>
+		<result column="meter_size" property="meterSize" jdbcType="INTEGER"/>
+		<result column="meter_type" property="meterType" jdbcType="VARCHAR"/>
+		<result column="meter_size_name" property="meterSizeName" jdbcType="VARCHAR"/>
+		<result column="meter_type_name" property="meterTypeName" jdbcType="VARCHAR"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		prd_meter_type_define.meter_type_id,prd_meter_type_define.meter_brand,prd_meter_type_define.meter_size,prd_meter_type_define.meter_type,prd_meter_type_define.meter_size_name,prd_meter_type_define.meter_type_name
+	</sql>
+</mapper>
