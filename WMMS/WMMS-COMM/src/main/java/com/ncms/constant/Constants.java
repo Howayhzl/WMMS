@@ -19,6 +19,6 @@ public class Constants {
 	public static final String URL_HOME = "/index";	
 
 	//登录过滤的正则表达式：不对匹配该值的访问路径拦截（正则）
-	public static final String REGEXP_PATH = ".*/((login)|(logout)|(toblog)|(search)|(getArchiveArticles)|(code)|(plugins)|(upload)|(static)).*";
+	public static final String REGEXP_PATH = ".*/((login)|(logout)|(getProfile)|(files)|(plugins)|(upload)|(static)).*";
 
 }

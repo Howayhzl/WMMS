@@ -16,7 +16,7 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.alibaba.fastjson.JSON;
+import com.xiaoleilu.hutool.json.JSONUtil;
 
 /**
  * @author admin
@@ -53,11 +53,11 @@ public class LogAspect {
         LOGGER.info(request.getRequestURL().toString()+" HTTP_METHOD : " + request.getMethod());
         LOGGER.info(request.getRequestURL().toString()+" IP : " + request.getRemoteAddr());
         LOGGER.info(request.getRequestURL().toString()+" CLASS_METHOD : " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
-        LOGGER.info(request.getRequestURL().toString()+" ARGS : " + JSON.toJSONString(request.getParameterMap()));
+        LOGGER.info(request.getRequestURL().toString()+" ARGS : " + JSONUtil.toJsonStr(request.getParameterMap()));
 
         result = joinPoint.proceed();
 
-        LOGGER.info(request.getRequestURL().toString()+" RESPONSE : " + JSON.toJSONString(result));
+        LOGGER.info(request.getRequestURL().toString()+" RESPONSE : " + JSONUtil.toJsonStr(result));
         LOGGER.info(request.getRequestURL().toString()+" SPEND TIME : " + (System.currentTimeMillis() - startTime.get())/1000+" s "+(System.currentTimeMillis() - startTime.get())%1000+" ms");
         
         return result;

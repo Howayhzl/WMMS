@@ -74,6 +74,9 @@ public class DruidConfig {
     @Value("${spring.datasource.logSlowSql}")
     private String logSlowSql;
     
+    @Value("{spring.datasource.connectionProperties}")
+    private String connectionProperties;
+    
     @Bean
     public ServletRegistrationBean druidServlet() {
     	ServletRegistrationBean reg = new ServletRegistrationBean();
@@ -82,6 +85,7 @@ public class DruidConfig {
         reg.addInitParameter("loginUsername", username);
         reg.addInitParameter("loginPassword", password);
         reg.addInitParameter("logSlowSql", logSlowSql);
+        reg.addInitParameter("resetEnable", "false");
         return reg;
     }
     
@@ -123,6 +127,7 @@ public class DruidConfig {
         } catch (SQLException e) {
             logger.error("druid configuration initialization filter", e);
         }
+        datasource.setConnectionProperties(connectionProperties);
         return datasource;
     }
 }

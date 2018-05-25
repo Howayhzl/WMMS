@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,8 +29,6 @@ public class SysDepartmentServiceImpl extends AbstractService<SysDepartment> imp
 
 	@Autowired
 	private SysDepartmentMapper sysDepartmentMapper;
-	@Autowired
-	private SysLogService sysLogService;
 	@Override
 	public List<Object> queryDepartmentByConditions() {
 		Map<String, Object> paramMap = new HashMap<String, Object>();

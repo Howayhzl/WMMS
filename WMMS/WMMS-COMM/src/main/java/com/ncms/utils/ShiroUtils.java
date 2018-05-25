@@ -90,7 +90,7 @@ public class ShiroUtils {
 	 */
 	public static SysUserVO getUser() {
 		if(!isLogin()){
-			throw new BizException("用户未登录");
+			throw new BizException("登陆失效，请刷新页面重试");
 		}
 		Subject subject = SecurityUtils.getSubject();
 		Session session = subject.getSession();
@@ -105,7 +105,7 @@ public class ShiroUtils {
 	@SuppressWarnings("unchecked")
 	public static List<String> getUserRoles() {
 		if(!isLogin()){
-			throw new BizException("用户未登录");
+			throw new BizException("登陆失效，请刷新页面重试");
 		}
 		Subject subject = SecurityUtils.getSubject();
 		Session session = subject.getSession();
@@ -120,7 +120,7 @@ public class ShiroUtils {
 	@SuppressWarnings("unchecked")
 	public static List<String> getUserDepartments() {
 		if(!isLogin()){
-			throw new BizException("用户未登录");
+			throw new BizException("登陆失效，请刷新页面重试");
 		}
 		Subject subject = SecurityUtils.getSubject();
 		Session session = subject.getSession();
@@ -135,7 +135,7 @@ public class ShiroUtils {
 	@SuppressWarnings("unchecked")
 	public static List<String> getUserRegions() {
 		if(!isLogin()){
-			throw new BizException("用户未登录");
+			throw new BizException("登陆失效，请刷新页面重试");
 		}
 		Subject subject = SecurityUtils.getSubject();
 		Session session = subject.getSession();
