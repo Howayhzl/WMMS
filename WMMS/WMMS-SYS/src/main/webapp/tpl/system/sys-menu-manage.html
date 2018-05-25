@@ -18,20 +18,29 @@
 			<form class="form-inline">
 				<div class="form-group">
 					<label>功能编码:</label>
-					<input type="text" placeholder="请输入功能编码" id="funcCode"> 
+					<input type="text" id="funcCode"> 
 				</div>
 				<div class="form-group">
 					<label>功能名称:</label>
-					<input type="text" placeholder="请输入功能名称" id="funcName">
+					<input type="text" id="funcName">
+				</div>
+				<div class="form-group">
+					<label>状态:</label>
+					<select id="menuState">
+						<option value="">请选择</option>
+						<option value="0">0：启用</option>
+						<option value="9">9：停用</option>
+					</select>
 				</div>
 				<button type="button" id="queryMenu" class="btn btn-success">查询</button>
+				<button type="reset" id="resetData" class="btn btn-success">清除</button>
 			</form>
 			
 			<div class="btn-toolbar">
 				<button class="btn btn-primary" type="button" id="insertMenu">新增</button>
 				<button class="btn btn-primary" type="button" id="updateMenu">修改</button>
 				<button class="btn btn-danger" type="button" id="deleteMenu">删除</button>
-				<button class="btn btn-success" type="button" id="openMenu">启用</button>
+				<button class="btn btn-warning" type="button" id="openMenu">启用</button>
 				<button class="btn btn-warning" type="button" id="stopMenu">停用</button>
 			</div>
 						
@@ -53,8 +62,8 @@
 	<!-- 新增弹出页面 -->
 	<div class="modal hide fade" id="EditPanel" tabindex="-1">
 		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<form id="dataForm">
+			<div class="modal-content" style="width:720px;">
+				<form id="dataForm"  style="width:100%">
 					<div class="modal-header">
 						<button class="close" type="button" data-dismiss="modal">×</button>
 						<h4 id="myModalLabel">编辑功能菜单</h4>
@@ -68,23 +77,23 @@
 							<label class="control-label">功能代码:</label> 
 							<input type="text" name="menuCode" id="menuCode" placeholder="系统自动生成" readonly="readonly"/>
 						</div>
-						<div class="pull-right">
-							<label class="control-label">排序号:</label> 
-							<input type="text" name="menuOrder" id="order" placeholder="请输入排序号"/>
-							<span class="modal-error"></span>
-						</div>
 						<div class="pull-left">
 							<label class="control-label">功能名称:</label>
 							<input type="text" name="menuName" id="menuName" placeholder="请输入功能名称"/>
-							<span class="modal-error"></span>
+							<span id="err" class="modal-error"></span>
 						</div>
+						<div class="pull-left">
+							<label class="control-label">排序号:</label> 
+							<input type="text" name="menuOrder" id="menuOrder" placeholder="请输入排序号"/>
+							<span id="err" class="modal-error"></span>
+						</div>					
 						<div class="pull-left"  style="width:100%;">
 							<label class="control-label">功能地址:</label> 
-							<input type="text" name="menuUrl" id="menuUrl" placeholder="请输入功能地址" style="width: 466px;"/>
+							<input type="text" name="menuUrl" id="menuUrl" placeholder="请输入功能地址" style="width: 525px;"/>
 						</div>
 						<div class="pull-left" style="width:100%;">
 							<label class="control-label" style="position: relative;top: -18px;">功能说明:</label>
-							<textarea placeholder="请输入内容" name="menuNote" id="menuNote" style="width: 466px;"></textarea>
+							<textarea placeholder="请输入内容" name="menuNote" id="menuNote" style="width: 525px;"></textarea>
 						</div>
 						<div style="clear:both;"></div>
 						<input type="hidden" name="sysId" id = "sysId"/>

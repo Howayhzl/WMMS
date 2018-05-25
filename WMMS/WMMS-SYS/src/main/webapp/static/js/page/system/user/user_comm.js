@@ -24,6 +24,16 @@ function initialize(){
 	queryAllParam();
 
 }
+function clearSearch(){
+	$("#userLoginNames").val("");
+	$("#userNameFind").val("");
+	$("#depId").val("");
+    $("#userState").val("");
+	$("#majorId").val("");
+	$("#regIds_regSearch").val("");
+	$("#regId_regSearch").val("");
+	$("#regName_regSearch").val("");
+}
 /**
  * 查询所有用户
  */

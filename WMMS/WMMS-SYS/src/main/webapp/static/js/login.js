@@ -1,40 +1,7 @@
 
 $(document).ready(function() {
-	/*loadGroup();*/
 	calculate();
-//	//获去cookie中的参数  填入input输入框
-//	var str = getCookie("loginInfo");
-//	alert(str);
-//	if(str != null && str != undefined){
-//		if(str.length>0){
-//			var userLoginname = str.split("#")[0];
-//			var userPassword = str.split("#")[1];
-//			//自动填充用户名和密码
-//			$("#userLoginname").val(userLoginname);
-//			$("#userPassword").val("123456");
-//			$("#realPsw").val(userPassword);
-//			$("#remFlag").attr("checked",'checked');
-//		}
-	//获去cookie中的参数  填入input输入框
-	/*var str = document.cookie.split('#');
-	var arr = str[0].split('=');
-	var name = arr[arr.length-1];
-	var Password = str[1].split(';')[0];
-	if(str != null && str != undefined){
-		if(str.length>0){
-			var userLoginname = name;
-			var userPassword = Password;
-			//自动填充用户名和密码
-			$("#userLoginname").val(name);
-			$("#userPassword").val(Password);
-			$("#realPsw").val(Password);
-			$("#remFlag").attr("checked",'checked');
-		}
-	}*/
-	//如果输入框内容改变  清除多选框选择
-	/*$("#userLoginname").keyup(function(){
-		 $("#remFlag").removeAttr('checked');
-	});*/
+
 	//同步隐藏的userpassword
 	$("#userPassword").keyup(function(){
 		var userPassword=$('#userPassword').val();

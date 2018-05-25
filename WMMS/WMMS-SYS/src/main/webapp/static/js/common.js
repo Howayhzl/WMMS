@@ -168,47 +168,53 @@ function isChecked(){
 /**
  * 获取当前登陆人所有可以管辖的区域
  * @param regSearch 显示的区域的ID
+ * @param label 显示所属区域(非必填)默认true显示
+ * @param inputclass 给文本框加样式(非必填)默认无样式
  * 页面上需要引入<script src="../../../plugins/bootstrap/js/bootstrap-treeview.js"></script>
  * 页面上在要显示的地方添加 <div class="form-group" style="position:relative;" id="regSearch"></div>		
  */
-function initRegionTree(regSearch){
-	var htmltree=""
-	    +"<input type=\"text\" id=\"regName_"+regSearch+"\" name=\"regName\" readonly=\"readonly\"  onclick=\"$('#treeview_"+regSearch+"').show()\" placeholder=\"所属区域\">"
-	    +"<input type=\"hidden\" id=\"regId_"+regSearch+"\" name=\"regId\">"
+function initRegionTree(regSearch,label,inputclass){
+	var htmltree="";
+	if(!label){
+		htmltree+="<label>所属区域:</label>";
+	}
+	htmltree+="<input class=\""+(inputclass?inputclass:"")+"\" type=\"text\" id=\"regName_"+regSearch+"\" name=\"regName\" readonly=\"readonly\" onclick=\"$('#treeview_"+regSearch+"').show()\">"
+	     +"<input type=\"hidden\" id=\"regId_"+regSearch+"\" name=\"regId\">"
 	    +"<input type=\"hidden\" id=\"regIds_"+regSearch+"\" name=\"regIds\">"
-	    +'<div id="treeview_'+regSearch+'" style="display: none;position: absolute;z-index: 10;left:-15px;width:195px;"></div>';	
+	    +'<div id="treeview_'+regSearch+'" style="display: none;position: absolute;z-index: 10;left:'+(!label?45:-15)+'px;width:195px;"></div>';	
 		htmltree+="<script src='../../../plugins/bootstrap/js/bootstrap-treeview.js'></script>";
 	$("#"+regSearch).html(htmltree);
-	var nodeState=false;
 	myajax.path({
 		type : "get",
 		url : sysContext+'region/getRegionTreeList',
 		success : function(result) {				
 			if (result != null&&result.success=="1") {
-				$("#regName_"+regSearch).focus(function() {
-				      var options = {  
-				            bootstrap2 : false,  
-				            showTags : true,  
-				            levels : 2,  
-				            showCheckbox : false,  
-				            checkedIcon : "glyphicon glyphicon-check",  
-				            data :result.obj,  
-				            onNodeSelected : function(event, data) {
-				            	var selectNodes = getNodeIdArr(data);//获取所选父节点下的所有子节点Id
-				                $("#regName_"+regSearch).val(data.text);   
-				                $("#regId_"+regSearch).val(data.id); 
-				                $("#regIds_"+regSearch).val(selectNodes);  
-				                $("#treeview_"+regSearch).hide(); 
-				            	nodeState=true; 
-				            }
-				        };  
-				  
+				$("#regName_"+regSearch).click(function(event) {  
+			        var options = {  
+			            bootstrap2 : false,  
+			            showTags : true,  
+			            levels : 2,  
+			            showCheckbox : false,  
+			            checkedIcon : "glyphicon glyphicon-check",  
+			            data :result.obj,  
+			            onNodeSelected : function(event, data) {
+			            	var selectNodes = getNodeIdArr(data);//获取所选父节点下的所有子节点Id
+			                $("#regName_"+regSearch).val(data.text);   
+			                $("#regId_"+regSearch).val(data.id); 
+			                $("#regIds_"+regSearch).val(selectNodes);  
+			                $("#treeview_"+regSearch).hide(); 
+			            }
+			        };  
+			  
 			        $('#treeview_'+regSearch).treeview(options);  
-			    }).blur(function(){
-			    	if(nodeState)
-			    	$("#treeview_"+regSearch).delay(100).hide(1);//blur和click事件冲突。因此采用延迟解决
-	            	nodeState=false;
-			    }); 
+			        $("#treeview_"+regSearch).click(function(event){
+			    	    event.stopPropagation();
+			    	});
+			        $(document).click(function(){
+		                $("#treeview_"+regSearch).hide(); 
+			    	});
+				    event.stopPropagation();
+			    });
 			}else{
 				alertModel(result.msg);
 			}
@@ -921,3 +927,24 @@ function formatterDate(value){
 	}
 }
 
+
+function getUuid(){
+  var len=32;//32长度
+  var radix=16;//16进制
+  var chars='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
+  var uuid=[],i;
+  radix=radix||chars.length;
+  if(len){
+	  for(i=0;i<len;i++)uuid[i]=chars[0|Math.random()*radix];
+  }else{
+	  var r;
+	  uuid[8]=uuid[13]=uuid[18]=uuid[23]='-';uuid[14]='4';
+	  for(i=0;i<36;i++){
+		  if(!uuid[i]){
+			  r=0|Math.random()*16;
+			  uuid[i]=chars[(i==19)?(r&0x3)|0x8:r];
+			 }
+	      }
+	  }
+  return uuid.join('');
+} 

@@ -94,6 +94,7 @@ function queryMenu(){
 			var param = {
 					menuCode : $("#funcCode").val(),
 					menuName : $("#funcName").val(),
+					menuState : $("#menuState").val(),
 					pMenuId : pMenuId,
 					pageNum: params.pageNumber,    
 					pageSize: params.pageSize
@@ -119,9 +120,9 @@ function queryMenu(){
             title: '状态',
         	formatter:function(value,row,index){
             	switch(value){
-            		case 0:return '正常';
-            		case 9:return '停用';
-            		case -1:return '已删除';
+            		case 0:return value+'：'+'正常';
+            		case 9:return value+'：'+'停用';
+            		case -1:return value+'：'+'已删除';
             		default:return '/';
             	}
             	return value;
@@ -343,10 +344,6 @@ $("#updateMenu").click(function(){
 
 function formSubmit(){
 	if(validform().form()){
-		if($("#menuName").val()==""){
-			alertModel("功能名称必须输入");
-			return false;
-		}
 		var data=$('#dataForm').serialize();
 		var submitData=decodeURIComponent(data,true);
 		if(operate_type==1){
@@ -406,7 +403,7 @@ function validform(){
 		menuName:{
 			required : true,
 		},
-		order:{
+		menuOrder:{
 			required : true,
 			number: true,
 		}
@@ -414,8 +411,9 @@ function validform(){
 		menuName:{
 			required : "必填！"
 		},
-		order:{
-			required : "必填！"
+		menuOrder:{
+			required : "必填！",
+			number:"输入数字"
 		}
 	});
 

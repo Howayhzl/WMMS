@@ -3,7 +3,13 @@ $(document).ready(function() {
 	curPageNum = 1;
 	findRole();
 });
+function clearRole(){
 
+	$("#functionCode").val("");
+	$("#functionName").val("");
+	$("#functionState").val("0");
+	$("#functionNote").val("");
+}
 /**
  * 全查
  */	 

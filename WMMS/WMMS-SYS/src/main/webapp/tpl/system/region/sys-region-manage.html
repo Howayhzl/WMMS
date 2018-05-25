@@ -23,11 +23,11 @@
 				<input type="hidden" name="regId"/>
 				<div class="form-group">
 					<label>区域编码:</label>
-					<input type="text" placeholder="请输入行政区编码" id="regCode"/>
+					<input type="text" id="regCode"/>
 				</div>
 				<div class="form-group">
 					<label>区域名称:</label>
-					<input type="text" placeholder="请输入行政区名称" id="regName"/>
+					<input type="text" id="regName"/>
 				</div>
 				<button type="button" class="btn btn-success" id="queryRegion">查询</button>
 				<button type="reset" class="btn btn-success" id="resetData">清除</button>
@@ -35,9 +35,9 @@
 			<div class="btn-toolbar">
 				<button  class="btn btn-primary" type="button" id="insertRegions">新增</button>
 				<button  class="btn btn-primary" type="button" id="updateRegions">修改</button>
-				<button class="btn btn-success" type="button" id = "openRegion" >启用</button>
-				<button class="btn btn-warning" type="button" id = "stopRegion" >停用</button>
 				<button class="btn btn-danger" type="button" id="deleteRegion">删除</button>
+				<button class="btn btn-warning" type="button" id = "openRegion" >启用</button>
+				<button class="btn btn-warning" type="button" id = "stopRegion" >停用</button>
 			</div>
 			<table class="table table-bordered table-striped  table-hover " id="tb">
 			</table>
@@ -50,43 +50,47 @@
 	<!-- 修改弹出页面 -->
 	<div class="modal hide fade" id="EditPanel" tabindex="-1">
 		<div class="modal-dialog" role="document">
-			<div class="modal-content">
+			<div class="modal-content" style="width:670px;">
 				<div class="modal-header">
 					<button class="close" type="button" data-dismiss="modal">×</button>
 					<h4 id="myModalLabel">编辑区域模块</h4>
 				</div>
 				<div class="modal-body">
-					<form id="updateRegion" class="form-horizontal" action="">
+					<form id="updateRegion" class="form-horizontal">
 						<input type="hidden" id="reg_id" name="regId"/>
 						<div class="form-group">
-							<label class="control-label">上级行政区:</label>
-							<input type="text" id="preg_name" readonly="readonly" class="forbidden"/>
+							<div class="pull-left">
+								<label class="control-label">上级行政区:</label>
+								<input type="text" id="preg_name" readonly="readonly" class="forbidden" style="width:160px;"/>
+							</div>
+							<div class="pull-left">
+								<label class="control-label">行政区编码:</label>
+								<input type="text" id="reg_code" name="regCode" style="width:150px;"/>
+								<span id="err" class="modal-error"></span>
+							</div>
 						</div>
 						<div class="form-group">
-							<label class="control-label">行政区编码:</label>
-							<input type="text" id="reg_code" name="regCode"/>
-							<span id="err" class="modal-error"></span>
+							<div class="pull-left">
+								<label class="control-label">行政区名称:</label>
+								<input type="text" id="reg_name" name="regName" style="width:160px;"/>
+								<span id="err" class="modal-error"></span>
+							</div>
+							<div class="pull-left">
+								<label class="control-label">排序号:</label>
+								<input type="text" id="reg_order" name="regOrder" class="valid" style="width:150px;"/>
+								<span id="err" class="modal-error"></span>
+							</div>
 						</div>
 						<div class="form-group">
-							<label class="control-label">行政区名称:</label>
-							<input type="text" id="reg_name" name="regName"/>
-						</div>
-						<div class="form-group">
-							<label class="control-label">排序号:</label>
-							<input type="text" id="reg_order" name="regOrder"/>
-							<span id="err" class="modal-error"></span>
-						</div>
-						<div class="form-group">
-							<label class="control-label" style="position: relative;top: -18px;">备注:</label>
-							<textarea id="reg_note" name="regNote"></textarea>
-							<!-- <input type="text" id="reg_note" name="regNote"> -->
+							<label class="control-label" style="position: relative;top: -18px;">行政区域备注:</label>
+							<textarea id="reg_note" name="regNote" rows="2" style="width: 73%;margin-right: 65px;"></textarea>
 							<span id="err" class="modal-error"></span>
 						</div>
 					</form>
 				</div>
 				<div class="modal-footer">
 					<a href="#" class="btn" data-dismiss="modal">关闭</a>
-					<button class="btn btn-primary" type="button" id="updateFormSubmit">保存</button>					
+					<button class="btn btn-primary" type="button" id="updateFormSubmit" onclick="updateSubmit();">保存</button>					
 				</div>
 			</div>
 		</div>
@@ -94,45 +98,47 @@
   <!-- 新增弹出页 -->
   <div class="modal hide fade" id="EditPanel1" tabindex="-1">
     <div class="modal-dialog" role="document">
-      <div class="modal-content">
+      <div class="modal-content" style="width:670px;">
         <div class="modal-header">
           <button class="close" type="button" data-dismiss="modal">×</button>
           <h4 id="myModalLabel1">编辑区域模块</h4>
         </div>
         <div class="modal-body">
-          <form id="insertRegion" class="form-horizontal" action="">
+          <form id="insertRegion" class="form-horizontal">
             <input type="hidden" id="preg_id1" name="pregId"/>
             <div class="form-group">
-              <label class="control-label">上级行政区:</label>
-              <input type="text" id="preg_name1" readonly="readonly" class="forbidden"/>
+	            <div class="pull-left">
+	              <label class="control-label">上级行政区:</label>
+	              <input type="text" id="preg_name1" readonly="readonly" class="forbidden" style="width:160px;"/>   
+	            </div>
+	            <div class="pull-left">
+	              <label class="control-label">行政区编码:</label>
+	              <input type="text" id="reg_code1" name="regCode" style="width:150px;"/>
+	              <span id="err" class="modal-error"></span>
+	             </div>
             </div>
+             <div class="form-group">
+             	<div class="pull-left">
+	              <label class="control-label">行政区名称:</label>
+	              <input type="text" id="reg_name1" name="regName" style="width:160px;"/>
+	              <span id="err" class="modal-error"></span>
+	            </div>
+	            <div class="pull-left">
+	               <label class="control-label">排序号:</label>
+	              <input type="text" id="reg_order1" name="regOrder" style="width:150px;"/>
+	              <span id="err" class="modal-error"></span>
+	            </div>
+             </div>
             <div class="form-group">
-              <label class="control-label">行政区编码:</label>
-              <input type="text" id="reg_code1" name="regCode"/>
-              <span class="modal-error"></span>
-            </div>
-            <div class="form-group">
-              <label class="control-label">行政区名称:</label>
-              <input type="text" id="reg_name1" name="regName"/>
-              <span class="modal-error"></span>
-            </div>
-            <div class="form-group">
-              <label class="control-label">排序号:</label>
-              <input type="text" id="reg_order1" name="regOrder"/>
-              <span class="modal-error"></span>
-            </div>
-            <div class="form-group">
-              <label class="control-label" style="position: relative;top: -18px;">行政区备注:</label>
-              <textarea id="reg_note1" name="regNote"></textarea>
-              <span class="modal-error"></span>
+            	 <label class="control-label" style="position: relative;top: -18px;">行政区域备注:</label>
+	              <textarea id="reg_note1" name="regNote" rows="2" style="width: 73%;margin-right: 65px;"></textarea>
+	              <span class="modal-error"></span>
             </div>
           </form>
         </div>
         <div class="modal-footer">
-          <div>
             <a href="#" class="btn" data-dismiss="modal">关闭</a>
-            <button class="btn btn-primary" type="button" id="insertFormSubmit">保存</button>
-          </div>
+            <button class="btn btn-primary" type="button" id="insertFormSubmit" onclick="formSubmit();">保存</button>
         </div>
       </div>
     </div>

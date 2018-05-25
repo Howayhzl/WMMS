@@ -15,6 +15,13 @@ function initialize(){
 	curPageNum = 1;
 	findRole();
 }
+function clearRole(){
+
+	$("#functionCode").val("");
+	$("#functionName").val("");
+	$("#functionState").val("0");
+	$("#functionNote").val("");
+}
 /**
  * 复选框全选
  */

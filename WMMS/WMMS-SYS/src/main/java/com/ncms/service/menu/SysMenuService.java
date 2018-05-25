@@ -43,8 +43,7 @@ public interface SysMenuService extends BaseService<SysMenu>{
 	 * @date 2018年5月16日  
 	 * @Description: 根据父级id 查询表格列表
 	 */
-	public Page<SysMenu> queryMenuList(String regCode,
-			String regName,String pRegId,int pageNum,int pageSize);
+	public Page<SysMenu> queryMenuList(String regCode,String regName,int menuState,String pRegId,int pageNum,int pageSize);
 	/**
 	 * @description 修改菜单状态
 	 * @author yuefy

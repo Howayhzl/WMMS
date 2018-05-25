@@ -107,7 +107,7 @@ function queryRegion(){
             title: '区域备注'
         }, {
             field: 'regOrder',
-            title: '编号'
+            title: '排序号'
         }, {
             field: 'pregName',
             title: '上级行政区'
@@ -116,9 +116,9 @@ function queryRegion(){
             title: '区域状态',
             formatter:function(value,row,index){
             	switch(value){
-            		case 0:return '正常';
-            		case 9:return '停用';
-            		case -1:return '已删除';
+            		case 0:return value+'：'+'正常';
+            		case 9:return value+'：'+'停用';
+            		case -1:return value+'：'+'已删除';
             		default:return '/';
             	}
             	return value;
@@ -235,28 +235,37 @@ $("#deleteRegion").click(function(){
 $("#insertRegions").click(function(){
 	 $("#preg_name1").val(pRegName);
 	 $("#preg_id1").val(pRegId);
+	 $("#reg_code1").val(''),
+	 $("#reg_name1").val(''),
+	 $("#reg_order1").val(''),
+	 $("#reg_note1").val(''),
 	 $('#EditPanel1 .form-group span.modal-error').children().remove();
 	 $('#EditPanel1').modal({backdrop: 'static', keyboard: false});
 });
-$("#insertFormSubmit").click(function(){
-	myajax.path({
-	       type:"post",
-	       url:sysContext+"region/insert",
-	       data : {
-				pregId	:	$("#preg_id1").val(),
-				regCode :	$("#reg_code1").val(),
-				regName :	$("#reg_name1").val(),
-				regOrder:	$("#reg_order1").val(),
-				regNote :	$("#reg_note1").val()
-				},
-	   	   dataType : 'json',
-	       success:function(data){
-		    	alertModel(data.msg);
-		    	queryTree();
-	       }
-	   });
-	$('#EditPanel1').modal('hide');
-});
+
+function formSubmit(){
+	if(validform().form()){
+		myajax.path({
+		       type:"post",
+		       url:sysContext+"region/insert",
+		       data : {
+					pregId	:	$("#preg_id1").val(),
+					regCode :	$("#reg_code1").val(),
+					regName :	$("#reg_name1").val(),
+					regOrder:	$("#reg_order1").val(),
+					regNote :	$("#reg_note1").val()
+					},
+		   	   dataType : 'json',
+		       success:function(data){
+			    	alertModel(data.msg);
+			    	queryTree();
+		       }
+		   });
+		$('#EditPanel1').modal('hide');
+	
+	}
+}
+
 $("#updateRegions").click(function(){
 	if(isCheckBox()!=1){
 		alertModel("能且只能修改一条数据！");
@@ -279,22 +288,78 @@ $("#updateRegions").click(function(){
        }
    });
 });
-$("#updateFormSubmit").click(function(){
-	myajax.path({
-	       type:"post",
-	       url:sysContext+"region/update",
-	       data : {
-				regId	:	$("#reg_id").val(),
-				regCode :	$("#reg_code").val(),
-				regName :	$("#reg_name").val(),
-				regOrder:	$("#reg_order").val(),
-				regNote :	$("#reg_note").val()
-				},
-	   	   dataType : 'json',
-	       success:function(data){
-		    	alertModel(data.msg);
-		    	queryTree();
-	       }
-	   });
-	$('#EditPanel').modal('hide');
-});
+
+function updateSubmit(){
+	if(validformByUpdate().form()){
+		myajax.path({
+		       type:"post",
+		       url:sysContext+"region/update",
+		       data : {
+					regId	:	$("#reg_id").val(),
+					regCode :	$("#reg_code").val(),
+					regName :	$("#reg_name").val(),
+					regOrder:	$("#reg_order").val(),
+					regNote :	$("#reg_note").val()
+					},
+		   	   dataType : 'json',
+		       success:function(data){
+			    	alertModel(data.msg);
+			    	queryTree();
+		       }
+		   });
+		$('#EditPanel').modal('hide');
+	}
+}
+
+
+//新增时form表单验证
+function validform(){
+	var addnew_validate= bindformvalidate("#insertRegion", {
+		regCode:{
+			required : true,
+		},regName:{
+			required : true,
+		},regOrder:{
+			required : true,
+			number: true,
+		}
+	},{
+		regCode:{
+			required : "必填！"
+		},
+		regName:{
+			required : "必填！"
+		},
+		regOrder:{
+			required : "必填！",
+			number:"输入数字"
+		}
+	});
+  return addnew_validate;
+}
+
+//新增时form表单验证
+function validformByUpdate(){
+	var update_validate= bindformvalidate("#updateRegion", {
+		regCode:{
+			required : true,
+		},regName:{
+			required : true,
+		},regOrder:{
+			required : true,
+			number: true,
+		}
+	},{
+		regCode:{
+			required : "必填！"
+		},
+		regName:{
+			required : "必填！"
+		},
+		regOrder:{
+			required : "必填！",
+			number:"输入数字"
+		}
+	});
+  return update_validate;
+}

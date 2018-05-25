@@ -27,7 +27,7 @@
 				<div class="form-group">
 					<label>状态:</label>
 					<select id=funcState>
-						<option value="">-请选择-</option>
+<!-- 						<option value="">-请选择-</option> -->
 						<option value="0">正常</option>
 						<option value="9">停用</option>
 					</select>
@@ -39,7 +39,7 @@
 				<button class="btn btn-primary" type="button" onclick="insertNew();">新增</button>
 				<button class="btn btn-primary" type="button" onclick="update();">修改</button>
 				<button class="btn btn-danger" type="button" onclick="deleteUse();">删除</button>
-				<button class="btn btn-success" type="button" onclick="openUse();">启用</button>
+				<button class="btn btn-warning" type="button" onclick="openUse();">启用</button>
 				<button class="btn btn-warning" type="button" onclick="stopUse();">停用</button>
 			</div>
 			<table class="table table-bordered table-striped table-hover" id="tb">
@@ -49,7 +49,7 @@
 	</div>
 	<!-- 新增弹出页面 -->
 	<div class="modal hide fade" id="EditPanel" tabindex="-1">
-		<div class="modal-dialog" role="document">
+		<div class="modal-dialog" role="document" style="width:700px;">
 			<div class="modal-content">
 			<form id="dataForm">
 				<div class="modal-header">
@@ -64,7 +64,7 @@
 			    			<label class="control-label">上级组织:</label>
 						    <input type="text" name="frontDeptName" id="frontDeptName" readonly="readonly"/>
 						</div>
-						<div class="pull-right">
+						<div class="pull-left">
 			    			<label class="control-label">上级代码:</label>
 						    <input type="text" name="frontDeptCode" id="frontDeptCode" readonly="readonly"/>
 						</div>
@@ -73,14 +73,14 @@
 						    <input type="text" name="depName" id="depName"/>
 						    <span id="err" class="modal-error"></span>
 						</div>
-						<div class="pull-right">
+						<div class="pull-left">
 			    			<label class="control-label">排序号:</label>
-						    <input type="text" name="depOrder" id="depOrder"/>
+						    <input type="text" name="depOrder" id="depOrder" style="width:90px;"/>
 							<span id="err" class="modal-error"></span>
 						</div>
 						<div class="pull-left"  style="width:100%;">
 			    			<label class="control-label" style="position: relative;top: -30px;">部门说明:</label>
-						    <textarea rows="3" id="depNote" name="depNote" style="width: 466px;"></textarea>
+						    <textarea rows="2" id="depNote" name="depNote" style="width: 515px;"></textarea>
 			  			</div> 
 						<div style="clear:both;"></div>
 				</div>

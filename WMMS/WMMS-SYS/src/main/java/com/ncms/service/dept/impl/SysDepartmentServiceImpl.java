@@ -28,7 +28,8 @@ public class SysDepartmentServiceImpl extends AbstractService<SysDepartment> imp
 
 	@Autowired
 	private SysDepartmentMapper sysDepartmentMapper;
-
+	@Autowired
+	private SysLogService sysLogService;
 	@Override
 	public List<Object> queryDepartmentByConditions() {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -111,11 +112,7 @@ public class SysDepartmentServiceImpl extends AbstractService<SysDepartment> imp
 		Map<String, Object> map = new HashMap<String ,Object>();
 		map.put("idLists", idLists);
 		map.put("state", DeptStateEnum.DROPED);
-		String ids="'";
-		for(String id:idLists){
-			ids+=id+"','";
-		}
-		ids=ids.substring(0, ids.length()-2);
+		String ids=StringUtils.join(idLists.toArray(), ",");
 		int result=0;
 		try {
 			result = sysDepartmentMapper.deleteByIds(ids);

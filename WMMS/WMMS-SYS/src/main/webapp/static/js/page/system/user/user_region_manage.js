@@ -6,6 +6,8 @@ var treeObj;
 var nodes;
  $(document).ready(function(){
 	 curPageNum = 1;
+
+	initRegionTree("regSearch");
 	 queryTree();
 	 findUsersRedio();
 	$("#choosePower").click(function(){

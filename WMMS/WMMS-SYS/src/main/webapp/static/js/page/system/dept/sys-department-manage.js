@@ -170,7 +170,7 @@ function insertNew(){
 	$('input[name=pdepId]').val(pDepId);
 	$('input[name=depOrder]').val(30);
 	//去除错误提示信息
-	$('#EditPanel .form-group span.modal-error').children().remove();
+	$('#EditPanel .pull-left span.modal-error').children().remove();
 	$('#EditPanel').modal({backdrop: 'static', keyboard: false});	//弹出表单
 	
 	
@@ -222,7 +222,7 @@ function update(){
 		    		$('input[name=depCode]').val(item.depCode);
 		    		$('textarea[name=depNote]').val(item.depNote);
 		    		//去除错误提示信息
-		    		$('#EditPanel .form-group span.modal-error').children().remove();
+		    		$('#EditPanel .pull-left span.modal-error').children().remove();
 		    		$('#EditPanel').modal();
 		    	}else{
 		    		alertModel(result.msg);

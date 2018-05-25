@@ -83,10 +83,11 @@ public class SysMenuServiceImpl extends AbstractService<SysMenu> implements SysM
 	
 	@Override
 	public Page<SysMenu> queryMenuList(String menuCode,
-			String menuName,String pMenuId,int pageNum,int pageSize) {
+			String menuName,int menuState,String pMenuId,int pageNum,int pageSize) {
 		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("menuCode",menuCode);
 		map.put("menuName",menuName);
+		map.put("menuState",menuState);
 		map.put("pMenuId",pMenuId);
 		PageHelper.startPage(pageNum, pageSize);
 		Page<SysMenu> page = (Page<SysMenu>)sysMenuMapper.queryMenuList(map);

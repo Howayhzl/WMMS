@@ -25,12 +25,9 @@ import com.ncms.config.mybatis.MybatisAutoConfiguration;
         DataSourceTransactionManagerAutoConfiguration.class, 
         JpaRepositoriesAutoConfiguration.class, 
         MybatisAutoConfiguration.class})
-@ServletComponentScan
 @EnableAutoConfiguration
-@EnableAsync
 @EnableTransactionManagement
 @MapperScan("com.ncms.mapper")
-@RestController
 public class Application extends SpringBootServletInitializer {
 
 	@Bean

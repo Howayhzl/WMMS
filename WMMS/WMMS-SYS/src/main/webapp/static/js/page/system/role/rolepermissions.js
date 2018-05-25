@@ -108,7 +108,13 @@ function hadCheckedRadioRowData(){
 		    }*/ 
 		});  
  }
- 
+ function clearRole(){
+
+		$("#functionCode").val("");
+		$("#functionName").val("");
+		$("#functionState").val("0");
+		$("#functionNote").val("");
+	}
  function reload() {
 		// 先销毁表格
 		$('#tb').bootstrapTable('destroy');

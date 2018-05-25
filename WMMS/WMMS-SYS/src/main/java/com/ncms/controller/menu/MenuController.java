@@ -158,9 +158,9 @@ public class MenuController {
      * @Description: 根据条件选择父级id查询菜单右侧表格列表
      */
 	@RequestMapping(value="/menu/list",method=RequestMethod.POST)
-	public BackEntity queryMenuList(String menuCode,String menuName,String pMenuId,
+	public BackEntity queryMenuList(String menuCode,String menuName,int menuState,String pMenuId,
 			int pageNum,int pageSize){
-		Page<SysMenu> sysMenuList = menuService.queryMenuList(menuCode, menuName, pMenuId, pageNum, pageSize);
+		Page<SysMenu> sysMenuList = menuService.queryMenuList(menuCode, menuName,menuState, pMenuId, pageNum, pageSize);
 		return BackEntity.ok("查询菜单信息成功！", sysMenuList.toPageInfo());
 	}
     

@@ -8,7 +8,7 @@ $(document).ready(function() {
  */
 function initialize(){
 	queryAllParam();
-	initRegionTree("regSearch");
+	initRegionTree("regSearch",true,"form-control");
 	$("#regId").val("");
 	if(operate_type==1){
 		$("#userLoginname").removeAttr("readonly");
@@ -191,6 +191,7 @@ function findUserData(){
 						$("#depId").val(user.depId);
 						$("#regId").val(user.regId);
 						$("#regId_"+"regSearch").val(user.regId);
+						$("#regName_regSearch").val(user.regName);
 					}
 				}
 			}
