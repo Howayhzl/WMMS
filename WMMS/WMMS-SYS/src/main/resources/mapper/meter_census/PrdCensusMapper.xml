@@ -15,13 +15,54 @@
 		<result column="census_image" property="censusImage" jdbcType="VARCHAR"/>
 		<result column="census_desc" property="censusDesc" jdbcType="VARCHAR"/>
 		<result column="census_result" property="censusResult" jdbcType="VARCHAR"/>
-		<result column="censuser_id" property="censuserId" jdbcType="VARCHAR"/>
+		<result column="census_user_id" property="censusUserId" jdbcType="VARCHAR"/>
 		<result column="check_time" property="checkTime" jdbcType="DATE"/>
 		<result column="has_collocation" property="hasCollocation" jdbcType="INTEGER"/>
 		<result column="census_status" property="censusStatus" jdbcType="INTEGER"/>
 		<result column="census_action" property="censusAction" jdbcType="INTEGER"/>
 	</resultMap>
+	<resultMap id="BaseResultVOMap" type="com.ncms.model.meter.census.PrdCensusVO">
+		<id column="census_id" property="censusId" jdbcType="VARCHAR"/>
+		<result column="company_id" property="companyId" jdbcType="VARCHAR"/>
+		<result column="meter_id" property="meterId" jdbcType="VARCHAR"/>
+		<result column="pipe_type" property="pipeType" jdbcType="VARCHAR"/>
+		<result column="valve_type" property="valveType" jdbcType="VARCHAR"/>
+		<result column="valve_size" property="valveSize" jdbcType="INTEGER"/>
+		<result column="flange_hole_num" property="flangeHoleNum" jdbcType="INTEGER"/>
+		<result column="meter_last_value" property="meterLastValue" jdbcType="DOUBLE"/>
+		<result column="meter_value" property="meterValue" jdbcType="DOUBLE"/>
+		<result column="census_place" property="censusPlace" jdbcType="VARCHAR"/>
+		<result column="census_image" property="censusImage" jdbcType="VARCHAR"/>
+		<result column="census_desc" property="censusDesc" jdbcType="VARCHAR"/>
+		<result column="census_result" property="censusResult" jdbcType="VARCHAR"/>
+		<result column="census_user_id" property="censusUserId" jdbcType="VARCHAR"/>
+		<result column="check_time" property="checkTime" jdbcType="DATE"/>
+		<result column="has_collocation" property="hasCollocation" jdbcType="INTEGER"/>
+		<result column="census_status" property="censusStatus" jdbcType="INTEGER"/>
+		<result column="census_action" property="censusAction" jdbcType="INTEGER"/>
+		<result column="depName" property="depName" jdbcType="VARCHAR"/>
+	</resultMap>
 	<sql id="Base_Column_List">
-		prd_census.census_id,prd_census.company_id,prd_census.meter_id,prd_census.pipe_type,prd_census.valve_type,prd_census.valve_size,prd_census.flange_hole_num,prd_census.meter_last_value,prd_census.meter_value,prd_census.census_place,prd_census.census_image,prd_census.census_desc,prd_census.census_result,prd_census.censuser_id,prd_census.check_time,prd_census.has_collocation,prd_census.census_status,census_action
+		prd_census.census_id,prd_census.company_id,prd_census.meter_id,prd_census.pipe_type,prd_census.valve_type,prd_census.valve_size,prd_census.flange_hole_num,prd_census.meter_last_value,prd_census.meter_value,prd_census.census_place,prd_census.census_image,prd_census.census_desc,prd_census.census_result,prd_census.census_user_id,prd_census.check_time,prd_census.has_collocation,prd_census.census_status,census_action
 	</sql>
+	
+	<select id="queryAllCensus" resultMap="BaseResultVOMap" parameterType="Map">
+	<!-- wesley  查询所有配表 -->
+		SELECT
+		<include refid="Base_Column_List"></include>, 
+		sys_department.dep_name as depName 
+		from prd_census 
+		left JOIN sys_department ON prd_census.company_id = sys_department.dep_id
+		<where>
+			<if test="companyId != null and companyId != '请选择' and companyId != ''">
+				and prd_census.company_id = #{companyId,jdbcType=VARCHAR}
+			</if>
+			<if test="startTime != null and startTime != ''">
+				and prd_census.check_time &gt;= #{startTime,jdbcType=DATE}
+			</if>
+			<if test="endTime != null and endTime != ''">
+				and prd_census.check_time &lt;= #{endTime,jdbcType=DATE}
+			</if>	
+		</where>
+	</select>
 </mapper>

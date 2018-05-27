@@ -21,55 +21,105 @@ function init(){
 	curPageNum = 1;
 	//每页显示个数
 	ipageCount = 10;
+	queryAllParam();
 	queryAllpucha();
+	$('#endDate').val(new Date());
 }
 
 function queryAllpucha(){
-	
+	var startDate = "";
+	var companyId = "";
+	var endDate = "";
+	companyId = $('#depId').val();
+	startDate = $('#startDate').val();
+	endDate = $('#endDate').val();
+	$('#tb').bootstrapTable('destroy');
 	$("#tb").bootstrapTable({
-
-	striped : true, // 表格显示条纹
-	pagination : true, // 启动分页
-	pageSize : ipageCount, // 每页显示的记录数
-	pageNumber : curPageNum, // 当前第几页
-	minimumCountColumns: 1,  //最少允许的列数
-	clickToSelect: true,  //是否启用点击选中行
-	pageList : [10, 25, 50, 100, 500], // 记录数可选列表
-	search : false, // 是否启用查询
-
+		method : "post",
+		contentType : "application/x-www-form-urlencoded",
+		url : sysContext+"census/list", // 获取数据的地址
+		striped : true, // 表格显示条纹
+		pagination : true, // 启动分页
+		pageSize : ipageCount, // 每页显示的记录数
+		pageNumber : curPageNum, // 当前第几页
+		minimumCountColumns: 1,  //最少允许的列数
+		clickToSelect: true,  //是否启用点击选中行
+		pageList : [10, 25, 50, 100, 500], // 记录数可选列表
+		search : false, // 是否启用查询
+		sidePagination : "server", // 表示服务端请求
+		ajaxOptions:{headers: {"x-auth-token":sessionStorage.getItem("token")}},
+		// 设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
+		// 设置为limit可以获取limit, offset, search, sort, order
+		queryParamsType : "undefined",
+		queryParams : function queryParams(params) { // 设置查询参数
+			var param = {
+				cur_page_num: params.pageNumber,    
+				page_count: params.pageSize,
+				companyId: companyId,
+				startDate: startDate,
+				endDate: endDate,
+			};
+			return param;
+		},
 	columns: [{
 		checkbox: true
 	}, {
-		field: 'userCode',
+		field: 'depName',
 		title: '单位'
-	},{
-		field: 'userName',
-		title: '水表编号'
 	}, {
-		field: 'userLoginname',
+		field: 'meterId',
+		title: '仪表编号'
+	}, {
+		field: 'valveSize',
 		title: '口径'
-	},{
-		field: 'depName',
+	}, {
+		field: 'meterValue',
 		title: '读数'
-	}, ,{
-		field: 'depName',
+	}, {
+		field: 'censusPlace',
 		title: '位置'
-	},  {
-		field: 'regName',
-		title: '判断结果'
 	}, {
-		field: 'majorName',
-		title: '处理建议'
+		field: 'censusResult',
+		title: '判断结果',
+		formatter:function(value, row, index) {  
+			if (value == 0) {
+				return "合格";
+			} else if (value == 1) {
+				return "不合格";
+			}
+		}
 	}, {
-		field: 'userEmail',
-		title: '普查时间'
+		field: 'censusAction',
+		title: '处理建议',
+		formatter:function(value, row, index) {  
+			if (value == 0) {
+				return "无";
+			} else if (value == 1) {
+				return "建议校验";
+			} else if (value == 2) {
+				return "建议换表";
+			}
+		}
 	}, {
-		field: 'userState',
-		title: '状态'
+		field: 'checkTime',
+		title: '普查时间',
+		formatter:function(value, row, index) {  
+			var ct = new Date();
+			ct.setTime(value);
+			return ct.toLocaleDateString();
+		}
+	}, {
+		field: 'censusStatus',
+		title: '状态',
+		formatter:function(value, row, index) {  
+			if (value == 0) {
+				return "待处理";
+			} else if (value == 1) {
+				return "已处理";
+			}
+		}
 	},],
-	onCheck: function (row) {
-		showBack(row.userId);
-	},
+
 	onLoadError : function(status) { // 加载失败时执行
 		if(status==400){
 			alert("400 - 错误的请求");
@@ -99,178 +149,49 @@ function queryAllpucha(){
 }
 
 /**
- * 删除用户
- * 
+ * 获取 部门 专业 区域 信息
  */
-function deleteUser() {
-	if(!isChecked()){
-		alertModel("请先选择一条数据再操作");
-		return;
-	}
-	var deleteuseObjs = new Array();
-	// 从选中行中挑出可以启用的item
-	for (s = 0; s < rowschecked.length; s++) {
-		var row = rowschecked[s];
-		deleteuseObjs.push(row.userId);
-	}
-	if (confirm("确定删除所选项目?")) {
-		myajax.path({
-			type : "post",
-			url : sysContext+"user/delete",
-			data : JSON.stringify(deleteuseObjs),
-			dataType : 'json',
-			contentType : "application/json;charset=UTF-8",
-			success : function(data) {
-				if(data != null){
-					alertModel(data.msg);
-					findUsers();
+function queryAllParam() {
+    myajax.path({
+        type: "get",
+        url: sysContext+"parameter/query",
+        data: {},
+        dataType: "JSON",
+        async:false,
+        success: function (value) {
+			if(value != null){
+				sysDepartmentList = value.obj.sysDepartmentList;
+
+				if(sysDepartmentList!=null){
+					var str = "<option value=''>-请选择部门-</option>";
+					$.each(sysDepartmentList, function (i, item){
+						if(item.pdepId == null || item.pdepId == ''){
+							pid = item.depId;
+							str += "<option value='" +item.depId+"'>"+item.depName+ "</option>";
+							if(item.children != null){
+								$.each(item.children, function (i, item){
+									ppid = item.depId;
+									if(pid = item.pdepId){
+										str += "<option value='" +item.depId+"'>"+"&nbsp&nbsp&nbsp&nbsp"+item.depName+ "</option>";
+									}
+									if(item.children != null){
+										$.each(item.children, function (i, item){
+											if(ppid = item.pdepId){
+												str += "<option value='" +item.depId+"'>"+"&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp"+item.depName+ "</option>";
+											}
+										});
+									}
+								});
+							}
+						}
+					});
+					$("#depId").append(str);
 				}
-			}/*,
-			error : function(data) {
-				alertModel('删除失败!');
-			}*/
-		});
-	}
-};
-
-
-/**
- * 启用用户
- */
-
-function openUser() {
-	if(!isChecked()){
-		alertModel("请先选择一条数据再操作");
-		return;
-	}
-	for (s = 0; s < rowschecked.length; s++) {
-		var row = rowschecked[s];
-		if(row.userState == 0){
-			alertModel("选择中已有启用用户，请重新选择!");
-			return;
+			}
 		}
-	}
-	var openuseObjs = new Array();
-	// 从选中行中挑出可以启用的item
-	for (s = 0; s < rowschecked.length; s++) {
-		var row = rowschecked[s];
-		openuseObjs.push(row.userId);
-	}
-	myajax.path({
-		url : sysContext+'user/enable',
-		data : JSON.stringify(openuseObjs),
-		type : 'post',
-		cache : false,
-		dataType : 'json',
-		contentType : "application/json;charset=utf-8",
-		success : function(feedback) {
-			alertModel(feedback.msg);
-		}/*,
-		error : function() {
-			alertModel("请求异常");
-		}*/
-	});
-};
-
-
-/**
- * 停用用户
- */
-function stopUser(){
-	if(!isChecked()){
-		alertModel("请先选择一条数据再操作");
-		return;
-	}
-	for (s = 0; s < rowschecked.length; s++) {
-		var row = rowschecked[s];
-		if(row.userState == 9){
-			alertModel("选择中已有停用用户请重新选择!");
-			return;
-		}
-	}
-	confirmModel('确定停用用户!','confirmStopUser');
-}	
-function confirmStopUser(){
-	// 从选中行中挑出可以启用的item
-	var stopuseObjs = new Array();
-	for (s = 0; s < rowschecked.length; s++) {
-		var row = rowschecked[s];
-		stopuseObjs.push(row.userId);
-	}
-	myajax.path({
-		url : sysContext+'user/disable',
-		data : JSON.stringify(stopuseObjs),
-		type : 'post',
-		cache : false,
-		dataType : 'json',
-		contentType : "application/json;charset=utf-8",
-		success : function(feedback) {
-			alertModel(feedback.msg);
-			findUsers();
-		}/*,
-		error : function() {
-			alertModel("请求异常");
-		}*/
-	});
+    });
 }
 
-/**
- * 重置密码
- */
-function updatePassword(){
-	if(!isChecked()){
-		alertModel("请先选择一条数据再操作");
-		return;
-	}
-	confirmModel('确定重置该用户密码!','confirmUpdatePassword');
-}	
-function confirmUpdatePassword(){
-	// 从选中行中挑出可以启用的item
-	var updateuseObjs = new Array();
-	for (s = 0; s < rowschecked.length; s++) {
-		var row = rowschecked[s];
-		updateuseObjs.push(row.userId);
-	}
-	myajax.path({
-		url : sysContext+'user/updatePassword',
-		data : JSON.stringify(updateuseObjs),
-		type : 'post',
-		cache : false,
-		dataType : 'json',
-		contentType : "application/json;charset=utf-8",
-		success : function(feedback) {
-			alertModel(feedback.msg);
-			findUsers();
-		}/*,
-		error : function() {
-			alertModel("请求异常");
-		}*/
-	});
-}
-
-
-/**
- * 增加仪表信息
- */
-var b_add_user = false;
-function addUser(type){	
-	window.location.href="meter-addmew.html?operate_type=1";
-}
-
-/**
- * 修改仪表信息
- */
-function updateUser(){
-	if(!isChecked()){
-		alertModel("请先选择一条数据再操作");
-		return;
-	}
-	window.location.href="meter-addmew.html?operate_type=2&userId="+rowschecked[0].userId;
-}
-
-function showBack(userId){
-	return;
-};
 function back(){
 	javascript:history.back(-1);
 }

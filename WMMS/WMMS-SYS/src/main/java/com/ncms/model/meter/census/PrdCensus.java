@@ -29,13 +29,13 @@ public class PrdCensus implements Serializable {
 	/** 阀门口径 */
 	private	int	valveSize;
 	/** 法兰孔数 */
-	private	int	flangeNum;
+	private	int	flangeHoleNum;
 	/** 水表上次读数 */
 	private	double	meterLastValue;
 	/** 水表读数 */
 	private	double	meterValue;
 	/** 普查位置 */
-	private	String	censusPosition;
+	private	String	censusPlace;
 	/** 普查图片 */
 	private	String	censusImage;
 	/** 普查情况 */
@@ -101,11 +101,11 @@ public class PrdCensus implements Serializable {
 	public void setValveSize(int valveSize) {
 		this.valveSize = valveSize;
 	}
-	public int getFlangeNum() {
-		return flangeNum;
+	public int getFlangeHoleNum() {
+		return flangeHoleNum;
 	}
-	public void setFlangeNum(int flangeNum) {
-		this.flangeNum = flangeNum;
+	public void setFlangeHoleNum(int flangeHoleNum) {
+		this.flangeHoleNum = flangeHoleNum;
 	}
 	public double getMeterLastValue() {
 		return meterLastValue;
@@ -118,12 +118,6 @@ public class PrdCensus implements Serializable {
 	}
 	public void setMeterValue(double meterValue) {
 		this.meterValue = meterValue;
-	}
-	public String getCensusPosition() {
-		return censusPosition;
-	}
-	public void setCensusPosition(String censusPosition) {
-		this.censusPosition = censusPosition;
 	}
 	public String getCensusImage() {
 		return censusImage;
@@ -172,8 +166,8 @@ public class PrdCensus implements Serializable {
 		super();
 	}
 	public PrdCensus(String censusId, String companyId, String meterId,
-			String pipeType, String valveType, int valveSize, int flangeNum,
-			double meterLastValue, double meterValue, String censusPosition,
+			String pipeType, String valveType, int valveSize, int flangeHoleNum,
+			double meterLastValue, double meterValue, String censusPlace,
 			String censusImage, String censusDesc, String censusResult, int censusAction, String censusUserId,
 			Date checkTime, boolean hasCollocation, int censusStatus) {
 		super();
@@ -183,10 +177,10 @@ public class PrdCensus implements Serializable {
 		this.pipeType = pipeType;
 		this.valveType = valveType;
 		this.valveSize = valveSize;
-		this.flangeNum = flangeNum;
+		this.flangeHoleNum = flangeHoleNum;
 		this.meterLastValue = meterLastValue;
 		this.meterValue = meterValue;
-		this.censusPosition = censusPosition;
+		this.censusPlace = censusPlace;
 		this.censusImage = censusImage;
 		this.censusDesc = censusDesc;
 		this.censusResult = censusResult;
@@ -195,6 +189,12 @@ public class PrdCensus implements Serializable {
 		this.hasCollocation = hasCollocation;
 		this.censusStatus = censusStatus;
 		this.censusAction = censusAction;
+	}
+	public String getCensusPlace() {
+		return censusPlace;
+	}
+	public void setCensusPlace(String censusPlace) {
+		this.censusPlace = censusPlace;
 	}
 	
 	

@@ -29,14 +29,14 @@ function addNew() {
 	var falanNum = $("#falanNum").val();
 	var position = $("#position").val();
 	var readValue = $("#readValue").val();
-	var resutlt = $("#resutlt").val();
+	var result = $("#result").val();
 	var desc = $("#desc").val();
 	var action = $("#action").val();
 	var time = $("#time").val();
 	var oldMeterType = "";
 	var newMeterType = "";
 	var newMeterId = "";
-	var rangeRatio = "";
+	var rangeRatio = "0";
 
 	if (action == 2) {
 		var oldMeterType = $("#oldMeterType").val();
@@ -46,7 +46,7 @@ function addNew() {
 	}
 
 	myajax.path({
-		url:sysContext+'cenusu/add',
+		url:sysContext+'census/add',
 		data: 	{
 					meterId: meterId,
 					companyId: companyId,
@@ -56,7 +56,7 @@ function addNew() {
 					falanNum: falanNum,
 					position: position,
 					readValue: readValue,
-					resutlt: resutlt,
+					result: result,
 					desc:desc,
 					action:action,
 					time:time,
