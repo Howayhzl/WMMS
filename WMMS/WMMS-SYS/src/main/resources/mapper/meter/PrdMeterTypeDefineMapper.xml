@@ -18,7 +18,7 @@
 		SELECT
 		<include refid="Base_Column_List"></include> from prd_meter_type_define 
 		<where>
-			<if test="meterBrand != '请选择' and meterBrand != null and meterBrand != ''">
+			<if test="meterBrand != null and meterBrand != '请选择' and meterBrand != ''">
 				and prd_meter_type_define.meter_brand = #{meterBrand,jdbcType=VARCHAR}
 			</if>
 			<if test="meterSize != 0">

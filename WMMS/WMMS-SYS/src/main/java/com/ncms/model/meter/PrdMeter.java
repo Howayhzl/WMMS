@@ -14,12 +14,12 @@ public class PrdMeter implements Serializable {
 	/**  */
 	@Id
 	private	String	meterId;
+	
+	private String regId;
 	/**  */
 	private	String	meterCompanyId;
 	/**  */
-	private	String	meterBrand;
-	/**  */
-	private	String	meterSize;
+	private	String	meterTypeId;
 	/**  */
 	private	String	meterType;
 	/**  */
@@ -53,14 +53,14 @@ public class PrdMeter implements Serializable {
 	public	String	getMeterId(){
 		return	meterId;
 	}
+	public	String	getRegId(){
+		return	regId;
+	}
 	public	String	getMeterCompanyId(){
 		return	meterCompanyId;
 	}
-	public	String	getMeterBrand(){
-		return	meterBrand;
-	}
-	public	String	getMeterSize(){
-		return	meterSize;
+	public	String	getMeterTypeId(){
+		return	meterTypeId;
 	}
 	public	String	getMeterType(){
 		return	meterType;
@@ -110,14 +110,15 @@ public class PrdMeter implements Serializable {
 	public void	setMeterId(String meterId){
 		this.meterId = meterId;
 	}
+	public void	setRegId(String regId){
+		this.regId = regId;
+	}
 	public void	setMeterCompanyId(String meterCompanyId){
 		this.meterCompanyId = meterCompanyId;
 	}
-	public void	setMeterBrand(String meterBrand){
-		this.meterBrand = meterBrand;
-	}
-	public void	setMeterSize(String meterSize){
-		this.meterSize = meterSize;
+
+	public void	setMeterTypeId(String meterTypeId){
+		this.meterTypeId = meterTypeId;
 	}
 	public void	setMeterType(String meterType){
 		this.meterType = meterType;
@@ -167,12 +168,12 @@ public class PrdMeter implements Serializable {
 	public	PrdMeter(){
 		super();
 	}
-	public PrdMeter(String meterId,String meterCompanyId,String meterBrand,String meterSize,String meterType,String parentMeterId,String meterLevel,Double meterValue,Integer meterUseTime,String meterAddress,String meterInstaller,String meterOwnerId,String meterCreaterId,Date meterCreateTime,String meterEditerId,Date meterEditTime,Integer meterStatus,Date meterSetupTime,Date meterLastCheckTime){
+	public PrdMeter(String meterId,String regId,String meterCompanyId,String meterTypeId,String meterType,String parentMeterId,String meterLevel,Double meterValue,Integer meterUseTime,String meterAddress,String meterInstaller,String meterOwnerId,String meterCreaterId,Date meterCreateTime,String meterEditerId,Date meterEditTime,Integer meterStatus,Date meterSetupTime,Date meterLastCheckTime){
 		super();
 		this.meterId = meterId;
+		this.regId = regId;
 		this.meterCompanyId = meterCompanyId;
-		this.meterBrand = meterBrand;
-		this.meterSize = meterSize;
+		this.meterTypeId = meterTypeId;
 		this.meterType = meterType;
 		this.parentMeterId = parentMeterId;
 		this.meterLevel = meterLevel;
