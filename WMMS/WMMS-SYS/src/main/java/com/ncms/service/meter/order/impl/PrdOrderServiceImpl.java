@@ -10,6 +10,7 @@ import com.ncms.model.meter.order.PrdOrder;
 import com.ncms.mapper.meter.order.PrdOrderMapper;
 
 import com.ncms.comm.base.AbstractService;
+import com.github.pagehelper.Page;
 
 @Service
 public class PrdOrderServiceImpl extends AbstractService<PrdOrder> implements PrdOrderService{
@@ -17,5 +18,8 @@ public class PrdOrderServiceImpl extends AbstractService<PrdOrder> implements Pr
 	@Autowired
 	private PrdOrderMapper prdOrderMapper;
 
-
+	@Override
+	public Page<PrdOrder> queryAllChangeOrder(PrdOrder entity, int pageNum,int pageSize){
+		return findByPage(entity, pageNum, pageSize);
+	}
 }
