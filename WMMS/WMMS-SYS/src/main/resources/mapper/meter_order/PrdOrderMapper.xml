@@ -15,4 +15,17 @@
 	<sql id="Base_Column_List">
 		prd_order.prd_order_id,prd_order.prd_id,prd_order.prd_order_type,prd_order.submit_user_id,prd_order.submit_datetime,prd_order.handle_user_id,prd_order.handle_datetime,prd_order.handle_state,prd_order.send_email
 	</sql>
+	
+	<select id="queryOneUser" resultMap="BaseResultMap_msg" parameterType="Map">
+		select po.*,pc.* from prd_census pc LEFT JOIN prd_meter po on pc.meter_id=po.meter_id
+		<where>
+			po.meter_status=-1
+			<if test="userState == null">
+				and sys_user.user_state &gt;= 0
+			</if>
+			<if test="userId != '' and userId != null">
+				and sys_user.user_id = #{userId,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
 </mapper>

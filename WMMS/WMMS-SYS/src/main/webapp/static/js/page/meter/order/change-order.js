@@ -9,6 +9,7 @@ $(document).ready(function() {
 function selmeterPopup(){	
 	$("#selectMeter").modal("show");
 	$("#tb").bootstrapTable({
+		url : sysContext+"order/change/all", // 获取数据的地址
 		striped : true, // 表格显示条纹
 		pagination : true, // 启动分页
 		pageSize : ipageCount, // 每页显示的记录数
@@ -17,7 +18,8 @@ function selmeterPopup(){
 		clickToSelect: true,  //是否启用点击选中行
 		pageList : [10, 25, 50, 100, 500], // 记录数可选列表
 		search : false, // 是否启用查询
-
+		sidePagination : "server", // 表示服务端请求
+		queryParamsType : "undefined",
 		columns: [{
             checkbox: true
 		}, {

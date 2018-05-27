@@ -3,27 +3,27 @@ package com.ncms.service.meter.impl;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.ncms.Constant;
 import com.ncms.service.meter.PrdMeterService;
 import com.ncms.model.meter.PrdMeter;
-import com.ncms.model.meter.PrdMeterTypeDefine;
 import com.ncms.model.meter.PrdMeterVO;
 import com.ncms.mapper.meter.PrdMeterMapper;
 import com.ncms.comm.base.AbstractService;
 import com.ncms.comm.http.RESULT;
+
 
 @Service
 public class PrdMeterServiceImpl extends AbstractService<PrdMeter> implements PrdMeterService{
 
 	@Autowired
 	private PrdMeterMapper prdMeterMapper;
+	
+	@Autowired
+	private PrdMeterMapper prdOrderMapper;
 
 	@Override
 	public Page<PrdMeterVO> queryAllMeters(Map<String,Object> map,
@@ -90,7 +90,6 @@ public class PrdMeterServiceImpl extends AbstractService<PrdMeter> implements Pr
 	@Override
 	public double getMeterValueById(String meterId)
 	{
-		int result = 0;
 		try
 		{
 			PrdMeter target = new PrdMeter();
@@ -102,4 +101,6 @@ public class PrdMeterServiceImpl extends AbstractService<PrdMeter> implements Pr
 			return -1;
 		}
 	}
+	
+
 }
