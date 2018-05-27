@@ -28,7 +28,7 @@ public interface PrdMeterTypeDefineService extends BaseService<PrdMeterTypeDefin
 	 * @return BackEntity
 	 * @throws 
 	 */
-	public Page<PrdMeterTypeDefine> queryAllMeterTypes(@RequestParam Map<String,Object> paramMap,
+	public Page<PrdMeterTypeDefine> queryAllMeterTypes(Map<String,Object> paramMap,
 			int cur_page_num,int page_count);
 	
 	public String insertMeterType(HttpServletRequest request);

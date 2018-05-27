@@ -13,30 +13,28 @@
 	<form class="form-inline" >
 		<div class="form-group">
 			<label>单位名称:</label>
-			<select id="departId">
-				<option value="">请选择</option>
-				<option value="0">西安森科软件</option>
-				<option value="1">陕西自标公司</option>
+			<select id="depId">
 			</select>
 		</div>
 		<div class="form-group">
 			<label>水表级别:</label>
 			<select id="meterLevel">
-				<option value="">请选择</option>
-				<option value="0">一级表</option>
-				<option value="1">二级表</option>
-				<option value="2">三级表</option>
-				<option value="3">四级表</option>
-				<option value="4">五级表</option>
+				<option value="0">请选择</option>
+				<option value="1">一级表</option>
+				<option value="2">二级表</option>
+				<option value="3">三级表</option>
+				<option value="4">四级表</option>
+				<option value="5">五级表</option>
 			</select>
 		</div>
 		<div class="form-group">
 			<label>水表状态:</label>
 			<select id="meterStatus">
 				<option value="0">所有状态</option>
-				<option value="1">正常状态</option>
-				<option value="2">待检验状态</option>
-				<option value="3">待更换状态</option>
+				<option value="1">正常</option>
+				<option value="2">待检验</option>
+				<option value="3">待更换</option>
+				<option value="4">停用</option>
 			</select>
 		</div>
 
@@ -44,13 +42,13 @@
 				<label>水表编号:</label>
 				<input type="text" autocomplete="off" name="meterId" id="meterId"/>
 		</div>
-		<button type="button" class="btn btn-success" onclick="">查询</button>
+		<button type="button" class="btn btn-success" onclick="queryMeters()">查询</button>
 	</form>
 	<div class="btn-toolbar">
-		<button type="button" class="btn btn-primary" onclick="">启用</button>
-		<button type="button" class="btn btn-primary" onclick="">停用</button>
-		<button type="button" class="btn btn-primary" onclick="">待校验</button>
-		<button type="button" class="btn btn-primary" onclick="">待更换</button>
+		<button type="button" class="btn btn-primary" onclick="updateMeterStatus(1)">启用</button>
+		<button type="button" class="btn btn-danger" onclick="updateMeterStatus(4)">停用</button>
+		<button type="button" class="btn btn-warning" onclick="updateMeterStatus(2)">待校验</button>
+		<button type="button" class="btn btn-warning" onclick="updateMeterStatus(3)">待更换</button>
 	</div>
 	<div>
 		<table id="tb">
@@ -71,71 +69,6 @@
 	<script src="../../../plugins/bootstrap/js/jquery.validate.min.js"></script>
 	<script src="../../../plugins/bootstrap/js/messages-zh.min.js"></script>
 	<script src="../../../plugins/bootstrap/js/bootstrap-table.min.js"></script>
-	<script>
-		$("#tb").bootstrapTable({
-
-		striped : true, // 表格显示条纹
-		pagination : true, // 启动分页
-		pageSize : ipageCount, // 每页显示的记录数
-		pageNumber : curPageNum, // 当前第几页
-		minimumCountColumns: 1,  //最少允许的列数
-		clickToSelect: true,  //是否启用点击选中行
-		pageList : [10, 25, 50, 100, 500], // 记录数可选列表
-		search : false, // 是否启用查询
-
-		columns: [{
-            checkbox: true
-		}, {
-			field: 'userCode',
-            title: '编号'
-        },{
-        	field: 'userName',
-            title: '单位'
-        }, {
-            field: 'depName',
-            title: '口径'
-        }, {
-            field: 'userEmail',
-            title: '级别'
-        }, {
-            field: 'userState',
-            title: '读数'
-        }, {
-            field: 'userState',
-            title: '安装时间'
-        }, {
-            field: 'userState',
-            title: '状态'
-        },],
-        onCheck: function (row) {
-        	showBack(row.userId);
-        },
-		onLoadError : function(status) { // 加载失败时执行
-			if(status==400){
-            	alert("400 - 错误的请求");
-            }else if(status==405){
-            	alert("405错误");
-            }else if(status==403){
-            	alert("403 - 请求不允许");
-            }else if(status==500){
-            	alert("500 - 内部服务器错误");
-            }else{
-            	//alert("网络错误");
-            }
-		},
-		responseHandler: function(res) {
-			if(res != null){//报错反馈
-				if(res.success != "1"){
-		            alertModel(res.msg);
-				}
-				showTableList = res.obj.list;
-			}
-	        return {
-	            "total": res.obj.total,//总页数
-	            "rows": res.obj.list //数据
-	         };
-		}
-	});
-	</script>
+	<script src="../../../static/js/page/meter/status/meter.js"></script>
 </body>
 </html>

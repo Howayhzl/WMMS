@@ -23,6 +23,4 @@ public interface PrdMeterTypeDefineMapper extends MyMapper<PrdMeterTypeDefine> {
 	 * @throws 
 	 */
 	public Page<PrdMeterTypeDefine> queryAllMeterTypes(Map<String, Object> map);
-	
-	public int deleteMeterTypeByTypeId(String typeId);
 }

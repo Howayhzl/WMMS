@@ -21,8 +21,7 @@ function init(){
 	curPageNum = 1;
 	//每页显示个数
 	ipageCount = 10;
-	queryMeters();
-	queryAllParam();
+	queryAllMeterTypes();
 }
 
 function deleteMeterType(){
@@ -159,65 +158,49 @@ function formSubmit(){
 /**
  * 修改用户信息
  */
-function updateMeterStatus(st){
+function updateMeterType(){
 	if(!isCheckBox()>0){
 		alertModel("请先选择操作行");
 		return;
 	}
 
-	var ids = "";
-	for (var i = 0; i < rowschecked.length; i++) {
-		ids += "'" + rowschecked[i].meterId + "'";
+	operate_type = 2;// 修改
+	
+	$("#dataForm")[0].reset();	//清空表单
+	
+	//反显
+	$('input[name=meterTypeId]').val(rowschecked[0].meterTypeId);
 
-		if (i + 1 < rowschecked.length )
-		{
-			ids += ",";
+	var count = $("#meterBrand option").length;
+	for (var i = 0; i < count; i++) {
+		if ($("#meterBrand").get(0).options[i].text == rowschecked[0].meterBrand) {
+			$("#meterBrand").get(0).options[i].selected = true;
+			break;
 		}
 	}
-	
 
-	operate_type = st;// 修改
-	myajax.path({
-		url:sysContext+'meter/statusUpdate',
-		data: 	{
-					meterId: ids,
-					meterStatus: st
-				},
-		type : 'post',
-		async:true,
-		success:function(result){
-			//请求成功时
-			if(result!=null){
-			$('#EditPanel').modal('hide');
-				alertModel(result.msg);
-			}
-		
-			$('#chooseAll_id').attr("checked",false);
-		},
-		complete:function(){
-			//alertModel("请求失败！");
-			queryMeters();
+	var count = $("#meterSize option").length;
+	for (var i = 0; i < count; i++) {
+		if ($("#meterSize").get(0).options[i].text == rowschecked[0].meterSize) {
+			$("#meterSize").get(0).options[i].selected = true;
+			break;
 		}
-	});
+	}
+
+	$('input[name=meterType]').val(rowschecked[0].meterType);
+	$('input[name=meterTypeName]').val(rowschecked[0].meterTypeName);
+	//去除错误提示信息
+	$('#EditPanel .pull-left span.modal-error').children().remove();
+	$('#EditPanel').modal({backdrop: 'static', keyboard: false});	//弹出表单
 }
 
-function queryMeters(){
-	var companyId = "";
-	var level = 0;
-	var status = 0;
-	var id = "";
-	id = $("#meterId").val();
-	if (id == "") {
-		companyId = $("#depId").val();
-		level = $("#meterLevel").val();
-		status = $("#meterStatus").val();
-	}
 
+function queryAllMeterTypes(){
 	$('#tb').bootstrapTable('destroy');
 	$("#tb").bootstrapTable({
 		method : "post",
 		contentType : "application/x-www-form-urlencoded",
-		url : sysContext+"meter/list", // 获取数据的地址
+		url : sysContext+"meterType/list", // 获取数据的地址
 		striped : true, // 表格显示条纹
 		pagination : true, // 启动分页
 		pageSize : ipageCount, // 每页显示的记录数
@@ -235,55 +218,29 @@ function queryMeters(){
 			var param = {
 				cur_page_num: params.pageNumber,    
 				page_count: params.pageSize,
-				meterCompanyId: companyId,
-				meterLevel: level,
-				meterStatus: status,
-				meterId: id,
-				meterType: "",
-				meterSize: 0,
+				meterBrand: $("#meterBrand").find("option:selected").text().replace(/\s/g, ""),
+				meterSize: $("#meterSize").find("option:selected").text().replace(/\s/g, ""),
 			};
 			return param;
 		},
 		columns: [{
-			checkbox: true
+            checkbox: true
 		}, {
-			field: 'regName',
-			title: '单位'
-		}, {
-			field: 'meterId',
-			title: '编号'
-		}, {
-			field: 'meterSize',
-			title: '口径'
-		}, {
-			field: 'meterLevel',
-			title: '级别'
-		}, {
-			field: 'meterValue',
-			title: '读数'
-		}, {
-			field: 'meterCreateTime',
-			title: '安装时间',
-			formatter:function(value, row, index) {  
-				var ct = new Date();
-				ct.setTime(value);
-				return ct.toLocaleDateString();
-			}
-		}, {
-			field: 'meterStatus',
-			title: '状态',
-			formatter:function(value, row, index) {  
-				if (value == 1) {
-					return "正常";
-				} else if (value == 2) {
-					return "待检验";
-				}else if (value == 3) {
-					return "待更换";
-				}else if (value == 4) {
-					return "停用";
-				}
-			}
-		},],
+        	field: 'meterTypeId',
+            title: '类型编码'
+        }, {
+        	field: 'meterBrand',
+            title: '品牌'
+        },{
+            field: 'meterSize',
+            title: '口径'
+        },  {
+            field: 'meterType',
+            title: '型号'
+        }, {
+        	field: 'meterTypeName',
+            title: '规格名称'
+        }, ],
 		onLoadError : function(status) { // 加载失败时执行
 			if(status==400){
             	alert("400 - 错误的请求");
@@ -310,49 +267,4 @@ function queryMeters(){
 	         };
 		}
 	});
-}
-
-
-/**
- * 获取 部门 专业 区域 信息
- */
-function queryAllParam() {
-    myajax.path({
-        type: "get",
-        url: sysContext+"parameter/query",
-        data: {},
-        dataType: "JSON",
-        async:false,
-        success: function (value) {
-			if(value != null){
-				sysDepartmentList = value.obj.sysDepartmentList;
-
-				if(sysDepartmentList!=null){
-					var str = "<option value=''>-请选择部门-</option>";
-					$.each(sysDepartmentList, function (i, item){
-						if(item.pdepId == null || item.pdepId == ''){
-							pid = item.depId;
-							str += "<option value='" +item.depId+"'>"+item.depName+ "</option>";
-							if(item.children != null){
-								$.each(item.children, function (i, item){
-									ppid = item.depId;
-									if(pid = item.pdepId){
-										str += "<option value='" +item.depId+"'>"+"&nbsp&nbsp&nbsp&nbsp"+item.depName+ "</option>";
-									}
-									if(item.children != null){
-										$.each(item.children, function (i, item){
-											if(ppid = item.pdepId){
-												str += "<option value='" +item.depId+"'>"+"&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp"+item.depName+ "</option>";
-											}
-										});
-									}
-								});
-							}
-						}
-					});
-					$("#depId").append(str);
-				}
-			}
-		}
-    });
 }
