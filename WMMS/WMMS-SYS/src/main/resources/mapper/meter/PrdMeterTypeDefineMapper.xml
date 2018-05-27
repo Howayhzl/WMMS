@@ -10,6 +10,20 @@
 		<result column="meter_type_name" property="meterTypeName" jdbcType="VARCHAR"/>
 	</resultMap>
 	<sql id="Base_Column_List">
-		prd_meter_type_define.meter_type_id,prd_meter_type_define.meter_brand,prd_meter_type_define.meter_size,prd_meter_type_define.meter_type,prd_meter_type_define.meter_size_name,prd_meter_type_define.meter_type_name
+		prd_meter_type_define.meter_type_id, prd_meter_type_define.meter_brand, prd_meter_type_define.meter_size, prd_meter_type_define.meter_type, prd_meter_type_define.meter_size_name, prd_meter_type_define.meter_type_name
 	</sql>
+	
+	<select id="queryAllMeterTypes" resultMap="BaseResultMap" parameterType="Map">
+	<!-- wesley  查询所有配表 -->
+		SELECT
+		<include refid="Base_Column_List"></include> from prd_meter_type_define 
+		<where>
+			<if test="meterBrand != '请选择' and meterBrand != null and meterBrand != ''">
+				and prd_meter_type_define.meter_brand = #{meterBrand,jdbcType=VARCHAR}
+			</if>
+			<if test="meterSize != 0">
+				and prd_meter_type_define.meter_size = #{meterSize,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
 </mapper>

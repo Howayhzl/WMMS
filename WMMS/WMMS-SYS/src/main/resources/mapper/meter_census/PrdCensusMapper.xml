@@ -9,8 +9,8 @@
 		<result column="valve_type" property="valveType" jdbcType="VARCHAR"/>
 		<result column="valve_size" property="valveSize" jdbcType="INTEGER"/>
 		<result column="flange_hole_num" property="flangeHoleNum" jdbcType="INTEGER"/>
-		<result column="meter_last_value" property="meterLastValue" jdbcType=""/>
-		<result column="meter_value" property="meterValue" jdbcType=""/>
+		<result column="meter_last_value" property="meterLastValue" jdbcType="DOUBLE"/>
+		<result column="meter_value" property="meterValue" jdbcType="DOUBLE"/>
 		<result column="census_place" property="censusPlace" jdbcType="VARCHAR"/>
 		<result column="census_image" property="censusImage" jdbcType="VARCHAR"/>
 		<result column="census_desc" property="censusDesc" jdbcType="VARCHAR"/>

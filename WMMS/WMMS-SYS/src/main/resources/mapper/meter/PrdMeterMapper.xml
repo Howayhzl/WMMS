@@ -9,7 +9,7 @@
 		<result column="meter_type" property="meterType" jdbcType="VARCHAR"/>
 		<result column="parent_meter_id" property="parentMeterId" jdbcType="VARCHAR"/>
 		<result column="meter_level" property="meterLevel" jdbcType="VARCHAR"/>
-		<result column="meter_value" property="meterValue" jdbcType=""/>
+		<result column="meter_value" property="meterValue" jdbcType="DOUBLE"/>
 		<result column="meter_use_time" property="meterUseTime" jdbcType="INTEGER"/>
 		<result column="meter_address" property="meterAddress" jdbcType="VARCHAR"/>
 		<result column="meter_installer" property="meterInstaller" jdbcType="VARCHAR"/>
@@ -25,4 +25,18 @@
 	<sql id="Base_Column_List">
 		prd_meter.meter_id,prd_meter.meter_company_id,prd_meter.meter_brand,prd_meter.meter_size,prd_meter.meter_type,prd_meter.parent_meter_id,prd_meter.meter_level,prd_meter.meter_value,prd_meter.meter_use_time,prd_meter.meter_address,prd_meter.meter_installer,prd_meter.meter_owner_id,prd_meter.meter_creater_id,prd_meter.meter_create_time,prd_meter.meter_editer_id,prd_meter.meter_edit_time,prd_meter.meter_status,prd_meter.meter_setup_time,prd_meter.meter_last_check_time
 	</sql>
+	
+	<select id="queryAllMeters" resultMap="BaseResultMap" parameterType="Map">
+	<!-- wesley  查询所有配表 -->
+		SELECT
+		<include refid="Base_Column_List"></include> from prd_meter 
+		<where>
+			<if test="meterBrand != '请选择' and meterBrand != null and meterBrand != ''">
+				and prd_meter_type_define.meter_brand = #{meterBrand,jdbcType=VARCHAR}
+			</if>
+			<if test="meterSize != 0">
+				and prd_meter_type_define.meter_size = #{meterSize,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
 </mapper>

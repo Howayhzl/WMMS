@@ -16,6 +16,7 @@ public class PrdCensus implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	/** 普查单编码 */
+	@Id
 	private	String	censusId;
 	/** 单位编码 */
 	private	String	companyId;
