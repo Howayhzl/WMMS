@@ -83,26 +83,12 @@ public void setDepName(String depName) {
 	this.depName = depName;
 }
 
-/**
- * @return the regName
- */
-public String getRegName() {
-	return regName;
-}
-
-/**
- * @param regName the regName to set
- */
-public void setRegName(String regName) {
-	this.regName = regName;
-}
 
 	private String meterBrand;
 	private int meterSize;
 	private String meterTType;
 	private String meterTTypeName;
 	private String depName;
-	private String regName;
 	
 	public PrdMeterVO(){
 		super();

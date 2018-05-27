@@ -60,6 +60,13 @@ public class PrdMeterTypeDefineServiceImpl extends AbstractService<PrdMeterTypeD
 		return page;
 	}
 	
+	@Override
+	public List<PrdMeterTypeDefine> getMeterTypes()
+	{
+		return prdMeterTypeDefineMapper.selectAll();
+	}
+	
+	@Override
 	public String insertMeterType(HttpServletRequest request)
 	{
 		PrdMeterTypeDefine type = new PrdMeterTypeDefine();
@@ -89,6 +96,7 @@ public class PrdMeterTypeDefineServiceImpl extends AbstractService<PrdMeterTypeD
 		return(result == 0)?RESULT.FAIL_0:RESULT.SUCCESS_1;
 	}
 	
+	@Override
 	public String updateMeterType(HttpServletRequest request)
 	{
 		PrdMeterTypeDefine type = new PrdMeterTypeDefine();
@@ -117,6 +125,7 @@ public class PrdMeterTypeDefineServiceImpl extends AbstractService<PrdMeterTypeD
 		return(result == 0)?RESULT.FAIL_0:RESULT.SUCCESS_1;
 	}
 	
+	@Override
 	public String deleteMeterType(List<PrdMeterTypeDefine> meterTypes)
 	{
 		List<String> idLists = new ArrayList<String>();

@@ -1,7 +1,7 @@
 package com.ncms.service.meter.census;
 
 import com.ncms.comm.base.BaseService;
-
+import com.ncms.model.meter.PrdMeter;
 import com.ncms.model.meter.census.PrdCensus;
 
 /**
@@ -9,5 +9,5 @@ import com.ncms.model.meter.census.PrdCensus;
  */
 public interface PrdCensusService extends BaseService<PrdCensus>{
 
-
+	public String addCensus(PrdCensus census);
 }

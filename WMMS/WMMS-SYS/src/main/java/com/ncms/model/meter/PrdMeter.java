@@ -45,7 +45,7 @@ public class PrdMeter implements Serializable {
 	/**  */
 	private	Date	meterEditTime;
 	/**  */
-	private	Integer	meterStatus;
+	private	Integer	meterStatus = 1;
 	/**  */
 	private	Date	meterSetupTime;
 	/**  */

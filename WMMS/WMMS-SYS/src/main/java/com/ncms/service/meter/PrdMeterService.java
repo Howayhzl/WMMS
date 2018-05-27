@@ -16,4 +16,8 @@ public interface PrdMeterService extends BaseService<PrdMeter>{
 			int cur_page_num,int page_count);
 	
 	public String updateMeterStatus(String id, int status);
+	
+	public String addMeter(PrdMeter meter);
+	
+	public double getMeterValueById(String meterId);
 }

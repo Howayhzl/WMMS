@@ -78,7 +78,7 @@ function queryAllMeters(){
 			field: 'meterId',
 			title: '编号'
 		},{
-			field: 'regName',
+			field: 'depName',
 			title: '单位'
 		}, {
 			field: 'meterBrand',

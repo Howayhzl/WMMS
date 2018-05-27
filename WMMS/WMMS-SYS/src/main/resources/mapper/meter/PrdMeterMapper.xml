@@ -47,7 +47,6 @@
 		<result column="meterTType" property="meterTType" jdbcType="VARCHAR"/>
 		<result column="meterTTypeName" property="meterTTypeName" jdbcType="VARCHAR"/>
 		<result column="depName" property="depName" jdbcType="VARCHAR"/>
-		<result column="regName" property="regName" jdbcType="VARCHAR"/>
 	</resultMap>
 	<sql id="Base_Column_List">
 		prd_meter.meter_id,prd_meter.reg_id,prd_meter.meter_company_id,prd_meter.meter_type_id,prd_meter.meter_type,prd_meter.parent_meter_id,prd_meter.meter_level,prd_meter.meter_value,prd_meter.meter_use_time,prd_meter.meter_address,prd_meter.meter_installer,prd_meter.meter_owner_id,prd_meter.meter_creater_id,prd_meter.meter_create_time,prd_meter.meter_editer_id,prd_meter.meter_edit_time,prd_meter.meter_status,prd_meter.meter_setup_time,prd_meter.meter_last_check_time
@@ -57,11 +56,9 @@
 	<!-- wesley  查询所有配表 -->
 		SELECT
 		<include refid="Base_Column_List"></include>, tp.meter_brand as meterBrand, tp.meter_size as meterSize, tp.meter_type as meterTType, tp.meter_type_name as meterTTypeName,
-		sys_region.reg_name as regName,
 		sys_department.dep_name as depName 
 		from prd_meter 
 		left join prd_meter_type_define as tp ON tp.meter_type_id = prd_meter.meter_type_id
-		left JOIN sys_region ON prd_meter.reg_id = sys_region.reg_id
 		left JOIN sys_department ON prd_meter.meter_company_id = sys_department.dep_id
 		<where>
 			<if test="meterType != null and meterType != '请选择' and meterType != ''">

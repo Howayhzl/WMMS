@@ -42,12 +42,25 @@ public class PrdCensus implements Serializable {
 	private	String	censusDesc;
 	/** 普查结果 */
 	private	String	censusResult;
+	private int  censusAction;
 	/** 普查人 */
 	private	String	censusUserId;
 	/** 普查时间 */
 	private	Date	checkTime;
 	/** 是否有配表信息 */
 	private	boolean	hasCollocation;
+	/**
+	 * @return the censusAction
+	 */
+	public int getCensusAction() {
+		return censusAction;
+	}
+	/**
+	 * @param censusAction the censusAction to set
+	 */
+	public void setCensusAction(int censusAction) {
+		this.censusAction = censusAction;
+	}
 	/** 普查单状态 */
 	private	int	censusStatus;
 	
@@ -161,7 +174,7 @@ public class PrdCensus implements Serializable {
 	public PrdCensus(String censusId, String companyId, String meterId,
 			String pipeType, String valveType, int valveSize, int flangeNum,
 			double meterLastValue, double meterValue, String censusPosition,
-			String censusImage, String censusDesc, String censusResult, String censusUserId,
+			String censusImage, String censusDesc, String censusResult, int censusAction, String censusUserId,
 			Date checkTime, boolean hasCollocation, int censusStatus) {
 		super();
 		this.censusId = censusId;
@@ -181,6 +194,7 @@ public class PrdCensus implements Serializable {
 		this.checkTime = checkTime;
 		this.hasCollocation = hasCollocation;
 		this.censusStatus = censusStatus;
+		this.censusAction = censusAction;
 	}
 	
 	

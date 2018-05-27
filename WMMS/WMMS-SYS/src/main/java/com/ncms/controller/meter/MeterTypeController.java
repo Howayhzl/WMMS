@@ -50,6 +50,13 @@ public class MeterTypeController {
 		return BackEntity.ok(PromptMessage.SELECT_USER_SUCCESS,meterTypeList.toPageInfo());
 	}
 	
+	@RequestMapping(value = "/meterType/query", method = RequestMethod.GET)
+	public BackEntity getMeterTypes()
+	{
+		List<PrdMeterTypeDefine> meterTyps = meterTypeDefineService.getMeterTypes();
+		return BackEntity.ok(PromptMessage.SELECT_USER_SUCCESS,meterTyps);
+	}
+	
 	@RequestMapping(value="/meterType/update", method = RequestMethod.POST)
 	public BackEntity modifyMeterType(HttpServletRequest request){
 		

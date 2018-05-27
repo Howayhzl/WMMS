@@ -1,7 +1,7 @@
 package com.ncms.service.meter.census;
 
 import com.ncms.comm.base.BaseService;
-
+import com.ncms.model.meter.census.PrdCensus;
 import com.ncms.model.meter.census.PrdCollocation;
 
 /**
@@ -9,5 +9,5 @@ import com.ncms.model.meter.census.PrdCollocation;
  */
 public interface PrdCollocationService extends BaseService<PrdCollocation>{
 
-
+	public String addCollocation(PrdCollocation collocation);
 }

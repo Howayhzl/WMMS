@@ -3,7 +3,8 @@
 <mapper namespace="com.ncms.mapper.meter.census.PrdCollocationMapper">
 	<resultMap id="BaseResultMap" type="com.ncms.model.meter.census.PrdCollocation">
 		<id column="id" property="id" jdbcType="INTEGER"/>
-		<result column="meter_id" property="meterId" jdbcType="VARCHAR"/>
+		<result column="old_meter_id" property="oldMeterId" jdbcType="VARCHAR"/>
+		<result column="new_meter_id" property="newMeterId" jdbcType="VARCHAR"/>
 		<result column="census_id" property="censusId" jdbcType="VARCHAR"/>
 		<result column="meter_old_type_id" property="meterOldTypeId" jdbcType="VARCHAR"/>
 		<result column="meter_new_type_id" property="meterNewTypeId" jdbcType="VARCHAR"/>
@@ -13,6 +14,6 @@
 		<result column="operator_id" property="operatorId" jdbcType="VARCHAR"/>
 	</resultMap>
 	<sql id="Base_Column_List">
-		prd_collocation.id,prd_collocation.meter_id,prd_collocation.census_id,prd_collocation.meter_old_type_id,prd_collocation.meter_new_type_id,prd_collocation.range_ratio,prd_collocation.create_time,prd_collocation.status,prd_collocation.operator_id
+		prd_collocation.id,prd_collocation.oldMeterId,prd_collocation.newMeterId,prd_collocation.census_id,prd_collocation.meter_old_type_id,prd_collocation.meter_new_type_id,prd_collocation.range_ratio,prd_collocation.create_time,prd_collocation.status,prd_collocation.operator_id
 	</sql>
 </mapper>

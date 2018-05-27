@@ -15,7 +15,33 @@ public class PrdCollocation implements Serializable {
 	@Id
 	private	Integer	id;
 	/**  */
-	private	String	meterId;
+	private	String	oldMeterId;
+	
+	/**
+	 * @return the oldMeterId
+	 */
+	public String getOldMeterId() {
+		return oldMeterId;
+	}
+	/**
+	 * @param oldMeterId the oldMeterId to set
+	 */
+	public void setOldMeterId(String oldMeterId) {
+		this.oldMeterId = oldMeterId;
+	}
+	/**
+	 * @return the newMeterId
+	 */
+	public String getNewMeterId() {
+		return newMeterId;
+	}
+	/**
+	 * @param newMeterId the newMeterId to set
+	 */
+	public void setNewMeterId(String newMeterId) {
+		this.newMeterId = newMeterId;
+	}
+	private String  newMeterId;
 	/**  */
 	private	String	censusId;
 	/**  */
@@ -32,9 +58,6 @@ public class PrdCollocation implements Serializable {
 	private	String	operatorId;
 	public	Integer	getId(){
 		return	id;
-	}
-	public	String	getMeterId(){
-		return	meterId;
 	}
 	public	String	getCensusId(){
 		return	censusId;
@@ -60,9 +83,6 @@ public class PrdCollocation implements Serializable {
 	public void	setId(Integer id){
 		this.id = id;
 	}
-	public void	setMeterId(String meterId){
-		this.meterId = meterId;
-	}
 	public void	setCensusId(String censusId){
 		this.censusId = censusId;
 	}
@@ -87,10 +107,11 @@ public class PrdCollocation implements Serializable {
 	public	PrdCollocation(){
 		super();
 	}
-	public PrdCollocation(Integer id,String meterId,String censusId,String meterOldTypeId,String meterNewTypeId,Integer rangeRatio,Date createTime,Integer status,String operatorId){
+	public PrdCollocation(Integer id,String oldMeterId,String newMeterId,String censusId,String meterOldTypeId,String meterNewTypeId,Integer rangeRatio,Date createTime,Integer status,String operatorId){
 		super();
 		this.id = id;
-		this.meterId = meterId;
+		this.oldMeterId = oldMeterId;
+		this.newMeterId = newMeterId;
 		this.censusId = censusId;
 		this.meterOldTypeId = meterOldTypeId;
 		this.meterNewTypeId = meterNewTypeId;

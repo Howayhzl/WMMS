@@ -247,7 +247,7 @@ function queryMeters(){
 		columns: [{
 			checkbox: true
 		}, {
-			field: 'regName',
+			field: 'depName',
 			title: '单位'
 		}, {
 			field: 'meterId',

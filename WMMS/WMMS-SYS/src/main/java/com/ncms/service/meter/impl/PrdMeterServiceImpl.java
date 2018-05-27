@@ -33,24 +33,73 @@ public class PrdMeterServiceImpl extends AbstractService<PrdMeter> implements Pr
 		if (((String)map.get("meterSize")).contains("请选择")) {
 			map.put("meterSize", 0);
 		}
-		Page<PrdMeterVO> page = prdMeterMapper.queryAllMeters(map);
-		return page;
+		
+		try
+		{
+			Page<PrdMeterVO> page = prdMeterMapper.queryAllMeters(map);
+			return page;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
 	}
 	
 	@Override
 	public String updateMeterStatus(String ids, int status)
 	{
-		List<PrdMeter> records = prdMeterMapper.selectByIds(ids);
+		List<PrdMeter> records = null;
+		try
+		{
+			records = prdMeterMapper.selectByIds(ids);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		int result = 0;
 		
 		for (PrdMeter record : records)
 		{
 			record.setMeterStatus(status);
-			if (prdMeterMapper.updateByPrimaryKey(record) > 0)
+			try
 			{
-				result ++ ;
+				if (prdMeterMapper.updateByPrimaryKey(record) > 0)
+				{
+					result ++ ;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 		return(result == 0)?RESULT.FAIL_0:RESULT.SUCCESS_1;
+	}
+	
+	@Override
+	public String addMeter(PrdMeter meter)
+	{
+		int result = 0;
+		try
+		{
+			result = prdMeterMapper.insert(meter);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return(result == 0)?RESULT.FAIL_0:RESULT.SUCCESS_1;
+	}
+	
+	@Override
+	public double getMeterValueById(String meterId)
+	{
+		int result = 0;
+		try
+		{
+			PrdMeter target = new PrdMeter();
+			target.setMeterId(meterId);
+			PrdMeter meter = prdMeterMapper.selectByPrimaryKey(target);
+			return meter.getMeterValue();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
 	}
 }

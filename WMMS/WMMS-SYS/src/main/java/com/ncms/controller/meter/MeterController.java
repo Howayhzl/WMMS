@@ -1,5 +1,6 @@
 package com.ncms.controller.meter;
 
+import java.util.Date;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import com.github.pagehelper.Page;
 import com.ncms.comm.http.BackEntity;
 import com.ncms.comm.http.RESULT;
 import com.ncms.constant.PromptMessage;
+import com.ncms.model.meter.PrdMeter;
 import com.ncms.model.meter.PrdMeterTypeDefine;
 import com.ncms.model.meter.PrdMeterVO;
 import com.ncms.service.meter.PrdMeterService;
@@ -49,6 +51,31 @@ public class MeterController {
 			return BackEntity.ok("修改水表类型操作成功");
 		}else{
 			return BackEntity.error("修改水表类型操作失败");
+		}
+	}
+	
+	@RequestMapping(value = "/meter/add", method = RequestMethod.POST)
+	public BackEntity addMeter(String meterId, String regId, String meterCompanyId, String meterTypeId, String meterType, String parentMeterId,
+							String meterLevel,double meterValue,Date meterSetupTime,int meterUseTime)
+	{
+		PrdMeter meter = new PrdMeter();
+		meter.setMeterId(meterId);
+		meter.setRegId(regId);
+		meter.setMeterCompanyId(meterCompanyId);
+		meter.setMeterTypeId(meterTypeId);
+		meter.setMeterType(meterType);
+		meter.setParentMeterId(parentMeterId);
+		meter.setMeterLevel(meterLevel);
+		meter.setMeterValue(meterValue);
+		meter.setMeterSetupTime(meterSetupTime);
+		meter.setMeterUseTime(meterUseTime);
+		
+		String result = meterService.addMeter(meter);
+		
+		if(result.equals(RESULT.SUCCESS_1)){
+			return BackEntity.ok("添加水表操作成功");
+		}else{
+			return BackEntity.error("加水表操作失败");
 		}
 	}
 }

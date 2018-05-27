@@ -16,7 +16,7 @@
   <form id="dataForm">
     <div class="tab-content">
       <div class="btn-toolbar">
-        <button id="saveSet" type="button" class="btn btn-primary" onclick="back();">保存</button>
+        <button id="saveSet" type="button" class="btn btn-primary" onclick="addNew();">保存</button>
         <button type="button" class="btn btn-primary" onclick="back();">返回</button>
       </div>
       <ul class="list-group">
@@ -24,30 +24,19 @@
           <input type="hidden" id="userId" name="userId" />
           <div class="col-md-2">单位名称:</div>
           <div class="col-md-4">
-            <select id="departId"  class="form-control">
-              <option value="">请选择</option>
-              <option value="0">西安森科软件</option>
-              <option value="1">陕西自标公司</option>
+            <select id="depId" class="form-control">
             </select>
             <span id="err" class="modal-error"></span>
           </div>
           <div class="col-md-2">水表编号:</div>
           <div class="col-md-4">
-            <select id="meterId"  class="form-control">
-              <option value="">请选择</option>
-              <option value="0">WM180521</option>
-              <option value="1">WM180522</option>
-              <option value="2">WM180523</option>
-              <option value="3">WM180524</option>
-              <option value="4">WM180525</option>
-              <option value="5">WM180526</option>
-            </select>
+            <input type="text" name="meterId" id="meterId" class="form-control"/>
           </div>
         </li>
         <li class="list-group-item row">
           <div class="col-md-2">管道材质:</div>
           <div class="col-md-4">
-            <select id="guandaoType"  class="form-control">
+            <select id="pipeType"  class="form-control">
               <option value="">请选择</option>
               <option value="0">PE</option>
               <option value="1">冷镀</option>
@@ -70,7 +59,6 @@
           <div class="col-md-2">阀门口径:</div>
           <div class="col-md-4">
             <select id="valveSize"  class="form-control">
-              <option value="">请选择</option>
               <option value="0">40</option>
               <option value="1">50</option>
               <option value="2">65</option>
@@ -102,7 +90,6 @@
           <div class="col-md-2">判断结果:</div>
           <div class="col-md-4">
             <select id="resutlt"  class="form-control">
-              <option value="">请选择</option>
               <option value="0">合格</option>
               <option value="1">不合格</option>
             </select>
@@ -115,16 +102,41 @@
         <li class="list-group-item row">
           <div class="col-md-2">处理建议:</div>
           <div class="col-md-4">
-            <select id="resutlt"  class="form-control">
-              <option value="">请选择</option>
+            <select id="action"  class="form-control">
               <option value="0">无</option>
               <option value="1">建议校验</option>
-              <option value="1">建议换表</option>
+              <option value="2">建议换表</option>
             </select>
           </div>
           <div class="col-md-2">普查时间:</div>
           <div class="col-md-4">
             <input type="date" name="time" id="time" class="form-control"/>
+          </div>
+        </li>
+      </ul>
+
+      <ul class="list-group" id="collocation">
+        <li class="list-group-item row">
+          <div class="col-md-2">旧仪表类型:</div>
+          <div class="col-md-4">
+            <select id="oldMeterType" class="form-control">
+            </select>
+          </div>
+          <div class="col-md-2">新仪表类型:</div>
+          <div class="col-md-4">
+            <select id="newMeterType" class="form-control">
+            </select>
+          </div>
+        </li>
+        <li class="list-group-item row">
+          <div class="col-md-2">新仪表编号:</div>
+          <div class="col-md-4">
+            <input type="text" name="newMeterId" id="newMeterId" class="form-control"/>
+            </select>
+          </div>
+          <div class="col-md-2">量程比:</div>
+          <div class="col-md-4">
+            <input type="number" name="rangeRatio" id="rangeRatio" class="form-control"/>
           </div>
         </li>
       </ul>
@@ -142,6 +154,8 @@
 	<script src="../../../plugins/bootstrap/js/jquery.validate.min.js"></script>
 	<script src="../../../plugins/bootstrap/js/messages-zh.min.js"></script>
 	<script src="../../../plugins/bootstrap/js/bootstrap-table.min.js"></script>
-	<script src="../../../plugins/bootstrap/js/bootstrap-table-zh-CN.js"></script>
+  <script src="../../../plugins/bootstrap/js/bootstrap-table-zh-CN.js"></script>
+  <script type="text/javascript" src="../../../static/js/common.js"></script>
+	<script type="text/javascript" src="../../../static/js/page/meter/pucha/puchaAdd.js"></script>
 </body>
 </html>

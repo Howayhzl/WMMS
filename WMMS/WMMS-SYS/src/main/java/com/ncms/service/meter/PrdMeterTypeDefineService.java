@@ -31,6 +31,8 @@ public interface PrdMeterTypeDefineService extends BaseService<PrdMeterTypeDefin
 	public Page<PrdMeterTypeDefine> queryAllMeterTypes(Map<String,Object> paramMap,
 			int cur_page_num,int page_count);
 	
+	public List<PrdMeterTypeDefine> getMeterTypes();
+	
 	public String insertMeterType(HttpServletRequest request);
 	
 	public String updateMeterType(HttpServletRequest request);
