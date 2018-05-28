@@ -1,12 +1,18 @@
 
 $(document).ready(function() {
-	
+	queryAllOrder();
 });
 
-/**
- * 选择关联水表弹出 
- */
-function selmeterPopup(){	
+
+function handle_change(){	
+	window.location.href="change-order-detail.html";
+}
+
+function handle_check(){	
+	window.location.href="check-order-detail.html";
+}
+
+function queryAllOrder(){	
 	$("#selectMeter").modal("show");
 	$("#tb").bootstrapTable({
 		url : sysContext+"order/change/all", // 获取数据的地址
@@ -20,6 +26,16 @@ function selmeterPopup(){
 		search : false, // 是否启用查询
 		sidePagination : "server", // 表示服务端请求
 		queryParamsType : "undefined",
+		queryParams : function queryParams(params) { // 设置查询参数
+			var param = {
+				cur_page_num: params.pageNumber,    
+				page_count: params.pageSize,
+				meterType : ($("#prdType").val()),
+				prdKouSize : $("#prdKouSize").val(),
+				meterStatus : $("#meterStatus").val(),
+			};
+			return param;
+		},
 		columns: [{
             checkbox: true
 		}, {
@@ -49,7 +65,13 @@ function selmeterPopup(){
         }, {
             field: 'userState',
             title: '安装年限'
-        }, ],
+        }, {
+            field: 'userState',
+            title: '提交人'
+        },{
+            field: 'userState',
+            title: '提交时间'
+        },],
         onCheck: function (row) {
         	showBack(row.userId);
         },
@@ -79,15 +101,4 @@ function selmeterPopup(){
 	         };
 		}
 	});
-}
-
-
-function handle(){	
-	window.location.href="order-detail.html";
-}
-function saveAndSubmit(){
-	confirmModel("发送成功",'back');
-}
-function back(){
-	javascript:history.back(-1);
 }

@@ -1,20 +1,15 @@
 
 $(document).ready(function() {
-	queryAllOrder();
+	
 });
 
-
-function handle_change(){	
-	window.location.href="change-order-detail.html";
-}
-
-function handle_check(){	
-	window.location.href="check-order-detail.html";
-}
-
-function queryAllOrder(){	
+/**
+ * 选择关联水表弹出 
+ */
+function selmeterPopup(){	
 	$("#selectMeter").modal("show");
 	$("#tb").bootstrapTable({
+		url : sysContext+"order/check/all", // 获取数据的地址
 		striped : true, // 表格显示条纹
 		pagination : true, // 启动分页
 		pageSize : ipageCount, // 每页显示的记录数
@@ -23,7 +18,18 @@ function queryAllOrder(){
 		clickToSelect: true,  //是否启用点击选中行
 		pageList : [10, 25, 50, 100, 500], // 记录数可选列表
 		search : false, // 是否启用查询
-
+		sidePagination : "server", // 表示服务端请求
+		queryParamsType : "undefined",
+		queryParams : function queryParams(params) { // 设置查询参数
+			var param = {
+				cur_page_num: params.pageNumber,    
+				page_count: params.pageSize,
+				meterType : ($("#prdType").val()),
+				prdKouSize : $("#prdKouSize").val(),
+				meterStatus : $("#meterStatus").val(),
+			};
+			return param;
+		},
 		columns: [{
             checkbox: true
 		}, {
@@ -53,13 +59,7 @@ function queryAllOrder(){
         }, {
             field: 'userState',
             title: '安装年限'
-        }, {
-            field: 'userState',
-            title: '提交人'
-        },{
-            field: 'userState',
-            title: '提交时间'
-        },],
+        }, ],
         onCheck: function (row) {
         	showBack(row.userId);
         },
@@ -89,4 +89,15 @@ function queryAllOrder(){
 	         };
 		}
 	});
+}
+
+
+function handle(){	
+	window.location.href="order-detail.html";
+}
+function saveAndSubmit(){
+	confirmModel("发送成功",'back');
+}
+function back(){
+	javascript:history.back(-1);
 }
