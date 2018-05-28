@@ -19,8 +19,9 @@ public class PrdOrderServiceImpl extends AbstractService<PrdOrder> implements Pr
 	private PrdOrderMapper prdOrderMapper;
 
 	@Override
-	public Page<PrdOrder> queryAllChangeOrder(Map<String,Object> map, int pageNum,int pageSize){
-		PageHelper.startPage(pageNum, pageSize);
-		return prdOrderMapper.queryAllChangeOrder(map);
+	public Page<Map> queryAllChangeOrder(Map<String,Object> map, int pageNum,int pageSize){
+		Page<Map> list = PageHelper.startPage(pageNum, pageSize);
+		prdOrderMapper.queryAllChangeOrder(map);
+		return list;
 	}
 }

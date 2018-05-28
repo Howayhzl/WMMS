@@ -8,10 +8,6 @@ function handle_change(){
 	window.location.href="change-order-detail.html";
 }
 
-function handle_check(){	
-	window.location.href="check-order-detail.html";
-}
-
 function queryAllOrder(){	
 	$("#selectMeter").modal("show");
 	$("#tb").bootstrapTable({
@@ -39,7 +35,7 @@ function queryAllOrder(){
 		columns: [{
             checkbox: true
 		}, {
-			field: 'userCode',
+			field: 'prd_id',
             title: '编号'
         },{
         	field: 'userName',

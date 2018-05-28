@@ -16,8 +16,8 @@
 		prd_order.prd_order_id,prd_order.prd_id,prd_order.prd_order_type,prd_order.submit_user_id,prd_order.submit_datetime,prd_order.handle_user_id,prd_order.handle_datetime,prd_order.handle_state,prd_order.send_email
 	</sql>
 	
-	<select id="queryAllChangeOrder" resultMap="BaseResultMap" parameterType="Map">
-		select po.*,pc.* from prd_order po LEFT JOIN prd_meter pm on po.prd_id = pm.meter_id
+	<select id="queryAllChangeOrder" resultType="Map" parameterType="Map">
+		select po.*,pm.* from prd_order po LEFT JOIN prd_meter pm on po.prd_id = pm.meter_id
 		<where>
 			<if test="prdType != '' and prdType != null">
 				and pm.meter_type = #{prdType}
@@ -25,8 +25,8 @@
 			<if test="prdKouSize != '' and prdKouSize != null">
 				and pm.meter_value = #{prdKouSize}
 			</if>
-			<if test="meterstate != '' and meterstate != null">
-				and pm.meter_status = #{meterstate}
+			<if test="meterState != '' and meterState != null">
+				and pm.meter_status = #{meterState}
 			</if>
 			<if test="prdOrderType != '' and prdOrderType != null">
 				and po.prd_order_type = #{prdOrderType}

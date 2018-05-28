@@ -11,5 +11,5 @@ import com.ncms.model.meter.order.PrdOrder;
  */
 public interface PrdOrderService extends BaseService<PrdOrder>{
 
-	public Page<PrdOrder> queryAllChangeOrder(Map<String,Object> map, int pageNum,int pageSize);
+	public Page<Map> queryAllChangeOrder(Map<String,Object> map, int pageNum,int pageSize);
 }

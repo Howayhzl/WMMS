@@ -45,9 +45,9 @@ public class ChangeOrderController {
 		map.put("prdKouSize", prdKouSize);
 		map.put("prdOrderType", -1);
 		map.put("handleState", 1);
-		map.put("meterstate", meterStatus);
+		map.put("meterState", meterStatus);
 		
-		Page<PrdOrder> lsmt = prdOrderService.queryAllChangeOrder(map,cur_page_num,page_count);
+		Page<Map> lsmt = prdOrderService.queryAllChangeOrder(map,cur_page_num,page_count);
 		return BackEntity.ok("查询成功",lsmt.getResult());
 	}
     

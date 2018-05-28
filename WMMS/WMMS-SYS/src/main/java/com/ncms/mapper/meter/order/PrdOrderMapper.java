@@ -1,8 +1,8 @@
 package com.ncms.mapper.meter.order;
 
+import java.util.List;
 import java.util.Map;
 
-import com.github.pagehelper.Page;
 import com.ncms.config.mybatis.MyMapper;
 import com.ncms.model.meter.order.PrdOrder;
 
@@ -11,5 +11,5 @@ import com.ncms.model.meter.order.PrdOrder;
  */
 public interface PrdOrderMapper extends MyMapper<PrdOrder> {
 
-	public Page<PrdOrder> queryAllChangeOrder(Map<String,Object> map);
+	public List<Map> queryAllChangeOrder(Map<String,Object> map);
 }

@@ -1,12 +1,16 @@
 
 $(document).ready(function() {
-	
+	queryAllOrder();
 });
+
+function handle_check(){	
+	window.location.href="check-order-detail.html";
+}
 
 /**
  * 选择关联水表弹出 
  */
-function selmeterPopup(){	
+function queryAllOrder(){	
 	$("#selectMeter").modal("show");
 	$("#tb").bootstrapTable({
 		url : sysContext+"order/check/all", // 获取数据的地址
