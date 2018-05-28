@@ -19,7 +19,7 @@
 	<select id="queryAllChangeOrder" resultMap="BaseResultMap" parameterType="Map">
 		select po.*,pc.* from prd_order po LEFT JOIN prd_meter pm on po.prd_id = pm.meter_id
 		<where>
-			<if test="prdType != '' and prdType == null">
+			<if test="prdType != '' and prdType != null">
 				and pm.meter_type = #{prdType}
 			</if>
 			<if test="prdKouSize != '' and prdKouSize != null">
