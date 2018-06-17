@@ -1,4 +1,5 @@
 
+*/.classpath
 *.class
 target/
 .settings/
