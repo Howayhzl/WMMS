@@ -68,6 +68,23 @@ var pathName = window.document.location.pathname;
 var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
 var sysContext = 'http://localhost:8080/WMMS-SYS/';
 
+
+/**
+ * 选中的条数
+ */
+var showTableList=null
+function hadCheckedRowData(){
+	if(showTableList==null || !isChecked()){
+		alertModel("请先选择一条操作数据");
+		return false;
+	}
+	return true;
+}
+
+function back(){
+	javascript:history.back(-1);
+}
+
 /**---------------
  * 分页
  */

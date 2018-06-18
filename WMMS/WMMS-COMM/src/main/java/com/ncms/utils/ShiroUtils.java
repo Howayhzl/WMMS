@@ -8,7 +8,6 @@ import org.apache.shiro.subject.Subject;
 
 import com.ncms.comm.base.loginInfo.SysUserVO;
 import com.ncms.comm.exception.BizException;
-import com.ncms.config.shiro.ShiroPrincipal;
 import com.ncms.constant.Constants;
 
 /**

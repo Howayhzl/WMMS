@@ -1,6 +1,7 @@
 package com.ncms.controller.meter.order;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import com.github.pagehelper.Page;
 import com.ncms.comm.http.BackEntity;
 import com.ncms.model.meter.order.PrdOrder;
 import com.ncms.service.meter.order.PrdOrderService;
+import com.ncms.utils.ShiroUtils;
 
 /**
  * Copyright by Xunge Software 2018. All right reserved 
@@ -46,6 +48,9 @@ public class ChangeOrderController {
 		map.put("prdOrderType", -1);
 		map.put("handleState", 1);
 		map.put("meterState", meterStatus);
+		
+		List<String> regIds = ShiroUtils.getUserRegions(); 
+		map.put("regIds", regIds);
 		
 		Page<Map> lsmt = prdOrderService.queryAllChangeOrder(map,cur_page_num,page_count);
 		return BackEntity.ok("查询成功",lsmt.toPageInfo());

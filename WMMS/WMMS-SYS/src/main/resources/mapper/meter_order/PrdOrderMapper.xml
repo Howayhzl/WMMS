@@ -17,7 +17,9 @@
 	</sql>
 	
 	<select id="queryAllChangeOrder" resultType="Map" parameterType="Map">
-		select sd.dep_name,su.user_name,po.*,pm.* from prd_order po LEFT JOIN prd_meter pm on po.prd_id = pm.meter_id
+		select sd.dep_name,su.user_name,mtd.*,po.*,pm.* from prd_order po 
+			LEFT JOIN prd_meter pm on po.prd_id = pm.meter_id
+			LEFT JOIN prd_meter_type_define mtd ON pm.meter_type_id = mtd.meter_type_id
 			LEFT JOIN sys_department sd ON pm.meter_company_id = sd.dep_id 
 			LEFT JOIN sys_user su ON po.handle_user_id = su.user_id
 		<where>
@@ -35,6 +37,13 @@
 			</if>
 			<if test="handleState != '' and handleState != null">
 				and po.handle_state = #{handleState}
+			</if>
+			<if test="regIds != null and regIds.size()>0">
+				and pm.reg_id in
+				<foreach collection="regIds" item="item" index="index" open="("
+					separator="," close=")">
+					#{item}
+				</foreach>
 			</if>
 		</where>
 	</select>

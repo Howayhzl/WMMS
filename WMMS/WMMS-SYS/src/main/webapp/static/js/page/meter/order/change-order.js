@@ -4,7 +4,12 @@ $(document).ready(function() {
 });
 
 
-function handle_change(){	
+function handle_change(){
+	if(!isChecked()){
+		alertModel("请先选择一条数据再操作");
+		return;
+	}
+	sessionStorage.setItem("rowschecked",JSON.stringify(rowschecked[0]));
 	window.location.href="change-order-detail.html";
 }
 
@@ -48,25 +53,25 @@ function queryAllOrder(){
         	field: 'dep_name',
             title: '单位'
         }, {
-        	field: 'userLoginname',
+        	field: 'meter_brand',
             title: '品牌'
         },{
-            field: 'depName',
+            field: 'meter_size',
             title: '口径'
         },  {
-            field: 'regName',
+            field: 'meter_type',
             title: '型号'
         }, {
-        	field: 'majorName',
+        	field: 'meter_size_name',
             title: '规格名称'
         }, {
-            field: 'userEmail',
+            field: 'meter_level',
             title: '级别'
         }, {
-            field: 'userState',
+            field: 'meter_value',
             title: '读数'
         }, {
-            field: 'userState',
+            field: 'meter_create_time',
             title: '安装年限'
         }, {
             field: 'user_name',
@@ -96,7 +101,7 @@ function queryAllOrder(){
 				if(res.success != "1"){
 		            alertModel(res.msg);
 				}
-				showTableList = res.obj;
+				showTableList = res.obj.list;
 			}
 	        return {
 	            "total": res.obj.total,//总页数

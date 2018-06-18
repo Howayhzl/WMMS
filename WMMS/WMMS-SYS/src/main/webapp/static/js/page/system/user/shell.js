@@ -212,21 +212,6 @@ function selectOnchang(obj){
 }
 
 /**
- * 选中的条数
- */
-function hadCheckedRowData(){
-	if(showTableList==null || !isChecked()){
-		alertModel("请先选择一条操作数据");
-		return false;
-	}
-	return true;
-}
-
-function back(){
-	javascript:history.back(-1);
-}
-
-/**
  * 获取 部门 专业 区域 信息
  */
 function queryAllParam() {
