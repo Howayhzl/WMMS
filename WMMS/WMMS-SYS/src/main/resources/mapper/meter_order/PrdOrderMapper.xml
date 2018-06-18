@@ -32,6 +32,9 @@
 			<if test="meterState != '' and meterState != null">
 				and pm.meter_status = #{meterState}
 			</if>
+			<if test="meterOrderState != '' and meterOrderState != null">
+				and pm.meter_status = #{meterOrderState}
+			</if>
 			<if test="prdOrderType != '' and prdOrderType != null">
 				and po.prd_order_type = #{prdOrderType}
 			</if>

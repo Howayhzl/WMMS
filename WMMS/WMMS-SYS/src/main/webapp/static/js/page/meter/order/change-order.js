@@ -80,9 +80,6 @@ function queryAllOrder(){
             field: 'handle_datetime',
             title: '提交时间'
         },],
-        onCheck: function (row) {
-        	showBack(row.userId);
-        },
 		onLoadError : function(status) { // 加载失败时执行
 			if(status==400){
             	alert("400 - 错误的请求");
