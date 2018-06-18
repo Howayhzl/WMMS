@@ -25,10 +25,8 @@ import com.ncms.comm.http.BackEntity;
 import com.ncms.comm.http.RESULT;
 import com.ncms.comm.state.sys.SysStateEnum.UserStateEnum;
 import com.ncms.constant.PromptMessage;
-import com.ncms.model.menu.SysDataAuthMenuTreeVO;
 import com.ncms.model.sys.user.SysUser;
 import com.ncms.service.region.SysRegionService;
-import com.ncms.service.role.SysRoleuserService;
 import com.ncms.service.user.SysUserService;
 import com.ncms.utils.id.T_ID_GEN;
 import com.xiaoleilu.hutool.crypto.SecureUtil;
@@ -48,8 +46,6 @@ public class UserController {
     SysUserService userService;
     @Autowired
 	private SysRegionService sysRegionService;
-    @Autowired
-    private SysRoleuserService roleuserService;
 
     /**
      * @author YueFY

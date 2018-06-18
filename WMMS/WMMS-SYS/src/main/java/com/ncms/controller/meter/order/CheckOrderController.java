@@ -34,7 +34,7 @@ public class CheckOrderController {
 	 * @param page_count
 	 * @return
 	 */
-	@RequestMapping(value="/all", method = RequestMethod.GET)
+	@RequestMapping(value="/all", method = RequestMethod.POST)
 	public BackEntity queryAllChangeOrder(String prdType, String prdKouSize, int meterStatus, int cur_page_num,int page_count){
 		
 		PrdOrder entity = new PrdOrder();
@@ -48,7 +48,7 @@ public class CheckOrderController {
 		map.put("meterstate", meterStatus);
 		
 		Page<Map> lsmt = prdOrderService.queryAllChangeOrder(map,cur_page_num,page_count);
-		return BackEntity.ok("查询成功",lsmt.getResult());
+		return BackEntity.ok("查询成功",lsmt.toPageInfo());
 	}
 	
     

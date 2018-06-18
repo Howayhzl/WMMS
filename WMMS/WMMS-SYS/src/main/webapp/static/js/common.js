@@ -62,13 +62,11 @@ $(document).ready(function(){
 	$('ul.ztree').css("overflow-y","scroll");
 });
 
-var sysId = "S00";
 //获取当前路路径
 var pathName = window.document.location.pathname;
 //获取带"/"的项目名，如：/NCMS
 var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
-var sysContext = sessionStorage.getItem(sysId);
-var sysContext1 = localStorage.getItem(sysId);
+var sysContext = 'http://localhost:8080/WMMS-SYS/';
 
 /**---------------
  * 分页

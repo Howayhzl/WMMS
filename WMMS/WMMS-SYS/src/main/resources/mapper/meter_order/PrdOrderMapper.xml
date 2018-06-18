@@ -17,7 +17,9 @@
 	</sql>
 	
 	<select id="queryAllChangeOrder" resultType="Map" parameterType="Map">
-		select po.*,pm.* from prd_order po LEFT JOIN prd_meter pm on po.prd_id = pm.meter_id
+		select sd.dep_name,su.user_name,po.*,pm.* from prd_order po LEFT JOIN prd_meter pm on po.prd_id = pm.meter_id
+			LEFT JOIN sys_department sd ON pm.meter_company_id = sd.dep_id 
+			LEFT JOIN sys_user su ON po.handle_user_id = su.user_id
 		<where>
 			<if test="prdType != '' and prdType != null">
 				and pm.meter_type = #{prdType}

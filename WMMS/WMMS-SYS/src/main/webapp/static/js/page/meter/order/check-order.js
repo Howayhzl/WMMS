@@ -11,8 +11,12 @@ function handle_check(){
  * 选择关联水表弹出 
  */
 function queryAllOrder(){	
-	$("#selectMeter").modal("show");
+	// 先销毁表格
+	$('#tb').bootstrapTable('destroy');
+	// 初始化表格,动态从服务器加载数据
 	$("#tb").bootstrapTable({
+		method : "POST",
+		contentType : "application/x-www-form-urlencoded",
 		url : sysContext+"order/check/all", // 获取数据的地址
 		striped : true, // 表格显示条纹
 		pagination : true, // 启动分页
@@ -23,7 +27,10 @@ function queryAllOrder(){
 		pageList : [10, 25, 50, 100, 500], // 记录数可选列表
 		search : false, // 是否启用查询
 		sidePagination : "server", // 表示服务端请求
+		// 设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
+		// 设置为limit可以获取limit, offset, search, sort, order
 		queryParamsType : "undefined",
+		ajaxOptions:{headers: {"x-auth-token":sessionStorage.getItem("token")}},
 		queryParams : function queryParams(params) { // 设置查询参数
 			var param = {
 				cur_page_num: params.pageNumber,    

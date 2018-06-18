@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,18 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import tk.mybatis.mapper.entity.Condition;
-import tk.mybatis.mapper.entity.Example.Criteria;
-
 import com.github.pagehelper.Page;
-import com.ncms.comm.base.loginInfo.SysUserVO;
 import com.ncms.comm.http.BackEntity;
 import com.ncms.comm.http.RESULT;
-import com.ncms.comm.state.sys.SysStateEnum.DeptStateEnum;
 import com.ncms.constant.PromptMessage;
-import com.ncms.model.dept.SysDepartmentVO;
 import com.ncms.model.meter.PrdMeterTypeDefine;
-import com.ncms.model.sys.dept.SysDepartment;
 import com.ncms.service.meter.PrdMeterTypeDefineService;
 
 /** 

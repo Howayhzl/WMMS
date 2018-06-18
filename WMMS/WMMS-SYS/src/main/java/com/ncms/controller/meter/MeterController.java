@@ -14,10 +14,8 @@ import com.ncms.comm.http.BackEntity;
 import com.ncms.comm.http.RESULT;
 import com.ncms.constant.PromptMessage;
 import com.ncms.model.meter.PrdMeter;
-import com.ncms.model.meter.PrdMeterTypeDefine;
 import com.ncms.model.meter.PrdMeterVO;
 import com.ncms.service.meter.PrdMeterService;
-import com.ncms.service.meter.PrdMeterTypeDefineService;
 
 /** 
  * @ClassName: ChangeMeterController 

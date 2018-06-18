@@ -23,13 +23,11 @@ import com.ncms.comm.state.sys.SysStateEnum.MenuStateEnum;
 import com.ncms.constant.PromptMessage;
 import com.ncms.model.menu.MenuTreeNodeVO;
 import com.ncms.model.menu.SysAutoMenuVO;
-import com.ncms.model.region.SysRegionVO;
 import com.ncms.model.sys.SysSystem;
 import com.ncms.model.sys.menu.SysMenu;
 import com.ncms.service.SysSystemService;
 import com.ncms.service.menu.SysMenuService;
 import com.ncms.utils.ShiroUtils;
-import com.ncms.utils.id.T_ID_GEN;
 
 /**
  * Copyright by Xunge Software 2018. All right reserved 

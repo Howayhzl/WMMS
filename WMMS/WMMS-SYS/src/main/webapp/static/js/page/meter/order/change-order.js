@@ -9,8 +9,12 @@ function handle_change(){
 }
 
 function queryAllOrder(){	
-	$("#selectMeter").modal("show");
+	// 先销毁表格
+	$('#tb').bootstrapTable('destroy');
+	// 初始化表格,动态从服务器加载数据
 	$("#tb").bootstrapTable({
+		method : "POST",
+		contentType : "application/x-www-form-urlencoded",
 		url : sysContext+"order/change/all", // 获取数据的地址
 		striped : true, // 表格显示条纹
 		pagination : true, // 启动分页
@@ -21,7 +25,10 @@ function queryAllOrder(){
 		pageList : [10, 25, 50, 100, 500], // 记录数可选列表
 		search : false, // 是否启用查询
 		sidePagination : "server", // 表示服务端请求
+		// 设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder
+		// 设置为limit可以获取limit, offset, search, sort, order
 		queryParamsType : "undefined",
+		ajaxOptions:{headers: {"x-auth-token":sessionStorage.getItem("token")}},
 		queryParams : function queryParams(params) { // 设置查询参数
 			var param = {
 				cur_page_num: params.pageNumber,    
@@ -38,7 +45,7 @@ function queryAllOrder(){
 			field: 'prd_id',
             title: '编号'
         },{
-        	field: 'userName',
+        	field: 'dep_name',
             title: '单位'
         }, {
         	field: 'userLoginname',
@@ -62,10 +69,10 @@ function queryAllOrder(){
             field: 'userState',
             title: '安装年限'
         }, {
-            field: 'userState',
+            field: 'user_name',
             title: '提交人'
         },{
-            field: 'userState',
+            field: 'handle_datetime',
             title: '提交时间'
         },],
         onCheck: function (row) {
@@ -89,7 +96,7 @@ function queryAllOrder(){
 				if(res.success != "1"){
 		            alertModel(res.msg);
 				}
-				showTableList = res.obj.list;
+				showTableList = res.obj;
 			}
 	        return {
 	            "total": res.obj.total,//总页数
