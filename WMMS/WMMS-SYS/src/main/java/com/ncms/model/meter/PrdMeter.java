@@ -15,6 +15,8 @@ public class PrdMeter implements Serializable {
 	@Id
 	private	String	meterId;
 	
+	private String meterName;
+	
 	private String regId;
 	/**  */
 	private	String	meterCompanyId;
@@ -52,6 +54,9 @@ public class PrdMeter implements Serializable {
 	private	Date	meterLastCheckTime;
 	public	String	getMeterId(){
 		return	meterId;
+	}
+	public	String	getMeterName(){
+		return	meterName;
 	}
 	public	String	getRegId(){
 		return	regId;
@@ -109,6 +114,9 @@ public class PrdMeter implements Serializable {
 	}
 	public void	setMeterId(String meterId){
 		this.meterId = meterId;
+	}
+	public void	setMeterName(String meterName){
+		this.meterName = meterName;
 	}
 	public void	setRegId(String regId){
 		this.regId = regId;
@@ -168,9 +176,10 @@ public class PrdMeter implements Serializable {
 	public	PrdMeter(){
 		super();
 	}
-	public PrdMeter(String meterId,String regId,String meterCompanyId,String meterTypeId,String meterType,String parentMeterId,String meterLevel,Double meterValue,Integer meterUseTime,String meterAddress,String meterInstaller,String meterOwnerId,String meterCreaterId,Date meterCreateTime,String meterEditerId,Date meterEditTime,Integer meterStatus,Date meterSetupTime,Date meterLastCheckTime){
+	public PrdMeter(String meterId,String meterName, String regId,String meterCompanyId,String meterTypeId,String meterType,String parentMeterId,String meterLevel,Double meterValue,Integer meterUseTime,String meterAddress,String meterInstaller,String meterOwnerId,String meterCreaterId,Date meterCreateTime,String meterEditerId,Date meterEditTime,Integer meterStatus,Date meterSetupTime,Date meterLastCheckTime){
 		super();
 		this.meterId = meterId;
+		this.meterName = meterName;
 		this.regId = regId;
 		this.meterCompanyId = meterCompanyId;
 		this.meterTypeId = meterTypeId;

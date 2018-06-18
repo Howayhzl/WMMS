@@ -57,11 +57,11 @@
 			<if test="companyId != null and companyId != '请选择' and companyId != ''">
 				and prd_census.company_id = #{companyId,jdbcType=VARCHAR}
 			</if>
-			<if test="startTime != null and startTime != ''">
-				and prd_census.check_time &gt;= #{startTime,jdbcType=DATE}
+			<if test="startDate != null and startDate != ''">
+				and prd_census.check_time &gt;= #{startDate,jdbcType=DATE}
 			</if>
-			<if test="endTime != null and endTime != ''">
-				and prd_census.check_time &lt;= #{endTime,jdbcType=DATE}
+			<if test="endDate != null and endDate != ''">
+				and prd_census.check_time &lt;= #{endDate,jdbcType=DATE}
 			</if>	
 		</where>
 	</select>

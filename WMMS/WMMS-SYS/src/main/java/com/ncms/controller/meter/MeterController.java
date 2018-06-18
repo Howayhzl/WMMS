@@ -1,6 +1,7 @@
 package com.ncms.controller.meter;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import com.ncms.comm.http.BackEntity;
 import com.ncms.comm.http.RESULT;
 import com.ncms.constant.PromptMessage;
 import com.ncms.model.meter.PrdMeter;
+import com.ncms.model.meter.PrdMeterTypeDefine;
 import com.ncms.model.meter.PrdMeterVO;
 import com.ncms.service.meter.PrdMeterService;
 
@@ -29,6 +31,13 @@ public class MeterController {
 
 	@Autowired
 	private PrdMeterService meterService;
+	
+	@RequestMapping(value = "/meter/query", method = RequestMethod.GET)
+	public BackEntity getMeterTypes()
+	{
+		List<PrdMeter> meters = meterService.getAllMeter();
+		return BackEntity.ok(PromptMessage.SELECT_USER_SUCCESS,meters);
+	}
 	
 	@RequestMapping(value = "/meter/list", method = RequestMethod.POST)
 	public BackEntity getAllMeters(@RequestParam Map<String,Object> paramMap,

@@ -1,5 +1,6 @@
 package com.ncms.service.meter.census.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +9,11 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.ncms.service.meter.census.PrdCensusService;
+import com.ncms.model.meter.PrdMeter;
 import com.ncms.model.meter.PrdMeterVO;
 import com.ncms.model.meter.census.PrdCensus;
 import com.ncms.model.meter.census.PrdCensusVO;
+import com.ncms.mapper.meter.PrdMeterMapper;
 import com.ncms.mapper.meter.census.PrdCensusMapper;
 import com.ncms.comm.base.AbstractService;
 import com.ncms.comm.http.RESULT;
@@ -20,6 +23,9 @@ public class PrdCensusServiceImpl extends AbstractService<PrdCensus> implements 
 
 	@Autowired
 	private PrdCensusMapper prdCensusMapper;
+	
+	@Autowired
+	private PrdMeterMapper prdMeterMapper;
 
 	@Override
 	public String addCensus(PrdCensus census)
@@ -27,7 +33,19 @@ public class PrdCensusServiceImpl extends AbstractService<PrdCensus> implements 
 		int result = 0;
 		try
 		{
+			String meterId = census.getMeterId();
+			double value = census.getMeterValue();
+			
 			result = prdCensusMapper.insert(census);
+			
+			if (result > 0) {
+				List<PrdMeter> meters = prdMeterMapper.selectByIds(meterId);
+				if (meters.size() > 0) {
+					PrdMeter mt = meters.get(0);
+					mt.setMeterValue(value);
+					result = prdMeterMapper.updateByPrimaryKey(mt);
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
