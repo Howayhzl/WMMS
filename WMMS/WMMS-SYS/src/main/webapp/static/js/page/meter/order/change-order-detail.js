@@ -4,6 +4,9 @@ $(document).ready(function() {
 	if(rowschecked){
 		rowscheckedInitpage(rowschecked);
 	}
+	$('#saveSet').on('click', function() {
+		handleCheck(rowschecked)
+	});
 });
 
 function rowscheckedInitpage(obj){
@@ -18,4 +21,17 @@ function rowscheckedInitpage(obj){
 	$("#readnum").html(obj.meter_value);
 	$("#createDate").html(obj.meter_create_time);
 	$("#state").html(obj.handle_state);
+}
+
+function handleCheck(obj){
+
+	 myajax.path({  
+		url : sysContext+'/order/change/handle'+"/"+$('#userEmail').val()+"/"+obj.prd_order_id+"/"+obj.meter_id,
+		type : 'post',
+		cache : false,
+		dataType : 'json',
+	    success : function(res){  
+	    	alertModel(res.msg)
+	    }
+	});  
 }
