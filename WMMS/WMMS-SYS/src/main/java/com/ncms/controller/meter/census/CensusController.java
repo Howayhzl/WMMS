@@ -126,7 +126,6 @@ public class CensusController {
 	public BackEntity getAllMeters(@RequestParam Map<String,Object> paramMap,
 			int cur_page_num,int page_count)
 	{
-		
 		Page<PrdCensusVO> meterList = censusService.getAllCensus(paramMap,cur_page_num,page_count);
 		return BackEntity.ok(PromptMessage.SELECT_USER_SUCCESS,meterList.toPageInfo());
 	}

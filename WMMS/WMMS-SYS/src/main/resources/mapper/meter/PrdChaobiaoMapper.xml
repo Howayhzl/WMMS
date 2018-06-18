@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ncms.mapper.meter.PrdChaobiaoMapper">
+	<resultMap id="BaseResultMap" type="com.ncms.model.meter.PrdChaobiao">
+		<id column="chaobiao_id" property="chaobiaoId" jdbcType="VARCHAR"/>
+		<result column="chaobiao_date" property="chaobiaoDate" jdbcType="DATE"/>
+		<result column="pre_value" property="preValue" jdbcType="DOUBLE"/>
+		<result column="current_value" property="currentValue" jdbcType="DOUBLE"/>
+		<result column="image" property="image" jdbcType="VARCHAR"/>
+		<result column="submiter_id" property="submiterId" jdbcType="VARCHAR"/>
+		<result column="start_date" property="startDate" jdbcType="DATE"/>
+		<result column="end_date" property="endDate" jdbcType="DATE"/>
+	</resultMap>
+	<resultMap id="BaseResultVOMap" type="com.ncms.model.meter.PrdChaobiaoVO">
+		<id column="chaobiao_id" property="chaobiaoId" jdbcType="VARCHAR"/>
+		<result column="chaobiao_date" property="chaobiaoDate" jdbcType="DATE"/>
+		<result column="pre_value" property="preValue" jdbcType="DOUBLE"/>
+		<result column="current_value" property="currentValue" jdbcType="DOUBLE"/>
+		<result column="image" property="image" jdbcType="VARCHAR"/>
+		<result column="submiter_id" property="submiterId" jdbcType="VARCHAR"/>
+		<result column="start_date" property="startDate" jdbcType="DATE"/>
+		<result column="end_date" property="endDate" jdbcType="DATE"/>
+		<result column="meterName" property="meterName" jdbcType="VARCHAR"/>
+		<result column="submiterName" property="submiterName" jdbcType="VARCHAR"/>
+	</resultMap>
+	<sql id="Base_Column_List">
+		prd_chaobiao.chaobiao_id,prd_chaobiao.chaobiao_date,prd_chaobiao.pre_value,prd_chaobiao.current_value,prd_chaobiao.image,prd_chaobiao.submiter_id,
+		prd_chaobiao.start_date,prd_chaobiao.end_date
+	</sql>
+	
+	<select id="queryAllChaobiaos" resultMap="BaseResultVOMap" parameterType="Map">
+	<!-- wesley  查询所有配表 -->
+		SELECT
+		<include refid="Base_Column_List"></include>, pm.meter_name as meterName, 
+		su.user_name as submiterName
+		from prd_chaobiao 
+		left join prd_meter as pm ON pm.meter_id = prd_chaobiao.meter_id
+		left JOIN sys_user as su ON su.user_id = prd_chaobiao.submiter_id
+		<where>
+			<if test="meterId != null and meterId != ''">
+				and prd_chaobiao.meter_id = #{meterId,jdbcType=VARCHAR}
+			</if>
+			<if test="startDate != null and endDate != null">
+				and prd_chaobiao.chaobiao_date &gt; #{startDate,jdbcType=DATE}
+				and prd_chaobiao.chaobiao_date &lt; #{endDate,jdbcType=DATE}
+			</if>	
+		</where>
+	</select>
+</mapper>

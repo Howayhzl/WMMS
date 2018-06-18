@@ -1,5 +1,6 @@
 package com.ncms.service.meter;
 
+import java.util.List;
 import java.util.Map;
 
 import com.github.pagehelper.Page;
@@ -20,4 +21,7 @@ public interface PrdMeterService extends BaseService<PrdMeter>{
 	public String addMeter(PrdMeter meter);
 	
 	public double getMeterValueById(String meterId);
+	
+	public List<PrdMeter> getAllMeter();
+	
 }

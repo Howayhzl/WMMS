@@ -102,5 +102,11 @@ public class PrdMeterServiceImpl extends AbstractService<PrdMeter> implements Pr
 		}
 	}
 	
+	@Override
+	public List<PrdMeter> getAllMeter()
+	{
+		return prdMeterMapper.selectAll();
+	}
+	
 
 }

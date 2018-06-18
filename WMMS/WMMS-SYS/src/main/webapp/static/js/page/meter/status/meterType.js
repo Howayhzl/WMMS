@@ -25,7 +25,7 @@ function init(){
 }
 
 function deleteMeterType(){
-	if(!isChecked()){
+	if(!isCheckBox()){
 		alertModel("请先选择一条数据再操作");
 		return;
 	}
