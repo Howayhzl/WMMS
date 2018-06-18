@@ -1,6 +1,7 @@
 package com.ncms.controller.meter.census;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -123,10 +124,11 @@ public class CensusController {
 	}
 	
 	@RequestMapping(value = "/census/list", method = RequestMethod.POST)
-	public BackEntity getAllMeters(@RequestParam Map<String,Object> paramMap,
+	public BackEntity listAllCensus(@RequestParam Map<String,Object> paramMap,
 			int cur_page_num,int page_count)
 	{
 		Page<PrdCensusVO> meterList = censusService.getAllCensus(paramMap,cur_page_num,page_count);
 		return BackEntity.ok(PromptMessage.SELECT_USER_SUCCESS,meterList.toPageInfo());
 	}
+	
 }

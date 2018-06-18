@@ -50,7 +50,7 @@
 
 	<div class="layout-admin">
 		<div class="layout-header">
-			<div class="logo" title="ss" style="font-size:18px;color:white">水务管理系统</div>
+			<div class="logo" title="ss" style="font-size:30px;color:white">水务管理系统</div>
 			<!--<div class="locationImg"></div><span id="prvname" >${prvName}</span>
 			<div class="layout-side-arrow"></div>-->
 			<ul class="header-bar">
