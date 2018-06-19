@@ -15,6 +15,7 @@ function init(){
  */
 function addMeter(){
 	var id = $('#meterId').val();
+	var meterName = $('#meterName').val();
 	var depId = $('#depId').val();
 	var meterTypeId = $('#meterTypeDefineName').val();
 	var level = $('#meterLevel').val();
@@ -25,10 +26,21 @@ function addMeter(){
 	var meterParentId = $("#meterParentId").val();
 	var useTime = $("#useTime").val();
 	
+
+	if (id == null || meterName == null || depId == null
+		|| meterTypeId == null || level == null 
+		|| meterType == null || meterValue == null
+		|| meterCreateTime == null || regId == null
+		|| meterParentId == null || useTime == null ) {
+			alertModel("参数错误！");
+			return;
+		}
+
 	myajax.path({
 		url:sysContext+'meter/add',
 		data: 	{
 					meterId: id,
+					meterName: meterName,
 					regId: regId,
 					meterCompanyId: depId,
 					meterTypeId: meterTypeId,

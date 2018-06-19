@@ -253,6 +253,9 @@ function queryMeters(){
 			field: 'meterId',
 			title: '编号'
 		}, {
+			field: 'meterName',
+			title: '水表名称'
+		}, {
 			field: 'meterSize',
 			title: '口径'
 		}, {

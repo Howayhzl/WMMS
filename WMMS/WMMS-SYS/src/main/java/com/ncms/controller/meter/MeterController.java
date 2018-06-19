@@ -62,11 +62,12 @@ public class MeterController {
 	}
 	
 	@RequestMapping(value = "/meter/add", method = RequestMethod.POST)
-	public BackEntity addMeter(String meterId, String regId, String meterCompanyId, String meterTypeId, String meterType, String parentMeterId,
+	public BackEntity addMeter(String meterId, String meterName, String regId, String meterCompanyId, String meterTypeId, String meterType, String parentMeterId,
 							String meterLevel,double meterValue,Date meterSetupTime,int meterUseTime)
 	{
 		PrdMeter meter = new PrdMeter();
 		meter.setMeterId(meterId);
+		meter.setMeterName(meterName);
 		meter.setRegId(regId);
 		meter.setMeterCompanyId(meterCompanyId);
 		meter.setMeterTypeId(meterTypeId);

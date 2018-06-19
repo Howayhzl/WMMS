@@ -25,7 +25,6 @@
           <div class="col-md-2">仪表编号:</div>
           <div class="col-md-4">
             <input type="text" name="meterId" id="meterId" class="form-control" style="float:left;"/>
-            <span id="err" class="modal-error"></span>
           </div>
           <div class="col-md-2">所属单位:</div>
           <div class="col-md-4">
@@ -34,20 +33,13 @@
           </div>
         </li>
         <li class="list-group-item row">
+            <div class="col-md-2">仪表名称:</div>
+            <div class="col-md-4">
+              <input type="text" name="meterName" id="meterName" class="form-control" style="float:left;"/>
+            </div>
           <div class="col-md-2">水表规格:</div>
           <div class="col-md-4">
             <select id="meterTypeDefineName" class="form-control">
-            </select>
-          </div>
-          <div class="col-md-2">水表级别:</div>
-          <div class="col-md-4">
-            <select id="meterLevel" class="form-control">
-              <option value="0">请选择</option>
-              <option value="1">一级表</option>
-              <option value="2">二级表</option>
-              <option value="3">三级表</option>
-              <option value="4">四级表</option>
-              <option value="5">五级表</option>
             </select>
           </div>
         </li>
@@ -94,6 +86,20 @@
           <div class="col-md-2">使用年限:</div>
           <div class="col-md-4">
             <input type="number" name="useTime" id="useTime" class="form-control" style="float:left;"/>
+          </div>
+        </li>
+
+        <li class="list-group-item row">
+          <div class="col-md-2">水表级别:</div>
+          <div class="col-md-4">
+            <select id="meterLevel" class="form-control">
+              <option value="0">请选择</option>
+              <option value="1">一级表</option>
+              <option value="2">二级表</option>
+              <option value="3">三级表</option>
+              <option value="4">四级表</option>
+              <option value="5">五级表</option>
+            </select>
           </div>
         </li>
       </ul>

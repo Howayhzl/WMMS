@@ -59,11 +59,12 @@ input:focus::-webkit-input-placeholder,input:focus:-moz-placeholder,input:focus:
 .login-box {
 	float:right;
 	width: 400px;
-	background-color:#f7fbfe;
-	border-radius:5px;
+	background-color:#fefeff;
+  border-radius:5px;
+  opacity:0.8;
 }	
 .login-box .header {height: 60px;}
-.login-box .header h1 {    
+.login-box .header h1 {     
 	text-align: left;
   font-size: 24px;
   line-height: 60px;
