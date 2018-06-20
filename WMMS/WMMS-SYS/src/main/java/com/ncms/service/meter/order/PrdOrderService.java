@@ -15,4 +15,6 @@ public interface PrdOrderService{
 	public int handleChangeOrder(PrdOrder model, String meterId, String email);
 
 	public int handleChangeOrder(PrdOrder model, String meterId);
+	
+	public String createOrder(PrdOrder model);
 }

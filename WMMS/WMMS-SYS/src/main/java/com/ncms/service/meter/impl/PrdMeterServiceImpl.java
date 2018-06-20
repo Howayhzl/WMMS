@@ -74,6 +74,37 @@ public class PrdMeterServiceImpl extends AbstractService<PrdMeter> implements Pr
 		return(result == 0)?RESULT.FAIL_0:RESULT.SUCCESS_1;
 	}
 	
+	public String updateMeterValue(String id, double value, boolean focus)
+	{
+		List<PrdMeter> records = null;
+		
+		try
+		{
+			records = prdMeterMapper.selectByIds(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		int result = 0;
+		
+		for (PrdMeter record : records)
+		{
+			if (focus || (record.getMeterValue() < value)) {
+				record.setMeterValue(value);
+			}
+			try
+			{
+				if (prdMeterMapper.updateByPrimaryKey(record) > 0)
+				{
+					result ++ ;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return(result == 0)?RESULT.FAIL_0:RESULT.SUCCESS_1;
+	}
+	
 	@Override
 	public String addMeter(PrdMeter meter)
 	{

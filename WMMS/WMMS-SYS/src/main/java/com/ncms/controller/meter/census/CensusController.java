@@ -25,6 +25,7 @@ import com.ncms.service.meter.PrdMeterService;
 import com.ncms.service.meter.census.PrdCensusService;
 import com.ncms.service.meter.census.PrdCollocationService;
 import com.ncms.service.meter.order.PrdOrderService;
+import com.ncms.utils.ShiroUtils;
 
 /** 
  * @ClassName: ChangeCensusController 
@@ -64,6 +65,7 @@ public class CensusController {
 							String oldMeterType,
 							String newMeterType,
 							String newMeterId,
+							String newMeterName,
 							int rangeRatio)
 	{
 		String tt = RESULT.FAIL_0;
@@ -92,6 +94,9 @@ public class CensusController {
 		
 		tt = censusService.addCensus(census);
 	
+		if (tt.equals(RESULT.SUCCESS_1)) {
+			tt = meterService.updateMeterValue(meterId, readValue, true);
+		}
 		
 		if(tt.equals(RESULT.SUCCESS_1)){
 			if (census.getCensusAction() == 2) {
@@ -106,21 +111,32 @@ public class CensusController {
 				
 				tt = collocationService.addCollocation(collocation);
 				
-				if (!tt.equals(RESULT.SUCCESS_1)) {
-					collocationService.addCollocation(collocation);
+				if (tt.equals(RESULT.SUCCESS_1)) {
+					if (census.getCensusAction() == 1 || census.getCensusAction() == 2) {
+						String orderId = UUID.randomUUID().toString().replaceAll("-", "");
+						PrdOrder order = new PrdOrder();
+						order.setPrdOrderId(orderId);
+						order.setPrdId(meterId);
+						order.setPrdOrderType(census.getCensusAction() * -1);
+						order.setSubmitUserId(ShiroUtils.getUserId());
+						order.setSubmitDatetime(time);
+						
+						tt = orderService.createOrder(order);
+					}
+					
 				}
 			}
-			
-			if (census.getCensusAction() == 1) {
-				
-			} else if (census.getCensusAction() == 2) {
-				
+
+			if (!tt.equals(RESULT.SUCCESS_1)) {
+				return BackEntity.error("加水表操作失败");
 			}
 			
-			return BackEntity.ok("添加水表操作成功");
+			return BackEntity.error("操作成功");
+			
 		}else{
 			return BackEntity.error("加水表操作失败");
 		}
+	
 	}
 	
 	@RequestMapping(value = "/census/list", method = RequestMethod.POST)

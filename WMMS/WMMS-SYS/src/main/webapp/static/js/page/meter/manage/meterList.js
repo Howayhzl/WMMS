@@ -21,7 +21,7 @@ function init(){
 	curPageNum = 1;
 	//每页显示个数
 	ipageCount = 10;
-	queryAllMeters();
+	queryAllMeter();
 }
 
 function isCheckBox(){
@@ -40,7 +40,7 @@ function isCheckBox(){
  	return checkNum;
  }
 
-function queryAllMeters(){
+function queryAllMeter(){
 	$('#tb').bootstrapTable('destroy');
 	$("#tb").bootstrapTable({
 		method : "post",

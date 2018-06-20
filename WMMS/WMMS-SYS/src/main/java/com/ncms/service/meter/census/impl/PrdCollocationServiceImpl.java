@@ -29,22 +29,7 @@ public class PrdCollocationServiceImpl extends AbstractService<PrdCollocation> i
 		int result = 0;
 		try
 		{
-			String meterId = collocation.getOldMeterId();
-			String subId = ShiroUtils.getUserId();
-			String handId = collocation.getOperatorId();
 			result = prdCollocationMapper.insert(collocation);
-			if (result > 0) {
-				String orderId = UUID.randomUUID().toString().replaceAll("-", "");
-				PrdOrder order = new PrdOrder();
-				order.setPrdOrderId(orderId);
-				order.setPrdId(meterId);
-				order.setPrdOrderType(1);
-				order.setSubmitUserId(subId);
-				order.setSubmitDatetime(collocation.getCreateTime());
-				order.setHandleUserId(handId);
-				
-				result = prdOrderMapper.insert(order);
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

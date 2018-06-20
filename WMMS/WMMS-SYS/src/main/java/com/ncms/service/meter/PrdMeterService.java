@@ -24,4 +24,6 @@ public interface PrdMeterService extends BaseService<PrdMeter>{
 	
 	public List<PrdMeter> getAllMeter();
 	
+	public String updateMeterValue(String id, double value, boolean focus);
+	
 }

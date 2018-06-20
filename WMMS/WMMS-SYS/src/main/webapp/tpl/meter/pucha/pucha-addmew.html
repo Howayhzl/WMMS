@@ -28,9 +28,10 @@
             </select>
             <span id="err" class="modal-error"></span>
           </div>
-          <div class="col-md-2">水表编号:</div>
+          <div class="col-md-2">水表名称:</div>
           <div class="col-md-4">
-            <input type="text" name="meterId" id="meterId" class="form-control"/>
+              <select id="meterName" class="form-control">
+                </select>
           </div>
         </li>
         <li class="list-group-item row">
@@ -134,11 +135,18 @@
             <input type="text" name="newMeterId" id="newMeterId" class="form-control"/>
             </select>
           </div>
-          <div class="col-md-2">量程比:</div>
+          <div class="col-md-2">新仪表名称:</div>
           <div class="col-md-4">
-            <input type="number" name="rangeRatio" id="rangeRatio" class="form-control"/>
+            <input type="text" name="newMeterName" id="newMeterName" class="form-control"/>
+            </select>
           </div>
         </li>
+        <li class="list-group-item row">
+            <div class="col-md-2">量程比:</div>
+            <div class="col-md-4">
+              <input type="number" name="rangeRatio" id="rangeRatio" class="form-control"/>
+            </div>
+          </li>
       </ul>
     </div>
   </form>

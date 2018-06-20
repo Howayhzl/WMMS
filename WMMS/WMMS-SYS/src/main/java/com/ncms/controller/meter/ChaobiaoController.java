@@ -35,6 +35,9 @@ public class ChaobiaoController {
 	@Autowired
 	private PrdChaobiaoService chaobiaoService;
 	
+	@Autowired
+	private PrdMeterService meterService;
+	
 	@RequestMapping(value = "/chaobiao/list", method = RequestMethod.POST)
 	public BackEntity getAllMeters(@RequestParam Map<String,Object> paramMap,
 			int cur_page_num,int page_count)
@@ -62,6 +65,10 @@ public class ChaobiaoController {
 		chaobiao.setStartDate(startDate);
 		chaobiao.setEndDate(endDate);		
 		String result = chaobiaoService.addChaobiao(chaobiao);
+		
+		if (result.equals(RESULT.SUCCESS_1)) {
+			result = meterService.updateMeterValue(meterId, currentValue, false);
+		}
 		
 		if(result.equals(RESULT.SUCCESS_1)){
 			return BackEntity.ok("添加水表操作成功");

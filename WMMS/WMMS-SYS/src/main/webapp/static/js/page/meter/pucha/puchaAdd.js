@@ -17,11 +17,12 @@ function init(){
 	});
 	$("#collocation").hide();
 	queryAllParam();
-	queryAllMeterType();
+	queryAllDoubleMeterType();
+	queryAllMeters();
 }
 
 function addNew() {
-	var meterId = $("#meterId").val();
+	var meterId = $("#meterName").val();
 	var companyId = $("#depId").val();
 	var pipeType = $("#pipeType").find("option:selected").text().replace(/\s/g, "");
 	var valveType = $("#valveType").find("option:selected").text().replace(/\s/g, "");
@@ -36,13 +37,20 @@ function addNew() {
 	var oldMeterType = "";
 	var newMeterType = "";
 	var newMeterId = "";
+	var newMeterName = "";
 	var rangeRatio = "0";
 
 	if (action == 2) {
 		var oldMeterType = $("#oldMeterType").val();
 		var newMeterType = $("#newMeterType").val();
 		var newMeterId = $("#newMeterId").val();
+		var newMeterId = $("#newMeterName").val();
 		var rangeRatio = $("#rangeRatio").val();
+	}
+
+	if (meterId == "") {
+		alertModel("请选择普查表名称");
+		return;
 	}
 
 	myajax.path({
@@ -63,6 +71,7 @@ function addNew() {
 					oldMeterType:oldMeterType,
 					newMeterType:newMeterType,
 					newMeterId:newMeterId,
+					newMeterName:newMeterName,
 					rangeRatio:rangeRatio
 				},
 		type : 'post',
@@ -80,52 +89,8 @@ function addNew() {
 	});
 }
 
-/**
- * 获取 部门 专业 区域 信息
- */
-function queryAllParam() {
-    myajax.path({
-        type: "get",
-        url: sysContext+"parameter/query",
-        data: {},
-        dataType: "JSON",
-        async:false,
-        success: function (value) {
-			if(value != null){
-				sysDepartmentList = value.obj.sysDepartmentList;
 
-				if(sysDepartmentList!=null){
-					var str = "<option value=''>-请选择部门-</option>";
-					$.each(sysDepartmentList, function (i, item){
-						if(item.pdepId == null || item.pdepId == ''){
-							pid = item.depId;
-							str += "<option value='" +item.depId+"'>"+item.depName+ "</option>";
-							if(item.children != null){
-								$.each(item.children, function (i, item){
-									ppid = item.depId;
-									if(pid = item.pdepId){
-										str += "<option value='" +item.depId+"'>"+"&nbsp&nbsp&nbsp&nbsp"+item.depName+ "</option>";
-									}
-									if(item.children != null){
-										$.each(item.children, function (i, item){
-											if(ppid = item.pdepId){
-												str += "<option value='" +item.depId+"'>"+"&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp"+item.depName+ "</option>";
-											}
-										});
-									}
-								});
-							}
-						}
-					});
-					$("#depId").append(str);
-				}
-			}
-		}
-    });
-}
-
-
-function queryAllMeterType() {
+function queryAllDoubleMeterType() {
     myajax.path({
         type: "get",
         url: sysContext+"meterType/query",

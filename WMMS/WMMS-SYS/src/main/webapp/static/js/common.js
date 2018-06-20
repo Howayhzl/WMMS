@@ -66,6 +66,7 @@ $(document).ready(function(){
 var pathName = window.document.location.pathname;
 //获取带"/"的项目名，如：/NCMS
 var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
+// var sysContext = 'http://47.94.154.203:10057/WMMS-SYS/';
 var sysContext = 'http://localhost:8080/WMMS-SYS/';
 
 
@@ -183,6 +184,109 @@ function isChecked(){
     } 
 	return checkNum;
 }
+
+
+/**
+ * 获取 部门 专业 区域 信息
+ */
+function queryAllParam() {
+    myajax.path({
+        type: "get",
+        url: sysContext+"parameter/query",
+        data: {},
+        dataType: "JSON",
+        async:false,
+        success: function (value) {
+			if(value != null){
+				sysDepartmentList = value.obj.sysDepartmentList;
+
+				if(sysDepartmentList!=null){
+					var str = "<option value=''>-请选择部门-</option>";
+					$.each(sysDepartmentList, function (i, item){
+						if(item.pdepId == null || item.pdepId == ''){
+							pid = item.depId;
+							str += "<option value='" +item.depId+"'>"+item.depName+ "</option>";
+							if(item.children != null){
+								$.each(item.children, function (i, item){
+									ppid = item.depId;
+									if(pid = item.pdepId){
+										str += "<option value='" +item.depId+"'>"+"&nbsp&nbsp&nbsp&nbsp"+item.depName+ "</option>";
+									}
+									if(item.children != null){
+										$.each(item.children, function (i, item){
+											if(ppid = item.pdepId){
+												str += "<option value='" +item.depId+"'>"+"&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp"+item.depName+ "</option>";
+											}
+										});
+									}
+								});
+							}
+						}
+					});
+					$("#depId").append(str);
+				}
+			}
+		}
+    });
+}
+
+
+function queryAllMeterType() {
+    myajax.path({
+        type: "get",
+        url: sysContext+"meterType/query",
+        data: {},
+        dataType: "JSON",
+        async:false,
+        success: function (value) {
+			if(value != null){
+				tpList = value.obj;
+
+				if(tpList!=null){
+					var str = "<option value=''>-请选择水表规格-</option>";
+					$.each(tpList, function (i, item){
+						if(item.meterTypeId != null && item.meterTypeId != ''){
+							var tpName = item.meterBrand + "/" + item.meterSize + "/" + item.meterType + "/" + item.meterTypeName;
+							str += "<option value='" +item.meterTypeId+"'>"+tpName+ "</option>";
+						}
+					});
+					$("#meterTypeDefineName").append(str);
+				}
+			}
+		}
+    });
+}
+
+
+function queryAllMeters() {
+    myajax.path({
+        type: "get",
+        url: sysContext+"meter/query",
+        data: {},
+        dataType: "JSON",
+        async:false,
+        success: function (value) {
+			if(value != null){
+				tpList = value.obj;
+
+				if(tpList!=null){
+					var str = "<option value=''>-请选择水表-</option>";
+					$.each(tpList, function (i, item){
+
+						if(item.meterId != null && item.meterId != ''){
+							if (item.meterName == '' || item.meterName == null) {
+								item.meterName = item.meterId;
+							}
+							str += "<option value='" +item.meterId+"'>"+ item.meterName + "</option>";
+						}
+					});
+					$("#meterName").append(str);
+				}
+			}
+		}
+    });
+}
+
 /**
  * 获取当前登陆人所有可以管辖的区域
  * @param regSearch 显示的区域的ID

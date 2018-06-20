@@ -203,7 +203,6 @@ public class SysMenuServiceImpl extends AbstractService<SysMenu> implements SysM
 			sysAutoMenuVO.setIcon(sysItem.getSysIcon());
 			sysAutoMenuVO.setCode(sysItem.getSysCode());
 			sysAutoMenuVO.setOrder(sysItem.getSysOrder());
-			menuList.add(sysAutoMenuVO);
 			for(SysAutoMenuVO item : topMenuList){
 				if(sysItem.getSysId().equals(item.getSysId())){
 					if(sysItem.getSysId().equals(item.getSysId()) && !sysItem.getSysId().equals(item.getParentId())){
@@ -214,7 +213,12 @@ public class SysMenuServiceImpl extends AbstractService<SysMenu> implements SysM
 			}
 			// 拼接菜单
 			sysAutoMenuVO.setChildMenus(mergeMenuList(topMenuList, sysItem.getSysId()));
+			
+			if (sysAutoMenuVO.getChildMenus() != null && sysAutoMenuVO.getChildMenus().size() > 0) {
+				menuList.add(sysAutoMenuVO);
+			}
 		}
+		
 		return menuList;
 	}
 	

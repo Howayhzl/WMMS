@@ -59,18 +59,6 @@ public class PrdChaobiaoServiceImpl extends AbstractService<PrdChaobiao> impleme
 			double value = meter.getCurrentValue();
 			result = prdChaobiaoMapper.insert(meter);
 			
-			if (result > 0) {
-				List<PrdMeter> meters = prdMeterMapper.selectByIds(mId);
-				if (meters.size() > 0) {
-					PrdMeter mt = meters.get(0);
-					if (mt.getMeterValue() < value) {
-						mt.setMeterValue(value);
-						
-						result = prdMeterMapper.updateByPrimaryKey(mt);
-					}
-				}
-			}
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

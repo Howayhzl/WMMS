@@ -11,6 +11,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.ncms.comm.base.AbstractService;
 import com.ncms.comm.exception.BizException;
+import com.ncms.comm.http.RESULT;
 import com.ncms.mapper.meter.order.PrdOrderMapper;
 import com.ncms.model.meter.PrdMeter;
 import com.ncms.model.meter.order.PrdOrder;
@@ -51,6 +52,20 @@ public class PrdOrderServiceImpl extends AbstractService<PrdOrder> implements Pr
 		else{
 			throw new BizException("水表状态更新失败");
 		}
+	}
+	
+	@Override
+	public String createOrder(PrdOrder order) {
+		
+		int result = 0;
+		try
+		{
+			result = prdOrderMapper.insert(order);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return(result == 0)?RESULT.FAIL_0:RESULT.SUCCESS_1;
 	}
 
 	@Transactional
