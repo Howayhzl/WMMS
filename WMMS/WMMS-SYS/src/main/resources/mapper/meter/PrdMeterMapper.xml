@@ -69,7 +69,7 @@
 			<if test="meterSize != 0">
 				and tp.meter_size = #{meterSize,jdbcType=INTEGER}
 			</if>
-			<if test="meterStatus != 0">
+			<if test="meterStatus != null and meterStatus != ''">
 				and prd_meter.meter_status = #{meterStatus,jdbcType=INTEGER}
 			</if>
 			<if test="meterCompanyId != null and meterCompanyId != '请选择' and meterCompanyId != ''">

@@ -170,6 +170,9 @@ function isChecked(){
 	var checkNum = 0;
 	rowschecked = new Array();
 	var checklist = $("#tb tbody input[type='checkbox']");
+	if(checklist.length<=0){
+		checklist =$("#tb tbody input[type='radio']");
+	}
 	for(var i=0;i<checklist.length;i++)
     {
 		// 已选中可操作行

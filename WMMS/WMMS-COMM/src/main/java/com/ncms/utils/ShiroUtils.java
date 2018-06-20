@@ -109,6 +109,9 @@ public class ShiroUtils {
 		Subject subject = SecurityUtils.getSubject();
 		Session session = subject.getSession();
 		List<String> rights = (List<String>) session.getAttribute(Constants.SESSION_ROLE_RIGHTS);
+		if(rights.size()<1){
+			throw new BizException("该用户没有任何角色权限");
+		}
 		return rights;
 	}
 	
@@ -124,6 +127,9 @@ public class ShiroUtils {
 		Subject subject = SecurityUtils.getSubject();
 		Session session = subject.getSession();
 		List<String> rights = (List<String>) session.getAttribute(Constants.SESSION_ALL_DEPT);
+		if(rights.size()<1){
+			throw new BizException("该用户没有任何部门权限");
+		}
 		return rights;
 	}
 	
@@ -139,6 +145,9 @@ public class ShiroUtils {
 		Subject subject = SecurityUtils.getSubject();
 		Session session = subject.getSession();
 		List<String> rights = (List<String>) session.getAttribute(Constants.SESSION_ALL_REGION);
+		if(rights.size()<1){
+			throw new BizException("该用户没有任何地区权限");
+		}
 		return rights;
 	}
 	

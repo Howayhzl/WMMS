@@ -10,7 +10,7 @@ var nodes;
 	 findUsersRedio();
 });
  $("#choosePower").click(function(){
-		if(!hadCheckedRadioRowData()){
+		if(!hadCheckedRowData()){
 			return ;
 		} 
 		var id =  rowschecked[0].userId;

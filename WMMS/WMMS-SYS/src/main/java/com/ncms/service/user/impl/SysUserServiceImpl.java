@@ -43,6 +43,7 @@ import com.ncms.model.dept.SysDepartmentVO;
 import com.ncms.model.sys.SysSystem;
 import com.ncms.model.sys.region.SysRegion;
 import com.ncms.model.sys.user.SysUser;
+import com.ncms.model.sys.user.SysUserdepartment;
 import com.ncms.service.SysSystemService;
 import com.ncms.service.user.SysUserService;
 import com.ncms.utils.ShiroUtils;
@@ -299,7 +300,9 @@ public class SysUserServiceImpl extends AbstractService<SysUser> implements SysU
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
 	public int insertDepartmentUser(String userId,List<String> list) {
-		sysDepartmentMapper.deleteDeptByUserId(userId);
+		SysUserdepartment record =  new SysUserdepartment();
+		record.setUserId(userId);
+		sysUserdepartmentMapper.delete(record);
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("userId",userId);
 		map.put("ids",list);

@@ -16,4 +16,10 @@
 			(#{userId},#{item})
 		</foreach>
   	</insert>
+  	  <!-- 获取选中用户的部门权限 -->
+   <select id="queryDeptByUser" parameterType="java.lang.String" resultType="java.lang.String">
+   		select dep_id 
+   		from sys_userdepartment
+   		where user_id = #{userId}
+   </select>
 </mapper>
