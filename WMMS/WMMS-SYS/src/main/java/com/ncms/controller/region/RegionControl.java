@@ -110,7 +110,7 @@ public class RegionControl{
 	@RequestMapping(value="/region/insert",method=RequestMethod.POST)
 	public BackEntity insertRegion(String pregId,String regCode,String regName,String regOrder,String regNote){
 		SysRegion sysRegion = new SysRegion();
-		sysRegion.setRegId(T_ID_GEN.sys_id().replace("-", ""));
+		sysRegion.setRegId(regCode);
 		sysRegion.setRegCode(regCode);
 		sysRegion.setRegName(regName);
 		sysRegion.setRegNote(regNote);

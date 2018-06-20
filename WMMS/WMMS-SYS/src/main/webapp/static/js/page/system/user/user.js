@@ -45,6 +45,7 @@ function deleteUser() {
 			type : "post",
 			url : sysContext+"user/delete",
 			data : JSON.stringify(deleteuseObjs),
+			contentType : "application/json;charset=utf-8",
 			success : function(data) {
 				if(data != null){
 					alertModel(data.msg);

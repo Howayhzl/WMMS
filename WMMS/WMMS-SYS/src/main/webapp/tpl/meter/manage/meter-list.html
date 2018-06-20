@@ -43,11 +43,11 @@
 		<div class="form-group">
 			<label>水表状态:</label>
 			<select id="meterStatus">
-				<option value="0">所有状态</option>
+				<option value="">请选择</option>
 				<option value="1">正常</option>
-				<option value="2">待检验</option>
-				<option value="3">待更换</option>
-				<option value="4">停用</option>
+				<option value="-2">待检验</option>
+				<option value="-1">待更换</option>
+				<option value="0">停用</option>
 			</select>
 		</div>
 		<button type="button" class="btn btn-success" onclick="queryAllMeters()">查询</button>

@@ -112,11 +112,11 @@ function queryAllMeters(){
 			formatter:function(value, row, index) {  
 				if (value == 1) {
 					return "正常";
-				} else if (value == 2) {
+				} else if (value == -2) {
 					return "待检验";
-				}else if (value == 3) {
+				}else if (value == -1) {
 					return "待更换";
-				}else if (value == 4) {
+				}else if (value == 0) {
 					return "停用";
 				}
 			}
