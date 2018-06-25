@@ -11,43 +11,49 @@
 		<result column="handle_datetime" property="handleDatetime" jdbcType="DATE"/>
 		<result column="handle_state" property="handleState" jdbcType="INTEGER"/>
 		<result column="send_email" property="sendEmail" jdbcType="VARCHAR"/>
+		<result column="collocation_id" property="collocationId" jdbcType="VARCHAR"/>
+	</resultMap>
+	<resultMap id="BaseResultVOMap" type="com.ncms.model.meter.order.PrdOrderVO">
+		<id column="prd_order_id" property="prdOrderId" jdbcType="VARCHAR"/>
+		<result column="prd_id" property="prdId" jdbcType="VARCHAR"/>
+		<result column="prd_order_type" property="prdOrderType" jdbcType="INTEGER"/>
+		<result column="submit_user_id" property="submitUserId" jdbcType="VARCHAR"/>
+		<result column="submit_datetime" property="submitDatetime" jdbcType="DATE"/>
+		<result column="handle_user_id" property="handleUserId" jdbcType="VARCHAR"/>
+		<result column="handle_datetime" property="handleDatetime" jdbcType="DATE"/>
+		<result column="handle_state" property="handleState" jdbcType="INTEGER"/>
+		<result column="send_email" property="sendEmail" jdbcType="VARCHAR"/>
+		<result column="collocation_id" property="collocationId" jdbcType="VARCHAR"/>
+		<result column="submitName" property="submitName" jdbcType="VARCHAR"/>
+		<result column="handleName" property="handleName" jdbcType="VARCHAR"/>
+		<result column="meterName" property="meterName" jdbcType="VARCHAR"/>
+		<result column="depName" property="depName" jdbcType="VARCHAR"/>
 	</resultMap>
 	<sql id="Base_Column_List">
-		prd_order.prd_order_id,prd_order.prd_id,prd_order.prd_order_type,prd_order.submit_user_id,prd_order.submit_datetime,prd_order.handle_user_id,prd_order.handle_datetime,prd_order.handle_state,prd_order.send_email
+		prd_order.prd_order_id,prd_order.prd_id,prd_order.prd_order_type,prd_order.submit_user_id,prd_order.submit_datetime,prd_order.handle_user_id,prd_order.handle_datetime,prd_order.handle_state,prd_order.send_email,prd_order.collocation_id
 	</sql>
 	
-	<select id="queryAllChangeOrder" resultType="Map" parameterType="Map">
-		select sd.dep_name,su.user_name,mtd.*,po.*,pm.* from prd_order po 
-			LEFT JOIN prd_meter pm on po.prd_id = pm.meter_id
-			LEFT JOIN prd_meter_type_define mtd ON pm.meter_type_id = mtd.meter_type_id
-			LEFT JOIN sys_department sd ON pm.meter_company_id = sd.dep_id 
-			LEFT JOIN sys_user su ON po.handle_user_id = su.user_id
+		<select id="queryAllOrder" resultMap="BaseResultVOMap" parameterType="Map">
+	<!-- wesley  查询所有配表 -->
+		SELECT
+		<include refid="Base_Column_List"></include>, mp.meter_name as meterName, sys_department.dep_name as depName, su.user_name as submitName, ssu.user_name as handleName
+		from prd_order 
+		left join prd_meter as mp ON mp.meter_id = prd_order.prd_id
+		left join sys_department ON mp.meter_company_id = sys_department.dep_id
+		left join sys_user as su on su.user_id = prd_order.submit_user_id
+		left join sys_user as ssu on ssu.user_id = prd_order.handle_user_id
 		<where>
-			<if test="prdType != '' and prdType != null">
-				and pm.meter_type = #{prdType}
+			<if test="orderType != null and orderType != 0">
+				and prd_order.prd_order_type = #{orderType,jdbcType=INTEGER}
 			</if>
-			<if test="prdKouSize != '' and prdKouSize != null">
-				and pm.meter_value = #{prdKouSize}
+			and (
+			<if test="submitUserId != null and submitUserId != ''">
+				prd_order.submit_user_id = #{submitUserId,jdbcType=VARCHAR}
 			</if>
-			<if test="meterState != '' and meterState != null">
-				and pm.meter_status = #{meterState}
+			<if test="processUserId != null and processUserId != ''">
+				or prd_order.handle_user_id = #{processUserId,jdbcType=VARCHAR}
 			</if>
-			<if test="meterOrderState != '' and meterOrderState != null">
-				and pm.meter_status = #{meterOrderState}
-			</if>
-			<if test="prdOrderType != '' and prdOrderType != null">
-				and po.prd_order_type = #{prdOrderType}
-			</if>
-			<if test="handleState != '' and handleState != null">
-				and po.handle_state = #{handleState}
-			</if>
-			<if test="regIds != null and regIds.size()>0">
-				and pm.reg_id in
-				<foreach collection="regIds" item="item" index="index" open="("
-					separator="," close=")">
-					#{item}
-				</foreach>
-			</if>
+			)
 		</where>
 	</select>
 </mapper>

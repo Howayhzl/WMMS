@@ -30,6 +30,20 @@ public class PrdOrder implements Serializable {
 	private	Integer	handleState;
 	/** 发件地址 */
 	private	String	sendEmail;
+	
+	private String collocationId;
+	/**
+	 * @return the collocationId
+	 */
+	public String getCollocationId() {
+		return collocationId;
+	}
+	/**
+	 * @param collocationId the collocationId to set
+	 */
+	public void setCollocationId(String collocationId) {
+		this.collocationId = collocationId;
+	}
 	public	String	getPrdOrderId(){
 		return	prdOrderId;
 	}
@@ -87,7 +101,7 @@ public class PrdOrder implements Serializable {
 	public	PrdOrder(){
 		super();
 	}
-	public PrdOrder(String prdOrderId,String prdId,Integer prdOrderType,String submitUserId,Date submitDatetime,String handleUserId,Date handleDatetime,Integer handleState,String sendEmail){
+	public PrdOrder(String prdOrderId,String prdId,Integer prdOrderType,String submitUserId,Date submitDatetime,String handleUserId,Date handleDatetime,Integer handleState,String sendEmail,String collocationId){
 		super();
 		this.prdOrderId = prdOrderId;
 		this.prdId = prdId;
@@ -98,5 +112,6 @@ public class PrdOrder implements Serializable {
 		this.handleDatetime = handleDatetime;
 		this.handleState = handleState;
 		this.sendEmail = sendEmail;
+		this.collocationId = collocationId;
 	}
 }

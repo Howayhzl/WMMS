@@ -8,23 +8,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.Page;
 import com.ncms.comm.http.BackEntity;
+import com.ncms.constant.PromptMessage;
+import com.ncms.model.meter.PrdMeterVO;
 import com.ncms.model.meter.order.PrdOrder;
+import com.ncms.model.meter.order.PrdOrderVO;
 import com.ncms.service.meter.order.PrdOrderService;
 import com.ncms.utils.ShiroUtils;
 
 /**
  * Copyright by Xunge Software 2018. All right reserved 
- * @author SongJL
+ * @author WesleyXia
  * @date 2018年5月23日  
  * @Description: 待更换工单
  */
 @RestController
-@RequestMapping(value="/order/change")
-public class ChangeOrderController {
+public class OrderController {
 	
 	@Autowired
 	private PrdOrderService prdOrderService;
@@ -37,26 +40,13 @@ public class ChangeOrderController {
 	 * @param page_count
 	 * @return
 	 */
-	@SuppressWarnings("rawtypes")
-	@RequestMapping(value="/all", method = RequestMethod.POST)
-	public BackEntity queryAllChangeOrder(String prdType, String prdKouSize, int meterStatus, int cur_page_num,int page_count){
+	@RequestMapping(value="/order/all", method = RequestMethod.POST)
+	public BackEntity queryAllOrder(@RequestParam Map<String,Object> paramMap, int cur_page_num,int page_count){
 		
-		PrdOrder entity = new PrdOrder();
-		entity.setPrdOrderType(-1);
-		entity.setHandleState(1);
-		Map<String,Object> map = new HashMap<>();
-		map.put("prdType", prdType);
-		map.put("prdKouSize", prdKouSize);
-		map.put("prdOrderType", -1);
-		map.put("handleState", 1);
-		map.put("meterState", meterStatus);
-		map.put("meterOrderState", -1);
-		
-		List<String> regIds = ShiroUtils.getUserRegions(); 
-		map.put("regIds", regIds);
-		
-		Page<Map> lsmt = prdOrderService.queryAllChangeOrder(map,cur_page_num,page_count);
-		return BackEntity.ok("查询成功",lsmt.toPageInfo());
+		paramMap.put("submitUserId", ShiroUtils.getUserId());
+		paramMap.put("processUserId", ShiroUtils.getUserId());
+		Page<PrdOrderVO> orderList = prdOrderService.queryAllOrder(paramMap,cur_page_num,page_count);
+		return BackEntity.ok(PromptMessage.SELECT_USER_SUCCESS, orderList.toPageInfo());
 	}
 
 	/**

@@ -22,7 +22,7 @@ function queryAllOrder(){
 	$("#tb").bootstrapTable({
 		method : "POST",
 		contentType : "application/x-www-form-urlencoded",
-		url : sysContext+"order/check/all", // 获取数据的地址
+		url : sysContext+"/order/all", // 获取数据的地址
 		striped : true, // 表格显示条纹
 		pagination : true, // 启动分页
 		pageSize : ipageCount, // 每页显示的记录数
@@ -40,7 +40,7 @@ function queryAllOrder(){
 			var param = {
 				cur_page_num: params.pageNumber,    
 				page_count: params.pageSize,
-				meterType : ($("#prdType").val()),
+				orderType : -2,
 				prdKouSize : $("#prdKouSize").val(),
 				meterStatus : $("#meterStatus").val(),
 			};
@@ -49,42 +49,65 @@ function queryAllOrder(){
 		columns: [{
             checkbox: true
 		}, {
-			field: 'prd_id',
+			field: 'prdOrderId',
             title: '编号'
         },{
-        	field: 'dep_name',
+        	field: 'depName',
             title: '单位'
         }, {
-        	field: 'meter_brand',
-            title: '品牌'
+        	field: 'meterName',
+            title: '水表名称'
         },{
-            field: 'meter_size',
-            title: '口径'
+            field: 'prdOrderType',
+			title: '工单类型',
+			formatter:function(value, row, index) {  
+				if (value == 0) {
+					return "无";
+				} else if (value == -1) {
+					return "更换工单";
+				} else if (value == -2) {
+					return "检验工单";
+				}
+			}
         },  {
-            field: 'meter_type',
-            title: '型号'
-        }, {
-        	field: 'meter_size_name',
-            title: '规格名称'
-        }, {
-            field: 'meter_level',
-            title: '级别'
-        }, {
-            field: 'meter_value',
-            title: '读数'
-        }, {
-            field: 'meter_create_time',
-            title: '安装年限'
-        }, {
-            field: 'user_name',
+            field: 'submitName',
             title: '提交人'
+        }, {
+        	field: 'submitDatetime',
+			title: '提交时间',
+			formatter:function(value, row, index) {  
+				var ct = new Date();
+				ct.setTime(value);
+				return ct.toLocaleDateString();
+			}
+        }, {
+            field: 'handleName',
+            title: '处理人'
+        }, {
+            field: 'handleDatetime',
+			title: '处理时间',
+			formatter:function(value, row, index) {  
+				var ct = new Date();
+				ct.setTime(value);
+				return ct.toLocaleDateString();
+			}
+        }, {
+            field: 'handleState',
+            title: '工单状态'
+        }, {
+            field: 'sendEmail',
+            title: '邮件'
         },{
-            field: 'handle_datetime',
-            title: '提交时间'
+            field: 'collocationId',
+			title: '是否有配表单',
+			formatter:function(value, row, index) {  
+				if (value == '' || value == null) {
+					return "无";
+				} else {
+					return "有";
+				}
+			}
         }, ],
-        onCheck: function (row) {
-        	showBack(row.userId);
-        },
 		onLoadError : function(status) { // 加载失败时执行
 			if(status==400){
             	alert("400 - 错误的请求");
@@ -101,7 +124,8 @@ function queryAllOrder(){
 		responseHandler: function(res) {
 			if(res != null){//报错反馈
 				if(res.success != "1"){
-		            alertModel(res.msg);
+					alertModel(res.msg);
+					return;
 				}
 				showTableList = res.obj.list;
 			}

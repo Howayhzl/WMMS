@@ -14,7 +14,9 @@ import com.ncms.comm.exception.BizException;
 import com.ncms.comm.http.RESULT;
 import com.ncms.mapper.meter.order.PrdOrderMapper;
 import com.ncms.model.meter.PrdMeter;
+import com.ncms.model.meter.PrdMeterVO;
 import com.ncms.model.meter.order.PrdOrder;
+import com.ncms.model.meter.order.PrdOrderVO;
 import com.ncms.service.meter.PrdMeterService;
 import com.ncms.service.meter.order.PrdOrderService;
 import com.xiaoleilu.hutool.util.StrUtil;
@@ -28,10 +30,18 @@ public class PrdOrderServiceImpl extends AbstractService<PrdOrder> implements Pr
 	private PrdMeterService prdMeterService;
 
 	@Override
-	public Page<Map> queryAllChangeOrder(Map<String,Object> map, int pageNum,int pageSize){
-		Page<Map> list = PageHelper.startPage(pageNum, pageSize);
-		prdOrderMapper.queryAllChangeOrder(map);
-		return list;
+	public Page<PrdOrderVO> queryAllOrder(Map<String,Object> map, int pageNum,int pageSize){
+		
+		PageHelper.startPage(pageNum, pageSize);
+		
+		try
+		{
+			Page<PrdOrderVO> page = prdOrderMapper.queryAllOrder(map);
+			return page;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Transactional

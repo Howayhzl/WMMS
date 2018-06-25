@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ncms.mapper.meter.census.PrdCollocationMapper">
 	<resultMap id="BaseResultMap" type="com.ncms.model.meter.census.PrdCollocation">
-		<id column="id" property="id" jdbcType="INTEGER"/>
+		<id column="id" property="id" jdbcType="VARCHAR"/>
 		<result column="old_meter_id" property="oldMeterId" jdbcType="VARCHAR"/>
 		<result column="new_meter_id" property="newMeterId" jdbcType="VARCHAR"/>
 		<result column="census_id" property="censusId" jdbcType="VARCHAR"/>

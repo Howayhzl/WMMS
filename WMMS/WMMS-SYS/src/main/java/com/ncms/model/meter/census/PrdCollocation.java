@@ -13,7 +13,7 @@ public class PrdCollocation implements Serializable {
 
 	/**  */
 	@Id
-	private	Integer	id;
+	private	String	id;
 	/**  */
 	private	String	oldMeterId;
 	
@@ -56,7 +56,7 @@ public class PrdCollocation implements Serializable {
 	private	Integer	status;
 	/**  */
 	private	String	operatorId;
-	public	Integer	getId(){
+	public	String	getId(){
 		return	id;
 	}
 	public	String	getCensusId(){
@@ -80,7 +80,7 @@ public class PrdCollocation implements Serializable {
 	public	String	getOperatorId(){
 		return	operatorId;
 	}
-	public void	setId(Integer id){
+	public void	setId(String id){
 		this.id = id;
 	}
 	public void	setCensusId(String censusId){
@@ -107,7 +107,7 @@ public class PrdCollocation implements Serializable {
 	public	PrdCollocation(){
 		super();
 	}
-	public PrdCollocation(Integer id,String oldMeterId,String newMeterId,String censusId,String meterOldTypeId,String meterNewTypeId,Integer rangeRatio,Date createTime,Integer status,String operatorId){
+	public PrdCollocation(String id,String oldMeterId,String newMeterId,String censusId,String meterOldTypeId,String meterNewTypeId,Integer rangeRatio,Date createTime,Integer status,String operatorId){
 		super();
 		this.id = id;
 		this.oldMeterId = oldMeterId;
