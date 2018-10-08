@@ -1013,19 +1013,19 @@ ul.dropdown-menu.drp-mnu li {
 	background:#F96131;
 	padding:2em;
 }
-.comments-icon i.fa.fa-comments {
+.comments-icon i.fa.fa-search-plus {
     font-size: 5em;
     color: #FDA285;
 }
-.comments-icon i.fa.fa-facebook{
+.comments-icon i.fa.fa-file-text {
 	font-size: 5em;
     color: #6C8CD0;
 }
-.comments-icon i.fa.fa-twitter{
+.comments-icon i.fa.fa-sitemap {
 	font-size: 5em;
     color: #9DCBEF;
 }
-.comments-icon i.fa.fa-eye{
+.comments-icon i.fa.fa-wrench {
 	font-size: 5em;
     color: #2CCCAB;
 }
