@@ -13,30 +13,6 @@
 	} 
 })()
 /**---------------
- * 点击菜单以外影藏
- * 
- */
-
-/*$(document).on('click',function(e){
-		if($(document).find('body').hasClass('index')==false){
-		 $('.menu-item',parent.document).removeClass('active');
-	      $('.menu-item-child',parent.document).removeClass('menu-open').css('display','none');
-	      var otherImg=$('.menu-item',parent.document);
-	      for(var i=0;i<otherImg.length;i++){
-	          var curImg=$(otherImg.eq(i).find('img').get(0)).attr('src').split("image/")[1];
-	          if(curImg.indexOf("-active")==-1){
-	              var newImg=curImg.split('.')[0];
-	          }else{
-	              var newImg=curImg.split('-active.')[0];
-	          }
-	          $(otherImg.eq(i).find('img').get(0)).attr('src',"static/image/"+newImg+".png");
-	          otherImg.eq(i).removeClass('active');
-	          $(otherImg.eq(i).find('.menu-item-child').get(0)).removeClass(' menu-open').hide();
-	      }
-		}
-		
-	});*/
-/**---------------
  * ztree树：class=ztree
  * 样式
  */

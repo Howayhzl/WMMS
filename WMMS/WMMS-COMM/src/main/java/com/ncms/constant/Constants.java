@@ -14,9 +14,9 @@ public class Constants {
 	public static final String SESSION_ALL_REGION = "sessionAllRegion";
 	
 	//登录URL
-	public static final String URL_LOGIN = "/login";
+	public static final String URL_LOGIN = "login";
 	//系统首页
-	public static final String URL_HOME = "/index";	
+	public static final String URL_HOME = "index";	
 
 	//登录过滤的正则表达式：不对匹配该值的访问路径拦截（正则）
 	public static final String REGEXP_PATH = ".*/((login)|(logout)|(getProfile)|(files)|(plugins)|(upload)|(static)).*";

@@ -2,7 +2,7 @@ $(document).ready(function() {
 	queryAllOrder();
 });
 
-function handle_check(){	
+function handle_change(){	
 	if(!isChecked()){
 		alertModel("请先选择一条数据再操作");
 		return;

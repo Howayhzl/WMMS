@@ -11,22 +11,22 @@ $(document).ready(function() {
 
 function rowscheckedInitpage(obj){
 
-	$("#prd_id").html(obj.prd_id);
-	$("#dpt_name").html(obj.dep_name);
-	$("#pingpai").html(obj.meter_brand);
-	$("#koujing").html(obj.meter_size);
-	$("#meterNO").html(obj.meter_type);
-	$("#guigename").html(obj.meter_type_name);
-	$("#level").html(obj.meter_level);
-	$("#readnum").html(obj.meter_value);
-	$("#createDate").html(obj.meter_create_time);
-	$("#state").html(obj.handle_state);
+	$("#prd_id").html(obj.prdId);
+	$("#dpt_name").html(obj.depName);
+	$("#pingpai").html(obj.meterBrand);
+	$("#koujing").html(obj.meterSize);
+	$("#meterNO").html(obj.meterType);
+	$("#guigename").html(obj.meterTypeName);
+	$("#level").html(obj.meterLevel);
+	$("#readnum").html(obj.meterValue);
+	$("#createDate").html(obj.meterCreateTime);
+	$("#state").html(obj.handleState);
 }
 
 function handleCheck(obj){
 
 	 myajax.path({  
-		url : sysContext+'/order/change/handle'+"/"+$('#userEmail').val()+"/"+obj.prd_order_id+"/"+obj.meter_id,
+		url : sysContext+'/order/change/handle'+"/"+$('#userEmail').val()+"/"+obj.prdOrderId+"/"+obj.meterId,
 		type : 'post',
 		cache : false,
 		dataType : 'json',
