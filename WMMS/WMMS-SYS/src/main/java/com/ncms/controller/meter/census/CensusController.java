@@ -56,6 +56,8 @@ public class CensusController {
 							String pipeType, 
 							String valveType, 
 							int valveSize, 
+							String valveType2, 
+							int valveSize2, 
 							int falanNum,
 							String position,
 							double readValue,
@@ -80,9 +82,14 @@ public class CensusController {
 		if (valveType.contains("请选择")) {
 			valveType = "";
 		}
+		if (valveType2.contains("请选择")) {
+			valveType2 = "";
+		}
 		census.setPipeType(pipeType);
 		census.setValveType(valveType);
 		census.setValveSize(valveSize);
+		census.setValveType2(valveType2);
+		census.setValveSize2(valveSize2);
 		census.setFlangeHoleNum(falanNum);
 		census.setCensusPlace(position);
 		census.setMeterValue(readValue);

@@ -8,6 +8,8 @@
 		<result column="pipe_type" property="pipeType" jdbcType="VARCHAR"/>
 		<result column="valve_type" property="valveType" jdbcType="VARCHAR"/>
 		<result column="valve_size" property="valveSize" jdbcType="INTEGER"/>
+		<result column="valve_type2" property="valveType2" jdbcType="VARCHAR"/>
+		<result column="valve_size2" property="valveSize2" jdbcType="INTEGER"/>
 		<result column="flange_hole_num" property="flangeHoleNum" jdbcType="INTEGER"/>
 		<result column="meter_last_value" property="meterLastValue" jdbcType="DOUBLE"/>
 		<result column="meter_value" property="meterValue" jdbcType="DOUBLE"/>
@@ -28,6 +30,8 @@
 		<result column="pipe_type" property="pipeType" jdbcType="VARCHAR"/>
 		<result column="valve_type" property="valveType" jdbcType="VARCHAR"/>
 		<result column="valve_size" property="valveSize" jdbcType="INTEGER"/>
+		<result column="valve_type2" property="valveType2" jdbcType="VARCHAR"/>
+		<result column="valve_size2" property="valveSize2" jdbcType="INTEGER"/>
 		<result column="flange_hole_num" property="flangeHoleNum" jdbcType="INTEGER"/>
 		<result column="meter_last_value" property="meterLastValue" jdbcType="DOUBLE"/>
 		<result column="meter_value" property="meterValue" jdbcType="DOUBLE"/>
@@ -43,7 +47,7 @@
 		<result column="depName" property="depName" jdbcType="VARCHAR"/>
 	</resultMap>
 	<sql id="Base_Column_List">
-		prd_census.census_id,prd_census.company_id,prd_census.meter_id,prd_census.pipe_type,prd_census.valve_type,prd_census.valve_size,prd_census.flange_hole_num,prd_census.meter_last_value,prd_census.meter_value,prd_census.census_place,prd_census.census_image,prd_census.census_desc,prd_census.census_result,prd_census.census_user_id,prd_census.check_time,prd_census.has_collocation,prd_census.census_status,census_action
+		prd_census.census_id,prd_census.company_id,prd_census.meter_id,prd_census.pipe_type,prd_census.valve_type,prd_census.valve_size,prd_census.valve_type2,prd_census.valve_size2,prd_census.flange_hole_num,prd_census.meter_last_value,prd_census.meter_value,prd_census.census_place,prd_census.census_image,prd_census.census_desc,prd_census.census_result,prd_census.census_user_id,prd_census.check_time,prd_census.has_collocation,prd_census.census_status,census_action
 	</sql>
 	
 	<select id="queryAllCensus" resultMap="BaseResultVOMap" parameterType="Map">

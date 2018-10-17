@@ -3,7 +3,7 @@ logging:
     config: classpath:config/logback-spring.xml
 ## Server
 server:
-  port: 8080
+  port: 15001
   tomcat:
       uriEncoding: UTF-8
   context-path: /WMMS-SYS
@@ -17,10 +17,10 @@ spring:
     datasource:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver
-        url: jdbc:mysql://122.114.146.179:3377/wmms?useSSL=false&useUnicode=true&characterEncoding=utf8
-        # url: jdbc:mysql://localhost:3306/wmms?useSSL=false&useUnicode=true&characterEncoding=utf8
+        #url: jdbc:mysql://122.114.146.179:3377/wmms?useSSL=false&useUnicode=true&characterEncoding=utf8
+        url: jdbc:mysql://localhost:3306/wmms?useSSL=false&useUnicode=true&characterEncoding=utf8
         username: root
-        password: song1234
+        password: Song1234
         # 下面为连接池的补充设置，应用到上面所有数据源中
         initialSize: 5
         minIdle: 5

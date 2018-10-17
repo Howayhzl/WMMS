@@ -28,6 +28,10 @@ public class PrdCensus implements Serializable {
 	private	String	valveType;
 	/** 阀门口径 */
 	private	int	valveSize;
+	/** 阀门制式 */
+	private	String	valveType2;
+	/** 阀门口径 */
+	private	int	valveSize2;
 	/** 法兰孔数 */
 	private	int	flangeHoleNum;
 	/** 水表上次读数 */
@@ -101,6 +105,18 @@ public class PrdCensus implements Serializable {
 	public void setValveSize(int valveSize) {
 		this.valveSize = valveSize;
 	}
+	public String getValveType2() {
+		return valveType2;
+	}
+	public void setValveType2(String valveType2) {
+		this.valveType2 = valveType2;
+	}
+	public int getValveSize2() {
+		return valveSize2;
+	}
+	public void setValveSize2(int valveSize2) {
+		this.valveSize2 = valveSize2;
+	}
 	public int getFlangeHoleNum() {
 		return flangeHoleNum;
 	}
@@ -166,7 +182,7 @@ public class PrdCensus implements Serializable {
 		super();
 	}
 	public PrdCensus(String censusId, String companyId, String meterId,
-			String pipeType, String valveType, int valveSize, int flangeHoleNum,
+			String pipeType, String valveType, int valveSize, String valveType2, int valveSize2, int flangeHoleNum,
 			double meterLastValue, double meterValue, String censusPlace,
 			String censusImage, String censusDesc, String censusResult, int censusAction, String censusUserId,
 			Date checkTime, boolean hasCollocation, int censusStatus) {
@@ -177,6 +193,8 @@ public class PrdCensus implements Serializable {
 		this.pipeType = pipeType;
 		this.valveType = valveType;
 		this.valveSize = valveSize;
+		this.valveType2 = valveType2;
+		this.valveSize2 = valveSize2;
 		this.flangeHoleNum = flangeHoleNum;
 		this.meterLastValue = meterLastValue;
 		this.meterValue = meterValue;

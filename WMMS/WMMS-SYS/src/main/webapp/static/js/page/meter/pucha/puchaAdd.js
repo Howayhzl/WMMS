@@ -27,6 +27,8 @@ function addNew() {
 	var pipeType = $("#pipeType").find("option:selected").text().replace(/\s/g, "");
 	var valveType = $("#valveType").find("option:selected").text().replace(/\s/g, "");
 	var valveSize = $("#valveSize").find("option:selected").text().replace(/\s/g, "");
+	var valveType2 = $("#valveType2").find("option:selected").text().replace(/\s/g, "");
+	var valveSize2 = $("#valveSize2").find("option:selected").text().replace(/\s/g, "");
 	var falanNum = $("#falanNum").val();
 	var position = $("#position").val();
 	var readValue = $("#readValue").val();
@@ -61,6 +63,8 @@ function addNew() {
 					pipeType: pipeType,
 					valveType: valveType,
 					valveSize: valveSize,
+					valveType2: valveType2,
+					valveSize2: valveSize2,
 					falanNum: falanNum,
 					position: position,
 					readValue: readValue,

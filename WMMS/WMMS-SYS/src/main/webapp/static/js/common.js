@@ -42,7 +42,7 @@ $(document).ready(function(){
 var pathName = window.document.location.pathname;
 //获取带"/"的项目名，如：/NCMS
 var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
-// var sysContext = 'http://47.94.154.203:10057/WMMS-SYS/';
+// var sysContext = 'http://118.24.86.223:15001/WMMS-SYS/';
 var sysContext = 'http://localhost:8080/WMMS-SYS/';
 
 
